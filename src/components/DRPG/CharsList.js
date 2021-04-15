@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import db from '../firebase';
+import db from '../../firebase';
 import CharsListItem from './CharsListItem';
 
 function useChars() {
@@ -8,7 +8,9 @@ function useChars() {
   useEffect(() => {
     const unsubscribe = db
       .firestore()
-      .collection('characters')
+      .collection('games')
+      .doc('DRPG')
+      .collection('Characters')
       .onSnapshot((snapshot) => {
         const newChars = snapshot.docs.map((doc) => ({
           id: doc.id,

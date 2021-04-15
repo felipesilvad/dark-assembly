@@ -1,0 +1,23 @@
+.main-img {
+  border: 0.1rem solid $light;
+  width: inherit;
+}
+
+.char-title {
+  font-size: 3rem;
+}
+
+.char-title__bg {
+  border-bottom: 0.2rem solid $highlight;
+  padding: 0;
+}
+
+.type_icons {
+  width: 3.5rem;
+  background-color: $gray;
+  border-radius: 50%;
+  border: 0.2rem solid $gray-light;
+  padding: 0.1rem;
+  // margin-left: 1rem;
+  // margin-right: 1rem;
+}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import firebase, {storage} from '../firebase';
+import firebase, {storage} from '../../firebase';
 
 
 const AddChar = () => {
@@ -10,18 +10,6 @@ const AddChar = () => {
 
   function onSubmit(e) {
     e.preventDefault()
-
-    // firebase
-    //   .firestore()
-    //   .collection('characters')
-    //   .add({
-    //     title,
-    //     stats
-    //   })
-    //   .then(() => {
-    //     setTitle('')
-    //     setStats('')
-    //   })
 
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
     uploadTask.on(
@@ -38,7 +26,9 @@ const AddChar = () => {
           .then(url => {
             firebase
               .firestore()
-              .collection('characters')
+              .collection('games')
+              .doc('DRPG')
+              .collection('Characters')
               .add({
                 title,
                 stats,

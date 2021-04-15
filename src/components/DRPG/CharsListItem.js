@@ -5,7 +5,7 @@ const CharsListItem = ({id, title, stats}) => {
 
   return (
     <div key={id}>
-      <Link to={`/char-list/${id}`}>{title}  - {stats} / {id}</Link>
+      <Link to={`/characters/${id}`}>{title} - {stats} / {id}</Link>
     </div>
   )
 }
