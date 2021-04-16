@@ -57,7 +57,30 @@ button:disabled {
   vertical-align: top;
 }
 
+.table td, .table th {
+  padding: .75rem;
+  vertical-align: top;
+  border-top: none;
+}
+
 .star{
   width: 8%;
   height: 8%;
+}
+
+.main {
+  display: table;
+}
+
+.inner {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+
+.hr {
+  margin-top: 0.5rem;
+  margin-bottom: 0.1rem;
+  border: 0;
+  border-top: 2px solid $gray-light;
 }

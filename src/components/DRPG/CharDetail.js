@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import db from '../../firebase';
-import { Row, Col, Image, Table } from 'react-bootstrap';
+import { Row, Col, Image, Table, Container } from 'react-bootstrap';
 
 
 const CharDetail = ({match}) => {
@@ -34,13 +34,19 @@ const CharDetail = ({match}) => {
   const monster_1 = require('../../assets/DRPG/icons/weapons/Monster1.png');
   const male = require('../../assets/DRPG/icons/male.png');
   const star = require('../../assets/DRPG/icons/rare_star.png');
-
-
+  const e_fire = require('../../assets/DRPG/icons/fire.png');
+  const e_water = require('../../assets/DRPG/icons/water.png');
+  const e_wind = require('../../assets/DRPG/icons/wind.png');
+  const e_star = require('../../assets/DRPG/icons/star.png');
+  const poison = require('../../assets/DRPG/icons/poison.png');
+  const paralysis = require('../../assets/DRPG/icons/paralysis.png');
+  const sleep = require('../../assets/DRPG/icons/sleep.png');
+  const forget = require('../../assets/DRPG/icons/forget.png');
 
   return (
-    <div>
+    <Container className="p-0">
       <Row>
-        <Col xs={3} className="p-1 pl-3 pt-4">
+        <Col xs={3} className="p-1 pt-3">
           <Image src={cut} className="main-img" />
         </Col>
         <Col xs={9} className="p-1">
@@ -54,12 +60,7 @@ const CharDetail = ({match}) => {
           </div>
           <div className="mt-2 d-flex">
             <h3 className="font-weight-bold text-uppercase pt-1 pr-2">Stats at</h3>
-            <Image src={star} className="star" />
-            <Image src={star} className="star" />
-            <Image src={star} className="star" />
-            <Image src={star} className="star" />
-            <Image src={star} className="star" />
-            <Image src={star} className="star" />
+            <Image src={star} className="star" /> <Image src={star} className="star" /> <Image src={star} className="star" /> <Image src={star} className="star" /> <Image src={star} className="star" /> <Image src={star} className="star" />
           </div>
           <Table striped bordered className="gray-bg" >
             <thead>
@@ -121,8 +122,66 @@ const CharDetail = ({match}) => {
             <td>130%</td>
           </tr>
         </Table>
+      </div>
+      <div className="w-100">
+        <h3 className="font-weight-bold text-uppercase">Resistances</h3>
+        <div className="gray-bg p-2">
+          <Row className="m-0">
+            <Col className="d-flex p-0 ">
+              <Image src={e_fire} className="res_icons" />
+              <Table className="m-0">
+                <th className=" inner">50%</th>
+              </Table>
+            </Col>
+            <Col className="d-flex p-0 pt-1">
+              <Image src={e_water} className="res_icons" />
+              <Table className="m-0">
+                <th className=" inner">50%</th>
+              </Table>
+            </Col>
+            <Col className="d-flex p-0 pt-1">
+              <Image src={e_wind} className="res_icons" />
+              <Table className="m-0">
+                <th className=" inner">50%</th>
+              </Table>
+            </Col>
+            <Col className="d-flex p-0 pt-1">
+              <Image src={e_star} className="res_icons" />
+              <Table className="m-0">
+                <th className=" inner">50%</th>
+              </Table>
+            </Col>
+          </Row>
+          <hr className="hr" />
+          <Row className="m-0 pt-2">
+            <Col className="d-flex p-0">
+              <Image src={poison} className="res_icons" />
+              <Table className="m-0">
+                <th className=" inner">50%</th>
+              </Table>
+            </Col>
+            <Col className="d-flex p-0 pt-1">
+              <Image src={paralysis} className="res_icons" />
+              <Table className="m-0">
+                <th className=" inner">50%</th>
+              </Table>
+            </Col>
+            <Col className="d-flex p-0 pt-1">
+              <Image src={sleep} className="res_icons" />
+              <Table className="m-0">
+                <th className=" inner">50%</th>
+              </Table>
+            </Col>
+            <Col className="d-flex p-0 pt-1">
+              <Image src={forget} className="res_icons" />
+              <Table className="m-0">
+                <th className=" inner">50%</th>
+              </Table>
+            </Col>
+          </Row>
         </div>
-    </div>
+      </div>
+    </Container>
   )
 }
 
