@@ -24,3 +24,8 @@
   width: 4rem;
   height: 4rem;
 }
+
+.border-r {
+  border: none;
+  border-right: 0.2rem solid $gray-light;
+}

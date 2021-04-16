@@ -31,9 +31,9 @@ const CharDetail = ({match}) => {
   const cut = require('../../assets/DRPG/temp/cut.png');
   const frame = require('../../assets/DRPG/icons/frames/chara_face_win01.png');
   const monster_icon = require('../../assets/DRPG/icons/Monster.png');
-  const monster_1 = require('../../assets/DRPG/icons/weapons/Monster1.png');
   const male = require('../../assets/DRPG/icons/male.png');
   const star = require('../../assets/DRPG/icons/rare_star.png');
+
   const e_fire = require('../../assets/DRPG/icons/fire.png');
   const e_water = require('../../assets/DRPG/icons/water.png');
   const e_wind = require('../../assets/DRPG/icons/wind.png');
@@ -43,18 +43,29 @@ const CharDetail = ({match}) => {
   const sleep = require('../../assets/DRPG/icons/sleep.png');
   const forget = require('../../assets/DRPG/icons/forget.png');
 
+  const Axe = require('../../assets/DRPG/icons/weapons/Axe.png');
+  const Bow = require('../../assets/DRPG/icons/weapons/Bow.png');
+  const Fist = require('../../assets/DRPG/icons/weapons/Fist.png');
+  const Gun = require('../../assets/DRPG/icons/weapons/Gun.png');
+  const Spear = require('../../assets/DRPG/icons/weapons/Spear.png');
+  const Staff = require('../../assets/DRPG/icons/weapons/Staff.png');
+  const Sword = require('../../assets/DRPG/icons/weapons/Sword.png');
+  const Monster1 = require('../../assets/DRPG/icons/weapons/Monster1.png');
+  const Monster2 = require('../../assets/DRPG/icons/weapons/Monster2.png');
+
   return (
     <Container className="p-0">
       <Row>
         <Col xs={3} className="p-1 pt-3">
           <Image src={cut} className="main-img" />
         </Col>
+
         <Col xs={9} className="p-1">
           <div className="char-title__bg d-flex justify-content-between">
             <h1 className="char-title">Prinny</h1>
             <div className="d-block">
               <Image src={monster_icon} className="type_icons" />
-              <Image src={monster_1} className="type_icons" />
+              <Image src={Monster1} className="type_icons" />
               <Image src={male} className="type_icons" />
             </div>
           </div>
@@ -112,6 +123,7 @@ const CharDetail = ({match}) => {
           </Table>
         </Col>
       </Row>
+
       <div className=" w-100">
         <h3 className="font-weight-bold text-uppercase">Critical</h3>
         <Table striped bordered className="gray-bg" >
@@ -123,29 +135,30 @@ const CharDetail = ({match}) => {
           </tr>
         </Table>
       </div>
+      
       <div className="w-100">
         <h3 className="font-weight-bold text-uppercase">Resistances</h3>
         <div className="gray-bg p-2">
           <Row className="m-0">
-            <Col className="d-flex p-0 ">
+            <Col className="d-flex p-0">
               <Image src={e_fire} className="res_icons" />
               <Table className="m-0">
                 <th className=" inner">50%</th>
               </Table>
             </Col>
-            <Col className="d-flex p-0 pt-1">
+            <Col className="d-flex p-0">
               <Image src={e_water} className="res_icons" />
               <Table className="m-0">
                 <th className=" inner">50%</th>
               </Table>
             </Col>
-            <Col className="d-flex p-0 pt-1">
+            <Col className="d-flex p-0">
               <Image src={e_wind} className="res_icons" />
               <Table className="m-0">
                 <th className=" inner">50%</th>
               </Table>
             </Col>
-            <Col className="d-flex p-0 pt-1">
+            <Col className="d-flex p-0">
               <Image src={e_star} className="res_icons" />
               <Table className="m-0">
                 <th className=" inner">50%</th>
@@ -154,7 +167,7 @@ const CharDetail = ({match}) => {
           </Row>
           <hr className="hr" />
           <Row className="m-0 pt-2">
-            <Col className="d-flex p-0">
+            <Col className="d-flex p-0 pt-1">
               <Image src={poison} className="res_icons" />
               <Table className="m-0">
                 <th className=" inner">50%</th>
@@ -176,6 +189,77 @@ const CharDetail = ({match}) => {
               <Image src={forget} className="res_icons" />
               <Table className="m-0">
                 <th className=" inner">50%</th>
+              </Table>
+            </Col>
+          </Row>
+        </div>
+      </div>
+
+      <div className="w-100 pt-3">
+        <h3 className="font-weight-bold text-uppercase">Weapon Mastery</h3>
+        <div className="gray-bg p-0">
+          <Row className="m-0">
+            <Col className="p-0 border-r">
+              <Image src={Sword} className="res_icons" />
+              <hr className="hr" />
+              <Table className="m-0 ">
+                <th className="text-center ">10</th>
+              </Table>
+            </Col>
+            <Col className="p-0 border-r">
+              <Image src={Fist} className="res_icons" />
+              <hr className="hr" />
+              <Table className="m-0">
+                <th className="text-center ">10</th>
+              </Table>
+            </Col>
+            <Col className="p-0 border-r">
+              <Image src={Spear} className="res_icons" />
+              <hr className="hr" />
+              <Table className="m-0">
+                <th className="text-center ">10</th>
+              </Table>
+            </Col>
+            <Col className="p-0 border-r">
+              <Image src={Bow} className="res_icons" />
+              <hr className="hr" />
+              <Table className="m-0">
+                <th className="text-center ">10</th>
+              </Table>
+            </Col>
+            <Col className="p-0 border-r">
+              <Image src={Gun} className="res_icons" />
+              <hr className="hr" />
+              <Table className="m-0">
+                <th className="text-center ">3</th>
+              </Table>
+            </Col>
+            <Col className="p-0 border-r">
+              <Image src={Axe} className="res_icons" />
+              <hr className="hr" />
+              <Table className="m-0">
+                <th className="text-center ">5</th>
+              </Table>
+            </Col>
+            <Col className="p-0 border-r">
+              <Image src={Staff} className="res_icons" />
+              <hr className="hr" />
+              <Table className="m-0">
+                <th className="text-center ">10</th>
+              </Table>
+            </Col>
+            <Col className="p-0 border-r">
+              <Image src={Monster1} className="res_icons" />
+              <hr className="hr" />
+              <Table className="m-0">
+                <th className="text-center ">-</th>
+              </Table>
+            </Col>
+            <Col className="p-0 ">
+              <Image src={Monster2} className="res_icons" />
+              <hr className="hr" />
+              <Table className="m-0">
+                <th className="text-center ">-</th>
               </Table>
             </Col>
           </Row>

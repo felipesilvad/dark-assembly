@@ -41,6 +41,10 @@ button:disabled {
   border: 0.2rem solid $gray-light;
 }
 
+.border-gray-light{
+  border: 0.4rem solid $gray-light;
+}
+
 .table-bordered td, .table-bordered th {
   border-radius: 0.5rem;
   border: 0.1rem solid $gray-light;
