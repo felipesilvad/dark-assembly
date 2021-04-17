@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import db from '../../firebase';
-import { Row, Col, Image, Table, Container } from 'react-bootstrap';
+import { Row, Col, Image, Table, Container, Tabs, Tab } from 'react-bootstrap';
 
 
 const CharDetail = ({match}) => {
@@ -53,6 +53,32 @@ const CharDetail = ({match}) => {
   const Monster1 = require('../../assets/DRPG/icons/weapons/Monster1.png');
   const Monster2 = require('../../assets/DRPG/icons/weapons/Monster2.png');
 
+  const skill_axe = require('../../assets/DRPG/icons/skill/skill_axe.png');
+  const skill_bow = require('../../assets/DRPG/icons/skill/skill_bow.png');
+  const skill_fist = require('../../assets/DRPG/icons/skill/skill_fist.png');
+  const skill_gun = require('../../assets/DRPG/icons/skill/skill_gun.png');
+  const skill_spear = require('../../assets/DRPG/icons/skill/skill_spear.png');
+  const skill_sword = require('../../assets/DRPG/icons/skill/skill_sword.png');
+  const skill_staff = require('../../assets/DRPG/icons/skill/skill_staff.png');
+  const skill_humanoid = require('../../assets/DRPG/icons/skill/skill_humanoid.png');
+  const skill_monster = require('../../assets/DRPG/icons/skill/skill_monster.png');
+
+  const pow_rank_a = require('../../assets/DRPG/icons/skill/pow_rank_a.png');
+  const pow_rank_b = require('../../assets/DRPG/icons/skill/pow_rank_b.png');
+  const pow_rank_c = require('../../assets/DRPG/icons/skill/pow_rank_c.png');
+  const pow_rank_d = require('../../assets/DRPG/icons/skill/pow_rank_d.png');
+  const pow_rank_e = require('../../assets/DRPG/icons/skill/pow_rank_e.png');
+  const pow_rank_f = require('../../assets/DRPG/icons/skill/pow_rank_f.png');
+  const pow_rank_g = require('../../assets/DRPG/icons/skill/pow_rank_g.png');
+  const pow_rank_s = require('../../assets/DRPG/icons/skill/pow_rank_s.png');
+  const pow_rank_ss = require('../../assets/DRPG/icons/skill/pow_rank_ss.png');
+  const pow_rank_plus = require('../../assets/DRPG/icons/skill/pow_rank_plus.png');
+
+  const range_icon_ally = require('../../assets/DRPG/icons/skill/range_icon_ally.png');
+  const range_icon_ally_all = require('../../assets/DRPG/icons/skill/range_icon_ally_all.png');
+  const range_icon_enemy = require('../../assets/DRPG/icons/skill/range_icon_enemy.png');
+  const range_icon_enemy_all = require('../../assets/DRPG/icons/skill/range_icon_enemy_all.png');
+
   return (
     <Container className="p-0">
       <Row>
@@ -84,37 +110,37 @@ const CharDetail = ({match}) => {
             </thead>
             <tbody>
               <tr>
-                <td className="font-weight-bold">HP</td>
+                <td className="stat-txt"><h4>HP</h4></td>
                 <td>15</td>
                 <td>10384701</td>
                 <td className="highlight-2 font-italic">2nd</td>
               </tr>
               <tr>
-                <td className="font-weight-bold">ATK</td>
+                <td className="stat-txt"><h4>ATK</h4></td>
                 <td>15</td>
                 <td>10384701</td>
                 <td className="highlight-2 font-italic">2nd</td>
               </tr>
               <tr>
-                <td className="font-weight-bold">DEF</td>
+                <td className="stat-txt"><h4>DEF</h4></td>
                 <td>15</td>
                 <td>10384701</td>
                 <td className="highlight-2 font-italic">2nd</td>
               </tr>
               <tr>
-                <td className="font-weight-bold">INT</td>
+                <td className="stat-txt"><h4>INT</h4></td>
                 <td>15</td>
                 <td>10384701</td>
                 <td className="highlight-2 font-italic">2nd</td>
               </tr>
               <tr>
-                <td className="font-weight-bold">RES</td>
+                <td className="stat-txt"><h4>RES</h4></td>
                 <td>15</td>
                 <td>10384701</td>
                 <td className="highlight-2 font-italic">2nd</td>
               </tr>
               <tr>
-                <td className="font-weight-bold">SPD</td>
+                <td className="stat-txt"><h4>SPD</h4></td>
                 <td>15</td>
                 <td>10384701</td>
                 <td className="highlight-2 font-italic">2nd</td>
@@ -307,6 +333,7 @@ const CharDetail = ({match}) => {
           </div>
         </div>
       </div>
+
       <div className=" pt-3">
         <h3 className="sub-title">Evilities</h3>
 
@@ -314,9 +341,9 @@ const CharDetail = ({match}) => {
         <div className="d-flex">
           <div class="vl main-e-color"></div>
           <div className="d-block w-100">
-            <div className="gray-bg e-bg" >
-              <h3 className="border-b">Hero Me, Dood!</h3>
-              <h4>Self: Initial SP +10 when battle begins.</h4>
+           <div className="gray-bg e-bg" >
+              <h3 className="border-b">Dodge Mastery</h3>
+              <h4>Self: SPD +7% when battle begins. (3 Turns)</h4>
             </div>
           </div>
         </div>
@@ -325,21 +352,325 @@ const CharDetail = ({match}) => {
         <div className="d-flex">
           <div class="vl sub-e-color"></div>
           <div className="d-block w-100">
+
             <div className="gray-bg e-bg" >
-              <h3 className="border-b">Dodge Mastery</h3>
-              <h4>Self: SPD +7% when battle begins. (3 Turns)</h4>
+              <div className="d-flex border-b">
+                <h5 className="ne-e border-r">N.E. 7</h5>
+                <div className=" w-90">
+                  <h3>Optimal Solution</h3>
+                </div>
+              </div>
+              <h4>Gun/Fist/Monster Physical-Equipping Members: Damage dealt +12%</h4>
+            </div>
+            
+            <div className="gray-bg e-bg" >
+              <div className="d-flex border-b">
+                <h5 className="ne-e border-r">N.E. 7</h5>
+                <div className=" w-90">
+                  <h3>Hero Me, Dood!</h3>
+                </div>
+              </div>
+              <h4>Self: Initial SP +10 when battle begins.</h4>
             </div>
             <div className="gray-bg e-bg" >
-              <h3 className="border-b">Hero Me, Dood!</h3>
-              <h4>Self: Water Damage taken -30%</h4>
-            </div>
-            <div className="gray-bg e-bg" >
-              <h3 className="border-b">Hero Me, Dood!</h3>
-              <h4>Self: Damage dealt by throwing Prinnies +100%</h4>
+              <div className="d-flex border-b">
+                <h5 className="ne-e border-r">N.E. 7</h5>
+                <div className=" w-90">
+                  <h3>Hero Me, Dood!</h3>
+                </div>
+              </div>
+              <h4>Self: Initial SP +10 when battle begins.</h4>
             </div>
           </div>
         </div>
 
+      </div>
+
+      <div className=" pt-3">
+        <h3 className="sub-title">Skills</h3>
+        <Tabs className="d-flex justify-content-between" defaultActiveKey="unique">
+          <Tab className="skill-tab" eventKey="unique" title="Unique Skills">
+            <div className="gray-bg e-bg" >
+              <div className="d-flex justify-content-between border-b">
+                <div className="d-flex skill-in">
+                  <Image className="icon-skill" src={skill_monster} />
+                  <h3 className="pt-1 pl-1">Optimal Solution</h3>
+                </div>
+                <div className="d-flex skill-in border-l">
+                  <h6 className="pt-3 pr-2 stat-txt">Lv</h6>
+                  <h3 className="pt-1 pl-0 pr-2">500</h3>
+                </div>
+              </div>
+              <div className="d-flex border-b">
+                <div className="d-flex skill-in pt-2 border-r">
+                  <Image className="icon-rank" src={pow_rank_s} />
+                  <Image className="icon-rank" src={pow_rank_plus} />
+                </div>
+                <div className="d-flex skill-in border-r">
+                  <h6 className="pt-3 pr-2 stat-txt">Element</h6>
+                  <Image className="icon-range" src={e_fire} />
+                </div>
+                <div className="d-flex skill-in">
+                  <h6 className="pt-3 stat-txt">Target</h6>
+                  <Image className="icon-range" src={range_icon_ally} />
+                  <h3 className="pt-3 pl-0 pr-2 sub-e-color e-type text-capitalize">One</h3>
+                </div>
+              </div>
+              <div className="d-flex ">
+                <div className="d-flex skill-in border-r">
+                  <h6 className="pt-3 pr-2 stat-txt">Stat</h6>
+                  <h3 className="pl-0 pr-2 RES-color e-type">RES</h3>
+                </div>
+                <div className="d-flex skill-in border-r">
+                  <h6 className="pt-3 pr-2 stat-txt">SP</h6>
+                  <h3 className="pt-1">20</h3>
+                </div>
+                <div className="d-flex skill-in">
+                  <h6 className="pt-3 pr-2 stat-txt">Effect</h6>
+                  <h3 className="pt-1 pl-0 pr-2">DEF -40%</h3>
+                </div>
+              </div>
+            </div>
+            <div className="gray-bg e-bg" >
+              <div className="d-flex justify-content-between border-b">
+                <div className="d-flex skill-in">
+                  <Image className="icon-skill" src={skill_monster} />
+                  <h3 className="pt-1">Sayonara Roboto</h3>
+                </div>
+                <div className="d-flex skill-in border-l">
+                  <h6 className="pt-3 pr-2 stat-txt">Wm</h6>
+                  <Image className="icon-range" src={Staff} />
+                  <h6 className="pt-3 pr-2 stat-txt">Lv</h6>
+                  <h3 className="pt-1 pl-0 pr-2">30</h3>
+                </div>
+              </div>
+              <div className="d-flex border-b">
+                <div className="d-flex skill-in pt-2 border-r">
+                  <Image className="icon-rank" src={pow_rank_s} />
+                  <Image className="icon-rank" src={pow_rank_plus} />
+                </div>
+                <div className="d-flex skill-in border-r">
+                  <h6 className="pt-3 pr-2 stat-txt">Element</h6>
+                  <Image className="icon-range" src={e_star} />
+                </div>
+                <div className="d-flex skill-in">
+                  <h6 className="pt-3 stat-txt">Target</h6>
+                  <Image className="icon-range" src={range_icon_ally} />
+                  <h3 className="pt-3 pl-0 pr-2 sub-e-color e-type text-capitalize">One</h3>
+                </div>
+              </div>
+              <div className="d-flex ">
+                <div className="d-flex skill-in border-r">
+                  <h6 className="pt-3 pr-2 stat-txt">Stat</h6>
+                  <h3 className="pl-0 pr-2 ATK-color e-type">ATK</h3>
+                </div>
+                <div className="d-flex skill-in border-r">
+                  <h6 className="pt-3 pr-2 stat-txt">SP</h6>
+                  <h3 className="pt-1">20</h3>
+                </div>
+                <div className="d-flex skill-in">
+                  <h6 className="pt-3 pr-2 stat-txt">Effect</h6>
+                  <h3 className="pt-1 pl-0 pr-2">Lesser Healing</h3>
+                </div>
+              </div>
+            </div>
+            <div className="gray-bg e-bg" >
+              <div className="d-flex justify-content-between border-b">
+                <div className="d-flex skill-in">
+                  <Image className="icon-skill" src={skill_monster} />
+                  <h3 className="pt-1">Optimal Solution</h3>
+                </div>
+                <div className="d-flex skill-in border-l">
+                  <h6 className="pt-3 pr-2 stat-txt">N.E.</h6>
+                  <h3 className="pt-1 pl-0 pr-2">30</h3>
+                </div>
+              </div>
+              <div className="d-flex border-b">
+                <div className="d-flex skill-in pt-2 border-r">
+                  <Image className="icon-rank" src={pow_rank_s} />
+                  <Image className="icon-rank" src={pow_rank_plus} />
+                </div>
+                <div className="d-flex skill-in border-r">
+                  <h6 className="pt-3 pr-2 stat-txt">Element</h6>
+                  <h3 className="pt-1">N/A</h3>
+                </div>
+                <div className="d-flex skill-in">
+                  <h6 className="pt-3 stat-txt">Target</h6>
+                  <Image className="icon-range" src={range_icon_enemy_all} />
+                  <h3 className="pt-3 pl-0 pr-2 sub-e-color e-type text-capitalize">All</h3>
+                </div>
+              </div>
+              <div className="d-flex ">
+                <div className="d-flex skill-in border-r">
+                  <h6 className="pt-3 pr-2 stat-txt">Stat</h6>
+                  <h3 className="pl-0 pr-2 INT-color e-type">INT</h3>
+                </div>
+                <div className="d-flex skill-in border-r">
+                  <h6 className="pt-3 pr-2 stat-txt">SP</h6>
+                  <h3 className="pt-1">20</h3>
+                </div>
+                <div className="d-flex skill-in">
+                  <h6 className="pt-3 pr-2 stat-txt">Effect</h6>
+                  <h3 className="pt-1 pl-0 pr-2">-</h3>
+                </div>
+              </div>
+            </div>
+          </Tab>
+          <Tab className="skill-tab" eventKey="spells" title="Spells">
+            Prof
+          </Tab>
+          <Tab className="skill-tab" eventKey="weapon" title="Weapon Skills">
+            Prof
+          </Tab>
+        </Tabs>
+      </div>
+
+      <div className=" pt-3">
+        <h3 className="sub-title">N.E.</h3>
+
+        <div className="d-flex pt-2">
+          <div className="w-10">
+            <h4 className="type_icons stat-txt ne-n p-2">1</h4>
+          </div>
+          <div className="gray-bg w-90">
+            <div className="d-flex border-b">
+              <div className="d-flex skill-in border-r">
+                <h6 className="pt-3 pr-2 stat-txt">Unique Skill</h6>
+              </div>
+              <div className="d-flex skill-in">
+                <Image className="icon-skill" src={skill_humanoid} />
+                <h3 className="pt-1 pl-1">Heart Catch</h3>
+              </div>
+            </div>
+            <div className="d-flex border-b">
+              <div className="d-flex skill-in pt-2 border-r">
+                <Image className="icon-rank" src={pow_rank_s} />
+                <Image className="icon-rank" src={pow_rank_plus} />
+              </div>
+              <div className="d-flex skill-in border-r">
+                <h6 className="pt-3 pr-2 stat-txt">Element</h6>
+                <h3 className="pt-1">N/A</h3>
+              </div>
+              <div className="d-flex skill-in">
+                <h6 className="pt-3 stat-txt">Target</h6>
+                <Image className="icon-range" src={range_icon_enemy_all} />
+                <h3 className="pt-3 pl-0 pr-2 sub-e-color e-type text-capitalize">All</h3>
+              </div>
+            </div>
+            <div className="d-flex ">
+              <div className="d-flex skill-in border-r">
+                <h6 className="pt-3 pr-2 stat-txt">Stat</h6>
+                <h3 className="pl-0 pr-2 INT-color e-type">INT</h3>
+              </div>
+              <div className="d-flex skill-in border-r">
+                <h6 className="pt-3 pr-2 stat-txt">SP</h6>
+                <h3 className="pt-1">20</h3>
+              </div>
+              <div className="d-flex skill-in">
+                <h6 className="pt-3 pr-2 stat-txt">Effect</h6>
+                <h3 className="pt-1 pl-0 pr-2">-</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="d-flex pt-2">
+          <div className="w-10">
+            <h5 className="type_icons stat-txt ne-n p-2">10</h5>
+          </div>
+          <div className="gray-bg w-90">
+            <div className="d-flex justify-content-between border-b">
+              <div className="d-flex skill-in">
+                <Image className="icon-skill" src={skill_monster} />
+                <h3 className="pt-1">Optimal Solution</h3>
+              </div>
+              <div className="d-flex skill-in border-l">
+                <h6 className="pt-3 pr-2 stat-txt">Wm</h6>
+                <Image className="icon-range" src={Axe} />
+                <h6 className="pt-3 pr-2 stat-txt">Lv</h6>
+                <h3 className="pt-1 pl-0 pr-2">30</h3>
+              </div>
+            </div>
+            <div className="d-flex border-b">
+              <div className="d-flex skill-in pt-2 border-r">
+                <Image className="icon-rank" src={pow_rank_s} />
+                <Image className="icon-rank" src={pow_rank_plus} />
+              </div>
+              <div className="d-flex skill-in border-r">
+                <h6 className="pt-3 pr-2 stat-txt">Element</h6>
+                <h3 className="pt-1">N/A</h3>
+              </div>
+              <div className="d-flex skill-in">
+                <h6 className="pt-3 stat-txt">Target</h6>
+                <Image className="icon-range" src={range_icon_enemy_all} />
+                <h3 className="pt-3 pl-0 pr-2 sub-e-color e-type text-capitalize">All</h3>
+              </div>
+            </div>
+            <div className="d-flex ">
+              <div className="d-flex skill-in border-r">
+                <h6 className="pt-3 pr-2 stat-txt">Stat</h6>
+                <h3 className="pl-0 pr-2 INT-color e-type">INT</h3>
+              </div>
+              <div className="d-flex skill-in border-r">
+                <h6 className="pt-3 pr-2 stat-txt">SP</h6>
+                <h3 className="pt-1">20</h3>
+              </div>
+              <div className="d-flex skill-in">
+                <h6 className="pt-3 pr-2 stat-txt">Effect</h6>
+                <h3 className="pt-1 pl-0 pr-2">-</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="d-flex pt-2">
+          <div className="w-10">
+            <h4 className="type_icons stat-txt ne-n p-2">2</h4>
+          </div>
+          <div className="gray-bg w-90">
+            <div className="d-flex justify-content-between border-b">
+              <div className="d-flex skill-in">
+                <Image className="icon-skill" src={skill_monster} />
+                <h3 className="pt-1">Optimal Solution</h3>
+              </div>
+              <div className="d-flex skill-in border-l">
+                <h6 className="pt-3 pr-2 stat-txt">Wm</h6>
+                <Image className="icon-range" src={Axe} />
+                <h6 className="pt-3 pr-2 stat-txt">Lv</h6>
+                <h3 className="pt-1 pl-0 pr-2">30</h3>
+              </div>
+            </div>
+            <div className="d-flex border-b">
+              <div className="d-flex skill-in pt-2 border-r">
+                <Image className="icon-rank" src={pow_rank_s} />
+                <Image className="icon-rank" src={pow_rank_plus} />
+              </div>
+              <div className="d-flex skill-in border-r">
+                <h6 className="pt-3 pr-2 stat-txt">Element</h6>
+                <h3 className="pt-1">N/A</h3>
+              </div>
+              <div className="d-flex skill-in">
+                <h6 className="pt-3 stat-txt">Target</h6>
+                <Image className="icon-range" src={range_icon_enemy_all} />
+                <h3 className="pt-3 pl-0 pr-2 sub-e-color e-type text-capitalize">All</h3>
+              </div>
+            </div>
+            <div className="d-flex ">
+              <div className="d-flex skill-in border-r">
+                <h6 className="pt-3 pr-2 stat-txt">Stat</h6>
+                <h3 className="pl-0 pr-2 INT-color e-type">INT</h3>
+              </div>
+              <div className="d-flex skill-in border-r">
+                <h6 className="pt-3 pr-2 stat-txt">SP</h6>
+                <h3 className="pt-1">20</h3>
+              </div>
+              <div className="d-flex skill-in">
+                <h6 className="pt-3 pr-2 stat-txt">Effect</h6>
+                <h3 className="pt-1 pl-0 pr-2">-</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
 
       <div className=" pt-3">

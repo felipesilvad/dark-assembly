@@ -13,7 +13,7 @@
 }
 
 .type_icons {
-  width: 3.5rem;
+  width: 3rem;
   background-color: $gray;
   border-radius: 50%;
   border: 0.2rem solid $gray-light;
@@ -25,6 +25,8 @@
   text-transform: uppercase;
   text-align: center;
   font-size: 1.9rem;
+  background-color: $light;
+  border-radius: 1.5rem;
 }
 
 .res_icons {
@@ -50,6 +52,8 @@
   max-width: 63%;
 }
 
+
+
 .vl {
   border-left: 0.2rem solid ;
   margin: 0.2rem 0.5rem 0.2rem 0.5rem;
@@ -68,15 +72,83 @@
 }
 
 .main-e-color {
-  color: #ee94ff;
+  color: #fa418e;
+  background: -webkit-linear-gradient(bottom, #fd759b, #fa418e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .sub-e-color {
-  color: #85d82e;
+  color: #50e06a;
+  background: -webkit-linear-gradient(bottom, #a1f44b, #50e06a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .e-bg{
   text-align: center;
   margin-bottom: 0.4rem;
   width: 100%;
+}
+
+.ne-e {
+  font-weight: bolder;
+  width: 12%;
+  padding-top: 0.4rem;
+  margin: 0;
+  font-size: 1.32rem;
+}
+
+
+
+.skill-tab {
+  text-transform: none;
+}
+
+.icon-skill{
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.icon-rank{
+  width: 2rem;
+  height: 2rem;
+}
+
+.icon-range{
+  height: 2.5rem;
+}
+
+.skill-in{
+  margin: 0;
+  padding: 0.2rem 1rem 0.2rem 1rem;
+}
+
+.ATK-color{
+  padding-top: 0.7rem;
+  color: #ff241f;
+  background: -webkit-linear-gradient(bottom, #ff8d73, #ff241f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.INT-color{
+  padding-top: 0.7rem;
+  color: #ba49fa;
+  background: -webkit-linear-gradient(bottom, #e08acf, #ba49fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.RES-color{
+  padding-top: 0.7rem;
+  color: #748ff4;
+  background: -webkit-linear-gradient(bottom, #c4bcff, #748ff4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ne-n{
+  margin: auto;
+  text-align: center;
 }
