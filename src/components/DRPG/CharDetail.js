@@ -124,8 +124,8 @@ const CharDetail = ({match}) => {
         </Col>
       </Row>
 
-      <div className=" w-100">
-        <h3 className="font-weight-bold text-uppercase">Critical</h3>
+      <div className=" ">
+        <h3 className="sub-title">Critical</h3>
         <Table striped bordered className="gray-bg" >
           <tr>
             <th>Chance</th>
@@ -136,8 +136,8 @@ const CharDetail = ({match}) => {
         </Table>
       </div>
       
-      <div className="w-100">
-        <h3 className="font-weight-bold text-uppercase">Resistances</h3>
+      <div className="">
+        <h3 className="sub-title">Resistances</h3>
         <div className="gray-bg p-2">
           <Row className="m-0">
             <Col className="d-flex p-0">
@@ -195,74 +195,160 @@ const CharDetail = ({match}) => {
         </div>
       </div>
 
-      <div className="w-100 pt-3">
-        <h3 className="font-weight-bold text-uppercase">Weapon Mastery</h3>
+      <div className=" pt-3">
+        <h3 className="sub-title">Weapon Mastery</h3>
         <div className="gray-bg p-0">
           <Row className="m-0">
             <Col className="p-0 border-r">
-              <Image src={Sword} className="res_icons" />
+              <Image src={Sword} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0 ">
                 <th className="text-center ">10</th>
               </Table>
             </Col>
             <Col className="p-0 border-r">
-              <Image src={Fist} className="res_icons" />
+              <Image src={Fist} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0">
                 <th className="text-center ">10</th>
               </Table>
             </Col>
             <Col className="p-0 border-r">
-              <Image src={Spear} className="res_icons" />
+              <Image src={Spear} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0">
                 <th className="text-center ">10</th>
               </Table>
             </Col>
             <Col className="p-0 border-r">
-              <Image src={Bow} className="res_icons" />
+              <Image src={Bow} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0">
                 <th className="text-center ">10</th>
               </Table>
             </Col>
             <Col className="p-0 border-r">
-              <Image src={Gun} className="res_icons" />
+              <Image src={Gun} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0">
                 <th className="text-center ">3</th>
               </Table>
             </Col>
             <Col className="p-0 border-r">
-              <Image src={Axe} className="res_icons" />
+              <Image src={Axe} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0">
                 <th className="text-center ">5</th>
               </Table>
             </Col>
             <Col className="p-0 border-r">
-              <Image src={Staff} className="res_icons" />
+              <Image src={Staff} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0">
                 <th className="text-center ">10</th>
               </Table>
             </Col>
             <Col className="p-0 border-r">
-              <Image src={Monster1} className="res_icons" />
+              <Image src={Monster1} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0">
                 <th className="text-center ">-</th>
               </Table>
             </Col>
             <Col className="p-0 ">
-              <Image src={Monster2} className="res_icons" />
+              <Image src={Monster2} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0">
                 <th className="text-center ">-</th>
               </Table>
             </Col>
           </Row>
+        </div>
+      </div>
+
+      <div className=" pt-3">
+        <h3 className="sub-title">Classes</h3>
+        <div className="gray-bg" >
+          <div className="border-b">
+            <Row>
+              <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /></Col>
+              <Col className="">Apprentice Prinny</Col>
+            </Row>
+          </div>
+          <div className="border-b">
+            <Row>
+              <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
+              <Col className="">Apprentice Prinny</Col>
+            </Row>
+          </div>
+          <div className="border-b">
+            <Row>
+              <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
+              <Col className="">Apprentice Prinny</Col>
+            </Row>
+          </div>
+          <div className="border-b">
+            <Row>
+              <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
+              <Col className="">Apprentice Prinny</Col>
+            </Row>
+          </div>
+          <div className="border-b">
+            <Row>
+              <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
+              <Col className="">Gen. Prinny</Col>
+            </Row>
+          </div>
+          <div className="">
+            <Row>
+              <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
+              <Col className="">Prinny King</Col>
+            </Row>
+          </div>
+        </div>
+      </div>
+      <div className=" pt-3">
+        <h3 className="sub-title">Evilities</h3>
+
+        <h4 className="e-type main-e-color">Main Evility</h4>
+        <div className="d-flex">
+          <div class="vl main-e-color"></div>
+          <div className="d-block w-100">
+            <div className="gray-bg e-bg" >
+              <h3 className="border-b">Hero Me, Dood!</h3>
+              <h4>Self: Initial SP +10 when battle begins.</h4>
+            </div>
+          </div>
+        </div>
+
+        <h4 className="e-type sub-e-color">Sub Evility</h4>
+        <div className="d-flex">
+          <div class="vl sub-e-color"></div>
+          <div className="d-block w-100">
+            <div className="gray-bg e-bg" >
+              <h3 className="border-b">Dodge Mastery</h3>
+              <h4>Self: SPD +7% when battle begins. (3 Turns)</h4>
+            </div>
+            <div className="gray-bg e-bg" >
+              <h3 className="border-b">Hero Me, Dood!</h3>
+              <h4>Self: Water Damage taken -30%</h4>
+            </div>
+            <div className="gray-bg e-bg" >
+              <h3 className="border-b">Hero Me, Dood!</h3>
+              <h4>Self: Damage dealt by throwing Prinnies +100%</h4>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div className=" pt-3">
+        <div className="gray-bg" >
+          <div className="">
+            <Row>
+              <Col className="text-center">CV: Apprentice Prinny</Col>
+            </Row>
+          </div>
         </div>
       </div>
     </Container>
