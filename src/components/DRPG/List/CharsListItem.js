@@ -1,11 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-const CharsListItem = ({id, title, stats}) => {
+const CharsListItem = ({id, title}) => {
 
   return (
     <div key={id}>
-      <Link to={`/characters/${id}`}>{title} - {stats} / {id}</Link>
+      <Link to={`/characters/${id}`}>{title} / {id}</Link>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import db from '../../firebase';
+import db from '../../../firebase';
 import CharsListItem from './CharsListItem';
 
 function useChars() {
@@ -33,10 +33,8 @@ const CharsList = () => {
       <h2>Characters List</h2>
       {chars.map((char) => (
         <CharsListItem
-          key={char.id}
           id={char.id}
           title={char.title}
-          stats={char.stats}
         />
       ))}
     </div>

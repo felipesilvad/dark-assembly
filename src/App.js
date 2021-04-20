@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import AddChar from './components/DRPG/AddChar';
-import CharDetail from './components/DRPG/CharDetail';
-import CharsList from './components/DRPG/CharsList';
+import AddChar from './components/DRPG/Add/AddChar';
+import CharDetail from './components/DRPG/Detail/CharDetail';
+import CharsList from './components/DRPG/List/CharsList';
 import Header from './components/DRPG/Header';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import { Container } from 'react-bootstrap';

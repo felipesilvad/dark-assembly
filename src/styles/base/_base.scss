@@ -16,8 +16,13 @@ body {
   color: white;
 }
 
+input, select, option {
+  color: black;
+}
+
 button {
   cursor: pointer;
+  color: black;
 }
 
 button:disabled {
@@ -34,6 +39,10 @@ a:hover {
   color: white;
   text-decoration: none;
   background-color: transparent;
+}
+
+label{
+  padding: 0.2rem 0.5rem 0 0.5rem;
 }
 
 .highlight-2 {

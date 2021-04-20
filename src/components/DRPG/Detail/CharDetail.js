@@ -1,83 +1,78 @@
 import React, { useState, useEffect } from 'react';
-import db from '../../firebase';
+import db from '../../../firebase';
 import { Row, Col, Image, Table, Container, Tabs, Tab } from 'react-bootstrap';
 
 
 const CharDetail = ({match}) => {
 
-  function useChar() {
-    const [char, setChar] = useState('');
+  const [char, setChar] = useState('');
+
+  useEffect(() => {
+    db
+      .firestore()
+      .collection('games')
+      .doc('DRPG')
+      .collection('Characters')
+      .doc(match.params.id)
+      .get()
+      .then((char) => {
+        const newChar = char.data();
   
-    useEffect(() => {
-      db
-        .firestore()
-        .collection('games')
-        .doc('DRPG')
-        .collection('Characters')
-        .doc(match.params.id)
-        .get()
-        .then((char) => {
-          const newChar = char.data();
-    
-          setChar(newChar)
-        })
-    }, [])
+        setChar(newChar)
+      })
+  }, [])
   
-    return char;
-  }
-  
-  const char = useChar();
-  const face = require('../../assets/DRPG/temp/main.png');
-  const cut = require('../../assets/DRPG/temp/cut.png');
-  const frame = require('../../assets/DRPG/icons/frames/chara_face_win01.png');
-  const monster_icon = require('../../assets/DRPG/icons/Monster.png');
-  const male = require('../../assets/DRPG/icons/male.png');
-  const star = require('../../assets/DRPG/icons/rare_star.png');
+  const face = require('../../../assets/DRPG/temp/main.png');
+  const cut = require('../../../assets/DRPG/temp/cut.png');
+  const frame = require('../../../assets/DRPG/icons/frames/chara_face_win01.png');
 
-  const e_fire = require('../../assets/DRPG/icons/fire.png');
-  const e_water = require('../../assets/DRPG/icons/water.png');
-  const e_wind = require('../../assets/DRPG/icons/wind.png');
-  const e_star = require('../../assets/DRPG/icons/star.png');
-  const poison = require('../../assets/DRPG/icons/poison.png');
-  const paralysis = require('../../assets/DRPG/icons/paralysis.png');
-  const sleep = require('../../assets/DRPG/icons/sleep.png');
-  const forget = require('../../assets/DRPG/icons/forget.png');
+  const male = require('../../../assets/DRPG/icons/male.png');
+  const star = require('../../../assets/DRPG/icons/rare_star.png');
 
-  const Axe = require('../../assets/DRPG/icons/weapons/Axe.png');
-  const Bow = require('../../assets/DRPG/icons/weapons/Bow.png');
-  const Fist = require('../../assets/DRPG/icons/weapons/Fist.png');
-  const Gun = require('../../assets/DRPG/icons/weapons/Gun.png');
-  const Spear = require('../../assets/DRPG/icons/weapons/Spear.png');
-  const Staff = require('../../assets/DRPG/icons/weapons/Staff.png');
-  const Sword = require('../../assets/DRPG/icons/weapons/Sword.png');
-  const Monster1 = require('../../assets/DRPG/icons/weapons/Monster1.png');
-  const Monster2 = require('../../assets/DRPG/icons/weapons/Monster2.png');
+  const e_fire = require('../../../assets/DRPG/icons/fire.png');
+  const e_water = require('../../../assets/DRPG/icons/water.png');
+  const e_wind = require('../../../assets/DRPG/icons/wind.png');
+  const e_star = require('../../../assets/DRPG/icons/star.png');
+  const poison = require('../../../assets/DRPG/icons/poison.png');
+  const paralysis = require('../../../assets/DRPG/icons/paralysis.png');
+  const sleep = require('../../../assets/DRPG/icons/sleep.png');
+  const forget = require('../../../assets/DRPG/icons/forget.png');
 
-  const skill_axe = require('../../assets/DRPG/icons/skill/skill_axe.png');
-  const skill_bow = require('../../assets/DRPG/icons/skill/skill_bow.png');
-  const skill_fist = require('../../assets/DRPG/icons/skill/skill_fist.png');
-  const skill_gun = require('../../assets/DRPG/icons/skill/skill_gun.png');
-  const skill_spear = require('../../assets/DRPG/icons/skill/skill_spear.png');
-  const skill_sword = require('../../assets/DRPG/icons/skill/skill_sword.png');
-  const skill_staff = require('../../assets/DRPG/icons/skill/skill_staff.png');
-  const skill_humanoid = require('../../assets/DRPG/icons/skill/skill_humanoid.png');
-  const skill_monster = require('../../assets/DRPG/icons/skill/skill_monster.png');
+  const Axe = require('../../../assets/DRPG/icons/weapons/axe.png');
+  const Bow = require('../../../assets/DRPG/icons/weapons/bow.png');
+  const Fist = require('../../../assets/DRPG/icons/weapons/fist.png');
+  const Gun = require('../../../assets/DRPG/icons/weapons/gun.png');
+  const Spear = require('../../../assets/DRPG/icons/weapons/spear.png');
+  const Staff = require('../../../assets/DRPG/icons/weapons/staff.png');
+  const Sword = require('../../../assets/DRPG/icons/weapons/sword.png');
+  const Monster1 = require('../../../assets/DRPG/icons/weapons/monster1.png');
+  const Monster2 = require('../../../assets/DRPG/icons/weapons/monster2.png');
 
-  const pow_rank_a = require('../../assets/DRPG/icons/skill/pow_rank_a.png');
-  const pow_rank_b = require('../../assets/DRPG/icons/skill/pow_rank_b.png');
-  const pow_rank_c = require('../../assets/DRPG/icons/skill/pow_rank_c.png');
-  const pow_rank_d = require('../../assets/DRPG/icons/skill/pow_rank_d.png');
-  const pow_rank_e = require('../../assets/DRPG/icons/skill/pow_rank_e.png');
-  const pow_rank_f = require('../../assets/DRPG/icons/skill/pow_rank_f.png');
-  const pow_rank_g = require('../../assets/DRPG/icons/skill/pow_rank_g.png');
-  const pow_rank_s = require('../../assets/DRPG/icons/skill/pow_rank_s.png');
-  const pow_rank_ss = require('../../assets/DRPG/icons/skill/pow_rank_ss.png');
-  const pow_rank_plus = require('../../assets/DRPG/icons/skill/pow_rank_plus.png');
+  const skill_axe = require('../../../assets/DRPG/icons/skill/skill_axe.png');
+  const skill_bow = require('../../../assets/DRPG/icons/skill/skill_bow.png');
+  const skill_fist = require('../../../assets/DRPG/icons/skill/skill_fist.png');
+  const skill_gun = require('../../../assets/DRPG/icons/skill/skill_gun.png');
+  const skill_spear = require('../../../assets/DRPG/icons/skill/skill_spear.png');
+  const skill_sword = require('../../../assets/DRPG/icons/skill/skill_sword.png');
+  const skill_staff = require('../../../assets/DRPG/icons/skill/skill_staff.png');
+  const skill_humanoid = require('../../../assets/DRPG/icons/skill/skill_humanoid.png');
+  const skill_monster = require('../../../assets/DRPG/icons/skill/skill_monster.png');
 
-  const range_icon_ally = require('../../assets/DRPG/icons/skill/range_icon_ally.png');
-  const range_icon_ally_all = require('../../assets/DRPG/icons/skill/range_icon_ally_all.png');
-  const range_icon_enemy = require('../../assets/DRPG/icons/skill/range_icon_enemy.png');
-  const range_icon_enemy_all = require('../../assets/DRPG/icons/skill/range_icon_enemy_all.png');
+  const pow_rank_a = require('../../../assets/DRPG/icons/skill/pow_rank_a.png');
+  const pow_rank_b = require('../../../assets/DRPG/icons/skill/pow_rank_b.png');
+  const pow_rank_c = require('../../../assets/DRPG/icons/skill/pow_rank_c.png');
+  const pow_rank_d = require('../../../assets/DRPG/icons/skill/pow_rank_d.png');
+  const pow_rank_e = require('../../../assets/DRPG/icons/skill/pow_rank_e.png');
+  const pow_rank_f = require('../../../assets/DRPG/icons/skill/pow_rank_f.png');
+  const pow_rank_g = require('../../../assets/DRPG/icons/skill/pow_rank_g.png');
+  const pow_rank_s = require('../../../assets/DRPG/icons/skill/pow_rank_s.png');
+  const pow_rank_ss = require('../../../assets/DRPG/icons/skill/pow_rank_ss.png');
+  const pow_rank_plus = require('../../../assets/DRPG/icons/skill/pow_rank_plus.png');
+
+  const range_icon_ally = require('../../../assets/DRPG/icons/skill/range_icon_ally.png');
+  const range_icon_ally_all = require('../../../assets/DRPG/icons/skill/range_icon_ally_all.png');
+  const range_icon_enemy = require('../../../assets/DRPG/icons/skill/range_icon_enemy.png');
+  const range_icon_enemy_all = require('../../../assets/DRPG/icons/skill/range_icon_enemy_all.png');
 
   return (
     <Container className="p-0">
@@ -88,11 +83,17 @@ const CharDetail = ({match}) => {
 
         <Col xs={9} className="p-1">
           <div className="char-title__bg d-flex justify-content-between">
-            <h1 className="char-title">Prinny</h1>
+            <h2 className="char-title">{char.title}</h2>
             <div className="d-block">
-              <Image src={monster_icon} className="type_icons" />
-              <Image src={Monster1} className="type_icons" />
-              <Image src={male} className="type_icons" />
+              {!! char.type &&(
+                <Image src={require(`../../../assets/DRPG/icons/${char.type}.png`)} className="type_icons" />
+              )}
+              {!! char.forte &&(
+                <Image src={require(`../../../assets/DRPG/icons/weapons/${char.forte}.png`)} className="type_icons" />
+              )}
+              {!! char.gender &&(
+                <Image src={require(`../../../assets/DRPG/icons/${char.gender}.png`)} className="type_icons" />
+              )}
             </div>
           </div>
           <div className="mt-2 d-flex">
@@ -110,39 +111,39 @@ const CharDetail = ({match}) => {
             </thead>
             <tbody>
               <tr>
-                <td className="stat-txt"><h4>HP</h4></td>
-                <td>15</td>
-                <td>10384701</td>
+                <td><h4 className="font-weight-bold">HP</h4></td>
+                <td>{char.hp_1}</td>
+                <td>{char.hp_9}</td>
                 <td className="highlight-2 font-italic">2nd</td>
               </tr>
               <tr>
-                <td className="stat-txt"><h4>ATK</h4></td>
-                <td>15</td>
-                <td>10384701</td>
+                <td><h4 className="font-weight-bold">ATK</h4></td>
+                <td>{char.atk_1}</td>
+                <td>{char.atk_9}</td>
                 <td className="highlight-2 font-italic">2nd</td>
               </tr>
               <tr>
-                <td className="stat-txt"><h4>DEF</h4></td>
-                <td>15</td>
-                <td>10384701</td>
+                <td><h4 className="font-weight-bold">DEF</h4></td>
+                <td>{char.def_1}</td>
+                <td>{char.def_9}</td>
                 <td className="highlight-2 font-italic">2nd</td>
               </tr>
               <tr>
-                <td className="stat-txt"><h4>INT</h4></td>
-                <td>15</td>
-                <td>10384701</td>
+                <td><h4 className="font-weight-bold">INT</h4></td>
+                <td>{char.int_1}</td>
+                <td>{char.int_9}</td>
                 <td className="highlight-2 font-italic">2nd</td>
               </tr>
               <tr>
-                <td className="stat-txt"><h4>RES</h4></td>
-                <td>15</td>
-                <td>10384701</td>
+                <td><h4 className="font-weight-bold">RES</h4></td>
+                <td>{char.res_1}</td>
+                <td>{char.res_9}</td>
                 <td className="highlight-2 font-italic">2nd</td>
               </tr>
               <tr>
-                <td className="stat-txt"><h4>SPD</h4></td>
-                <td>15</td>
-                <td>10384701</td>
+                <td><h4 className="font-weight-bold">SPD</h4></td>
+                <td>{char.spd_1}</td>
+                <td>{char.spd_9}</td>
                 <td className="highlight-2 font-italic">2nd</td>
               </tr>
             </tbody>
@@ -155,9 +156,9 @@ const CharDetail = ({match}) => {
         <Table striped bordered className="gray-bg" >
           <tr>
             <th>Chance</th>
-            <td>30%</td>
+            <td>{char.crt}%</td>
             <th>Damage</th>
-            <td>130%</td>
+            <td>{char.crd}%</td>
           </tr>
         </Table>
       </div>
@@ -169,25 +170,25 @@ const CharDetail = ({match}) => {
             <Col className="d-flex p-0">
               <Image src={e_fire} className="res_icons" />
               <Table className="m-0">
-                <th className=" inner">50%</th>
+                <th className=" inner">{char.r_fire}%</th>
               </Table>
             </Col>
             <Col className="d-flex p-0">
               <Image src={e_water} className="res_icons" />
               <Table className="m-0">
-                <th className=" inner">50%</th>
+                <th className=" inner">{char.r_water}%</th>
               </Table>
             </Col>
             <Col className="d-flex p-0">
               <Image src={e_wind} className="res_icons" />
               <Table className="m-0">
-                <th className=" inner">50%</th>
+                <th className=" inner">{char.r_wind}%</th>
               </Table>
             </Col>
             <Col className="d-flex p-0">
               <Image src={e_star} className="res_icons" />
               <Table className="m-0">
-                <th className=" inner">50%</th>
+                <th className=" inner">{char.r_star}%</th>
               </Table>
             </Col>
           </Row>
@@ -196,25 +197,25 @@ const CharDetail = ({match}) => {
             <Col className="d-flex p-0 pt-1">
               <Image src={poison} className="res_icons" />
               <Table className="m-0">
-                <th className=" inner">50%</th>
+                <th className=" inner">{char.r_poison}%</th>
               </Table>
             </Col>
             <Col className="d-flex p-0 pt-1">
               <Image src={paralysis} className="res_icons" />
               <Table className="m-0">
-                <th className=" inner">50%</th>
+                <th className=" inner">{char.r_paralysis}%</th>
               </Table>
             </Col>
             <Col className="d-flex p-0 pt-1">
               <Image src={sleep} className="res_icons" />
               <Table className="m-0">
-                <th className=" inner">50%</th>
+                <th className=" inner">{char.r_sleep}%</th>
               </Table>
             </Col>
             <Col className="d-flex p-0 pt-1">
               <Image src={forget} className="res_icons" />
               <Table className="m-0">
-                <th className=" inner">50%</th>
+                <th className=" inner">{char.r_forget}%</th>
               </Table>
             </Col>
           </Row>
@@ -298,37 +299,37 @@ const CharDetail = ({match}) => {
           <div className="border-b">
             <Row>
               <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /></Col>
-              <Col className="">Apprentice Prinny</Col>
+              <Col className="">{char.class_1}</Col>
             </Row>
           </div>
           <div className="border-b">
             <Row>
               <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
-              <Col className="">Apprentice Prinny</Col>
+              <Col className="">{char.class_2}</Col>
             </Row>
           </div>
           <div className="border-b">
             <Row>
               <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
-              <Col className="">Apprentice Prinny</Col>
+              <Col className="">{char.class_3}</Col>
             </Row>
           </div>
           <div className="border-b">
             <Row>
               <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
-              <Col className="">Apprentice Prinny</Col>
+              <Col className="">{char.class_4}</Col>
             </Row>
           </div>
           <div className="border-b">
             <Row>
               <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
-              <Col className="">Gen. Prinny</Col>
+              <Col className="">{char.class_5}</Col>
             </Row>
           </div>
           <div className="">
             <Row>
               <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
-              <Col className="">Prinny King</Col>
+              <Col className="">{char.class_6}</Col>
             </Row>
           </div>
         </div>
