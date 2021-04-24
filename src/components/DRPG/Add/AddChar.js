@@ -1,21 +1,101 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import firebase, {storage} from '../../../firebase';
 import  { Redirect } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Row, Col, Container } from 'react-bootstrap';
 import AddEvility from './AddEvility';
 import AddTarget from './AddTarget';
 import AddStat from './AddStat';
+import AddSkill from './AddSkill';
+import AddSkillEffect from './AddSkillEffect';
+import Select from 'react-select';
+import moment from 'moment';
+
+
+
+function useEvilities() {
+  const [evilities, setEvilities] = useState([])
+
+  useEffect(() => {
+    const unsubscribe = firebase
+      .firestore()
+      .collection('games')
+      .doc('DRPG')
+      .collection('Evility')
+      .onSnapshot((snapshot) => {
+        const newEvilities = snapshot.docs.map((doc) => ({
+          value: doc.id, label: doc.data().title
+        }))
+
+        setEvilities(newEvilities)
+      })
+    return () => unsubscribe()
+  }, [])
+
+  return evilities;
+}
+
+function useSkills() {
+  const [skills, setSkills] = useState([])
+
+  useEffect(() => {
+    const unsubscribe = firebase
+      .firestore()
+      .collection('games')
+      .doc('DRPG')
+      .collection('Skills')
+      .onSnapshot((snapshot) => {
+        const newSkills = snapshot.docs.map((doc) => ({
+          value: doc.id, label: doc.data().title, 
+        }))
+
+        setSkills(newSkills)
+      })
+    return () => unsubscribe()
+  }, [])
+
+  return skills;
+}
 
 
 const AddChar = () => {
+
+  const evilities = useEvilities();
+  const skills = useSkills();
+  const NEOptions = [
+    { value: 10, label: '10' },
+    { value: 20, label: '20' },
+    { value: 30, label: '30' },
+    { value: 40, label: '40' },
+    { value: 50, label: '50' },
+    ...evilities,
+    ...skills,
+  ]
+  const StarsInOptions = [
+    { value: '1', label: '1' },
+    { value: '2', label: '2' },
+    { value: '3', label: '3' },
+    { value: '4', label: '4' },
+    { value: '5', label: '5' },
+    { value: '6', label: '6' },
+    { value: 'D2', label: 'D2' },
+    { value: 'RPG', label: 'RPG' },
+  ]
+
+  const selectStyles = { 
+    option: () => ({ color: 'black' }), 
+    multiValueLabel: provided => ({ ...provided, whiteSpace: 'normal', color: 'black' }),
+    inputValue: () => ({ color: 'black' }), 
+  }
+
+
   const [id, setID] = useState('');
   const [title, setTitle] = useState('');
   const [type, setType] = useState('humanoid');
   const [forte, setForte] = useState('sword');
   const [gender, setGender] = useState('male');
   const [type_2, setType_2] = useState('unique');
-
-
   const [stars, setStars] = useState('');
 
   const [hp_1, setHP_1] = useState('');
@@ -59,29 +139,81 @@ const AddChar = () => {
   const [wm_monster1, setWmMonster1] = useState('');
   const [wm_monster2, setWmMonster2] = useState('');
 
-  const [portrait, setPortrait] = useState('');
-  const [cut_in, setCutIn] = useState('');
+  const [mainEvilities, setMainEvilities] = useState('');
+  const [subEvilities, setSubEvilities] = useState('');
+  const [uniqueSkills, setUniqueSkills] = useState('');
+  const [spells, setSpells] = useState('');
 
+  const [ne1, setNE1] = useState('');
+  const [ne1Type, setNE1Type] = useState('evility');
+  const [ne2, setNE2] = useState('');
+  const [ne2Type, setNE2Type] = useState('stat');
+  const [ne3, setNE3] = useState('');
+  const [ne3Type, setNE3Type] = useState('skill');
+  const [ne4, setNE4] = useState('');
+  const [ne4Type, setNE4Type] = useState('stat');
+  const [ne5, setNE5] = useState('');
+  const [ne5Type, setNE5Type] = useState('evility');
+  const [ne6, setNE6] = useState('');
+  const [ne6Type, setNE6Type] = useState('stat');
+  const [ne7, setNE7] = useState('');
+  const [ne7Type, setNE7Type] = useState('evility');
+  const [ne8, setNE8] = useState('');
+  const [ne8Type, setNE8Type] = useState('stat');
+  const [ne9, setNE9] = useState('');
+  const [ne9Type, setNE9Type] = useState('stat');
+  const [ne10, setNE10] = useState('');
+  const [ne10Type, setNE10Type] = useState('stat');
 
+  const [cv, setCv] = useState('');
+  const [starsIn, setStarsIn] = useState('');
+  const [date, setDate] = useState('');
+
+  const notify = () => toast("Character Added");
+
+  const handleChangePortrait = async (e) => {
+    if (e.target.files[0]) {
+      const portrait = e.target.files[0]
+      const imgRef = storage.ref("images/DRPG/characters");
+      const portraitRef = imgRef.child(`${id}_portrait`)
+      await portraitRef.put(portrait)
+      const charRef = firebase.firestore().collection('games').doc('DRPG').collection('Characters');
+      await portraitRef.getDownloadURL().then((portrait_url) => {
+        console.log(portrait_url)
+        charRef.doc(id).set({portrait_url}, { merge: true })
+      })
+    }
+  }
+  const handleChangeCutIn = async (e) => {
+    if (e.target.files[0]) {
+      const cut_in = e.target.files[0]
+      const imgRef = storage.ref("images/DRPG/characters");
+      const cut_inRef = imgRef.child(`${id}_cut_in`)
+      await cut_inRef.put(cut_in)
+      const charRef = firebase.firestore().collection('games').doc('DRPG').collection('Characters');
+      await cut_inRef.getDownloadURL().then((cut_in_url) => {
+        console.log(cut_in_url)
+        charRef.doc(id).set({cut_in_url}, { merge: true })
+      })
+    }
+  }
+  const handleChangeFull = async (e) => {
+    if (e.target.files[0]) {
+      const full = e.target.files[0]
+      const imgRef = storage.ref("images/DRPG/characters");
+      const fullRef = imgRef.child(`${id}_full`)
+      await fullRef.put(full)
+      const charRef = firebase.firestore().collection('games').doc('DRPG').collection('Characters');
+      await fullRef.getDownloadURL().then((full_url) => {
+        console.log(full_url)
+        charRef.doc(id).set({full_url}, { merge: true })
+      })
+    }
+  }
 
   function onSubmit(e) {
     e.preventDefault()
-
     const charRef = firebase.firestore().collection('games').doc('DRPG').collection('Characters');
-    const imgRef = storage.ref("images/DRPG/characters");
-
-    imgRef.child(`${id}_portrait`).put(portrait);
-    imgRef.child(`${id}_cut_in`).put(cut_in);
-
-    imgRef.child(`${id}_portrait`).getDownloadURL().then((portrait_url) => {
-      charRef.doc(id).set({portrait_url}, { merge: true })
-    });
-
-    // imgRef.child(`${id}_cut_in`).getDownloadURL().then((cut_in_url) => {
-    //   charRef.doc(id).set({cut_in_url}, { merge: true })
-    // });
-
-
     charRef.doc(id).set({
       title,
       type,
@@ -95,63 +227,24 @@ const AddChar = () => {
       r_fire,r_water,r_wind,r_star,r_poison,r_paralysis,r_sleep,r_forget,
       wm_sword,wm_fist,wm_spear,wm_bow,wm_gun,wm_axe,wm_staff,wm_monster1,wm_monster2,
       class_1,class_2,class_3,class_4,class_5,class_6,
-    }, { merge: true })
-
-    // uploadTask.on(
-    //   "state_changed",
-    //   snapshot => {},
-    //   error => {
-    //     console.error(error);
-    //   },
-    //   () => {
-    //     storage
-    //       .ref("images")
-    //       .child(portrait.name)
-    //       .getDownloadURL()
-    //       .then(portrait_url => {
-    //         charRef.doc(id).set({
-    //           title,
-    //           type,
-    //           forte,
-    //           gender,
-    //           type_2,
-    //           stars,
-    //           hp_1,atk_1,def_1,int_1,res_1,spd_1,
-    //           hp_9,atk_9,def_9,int_9,res_9,spd_9,
-    //           crt, crd,
-    //           r_fire,r_water,r_wind,r_star,r_poison,r_paralysis,r_sleep,r_forget,
-    //           wm_sword,wm_fist,wm_spear,wm_bow,wm_gun,wm_axe,wm_staff,wm_monster1,wm_monster2,
-    //           class_1,class_2,class_3,class_4,class_5,class_6,
-    //           portrait_url
-    //         })
-    //         .then(() => {
-    //           // setID('')
-    //           // setTitle('')
-    //           // setStats('')
-    //           // setUrl('')
-    //           return <Redirect to='/characters'  />
-    //         })
-    //       });
-    //   }
-    // )
-  }
-
-  const handleChangePortrait = e => {
-    if (e.target.files[0]) {
-      setPortrait(e.target.files[0]);
-    }
-  }
-
-  const handleChangeCutIn = e => {
-    if (e.target.files[0]) {
-      setCutIn(e.target.files[0]);
-    }
+      mainEvilities, subEvilities,
+      uniqueSkills, spells,
+      ne1Type, ne2Type, ne3Type, ne4Type, ne5Type, ne6Type, ne7Type, ne8Type, ne9Type, ne10Type,
+      ne1, ne2, ne3, ne4, ne5, ne6, ne7, ne8, ne9, ne10,
+      cv, starsIn,
+      added_date: firebase.firestore.Timestamp.fromDate(new Date(moment(date).format('MMMM D YYYY')))
+    }, { merge: true }).then(
+      notify,
+      console.log('test'),
+      setID('')
+    )
   }
 
   return (
     <Container>
-      <Row>
+      <Row className="gray-bg">
         <Col>
+          <label>Add Character</label>
           <form onSubmit={onSubmit}>
             <div className="d-flex">
               <input className="w-10" type="number" name="id" placeholder="ID"
@@ -428,25 +521,235 @@ const AddChar = () => {
                 <input type="number" name="WmMonster2" onChange={e => setWmMonster2(e.currentTarget.value)} />
               </div>
             </div>
+          
+            <Row id="evilities">
+              <Col>
+                <label>Main Evilities</label>
+                <Select 
+                  options={evilities} onChange={e => setMainEvilities(e)}
+                  styles={selectStyles} className="Selector" isSearchable isMulti autoFocus 
+                />
+              </Col>
+              <Col>
+                <label>Sub Evilities</label>
+                <Select 
+                  options={evilities} onChange={e => setSubEvilities(e)}
+                  styles={selectStyles} className="Selector" isSearchable isMulti autoFocus 
+                />
+              </Col>
+            </Row>
 
-            <label>Portrait</label>
-            <input type="file" onChange={handleChangePortrait} />
+            <Row id="skilss">
+              <Col>
+                <label>Unique Skills</label>
+                <Select 
+                  options={skills} onChange={e => setUniqueSkills(e)}
+                  styles={selectStyles} className="Selector" isSearchable isMulti autoFocus 
+                />
+              </Col>
+              <Col>
+                <label>Spells</label>
+                <Select 
+                  options={skills} onChange={e => setSpells(e)}
+                  styles={selectStyles} className="Selector" isSearchable isMulti autoFocus 
+                />
+              </Col>
+            </Row>
 
-            <label>Cut-In</label>
-            <input type="file" onChange={handleChangeCutIn} />
+            <div id="NE" className="pt-2 pb-2">
+              <div className="d-flex gray-bg">
+                <label>NE1</label>
+                <select name="NE1Type" id="NE1Type"
+                  onChange={e => setNE1Type(e.currentTarget.value)}
+                >
+                  <option value="evility">Evility</option>
+                  <option value="stat">Stats</option>
+                  <option value="skill">Skill</option>
+                </select>
+                <Select 
+                  options={NEOptions} onChange={e => setNE1(e)}
+                  styles={selectStyles} className="Selector w-100" isSearchable
+                />
+              </div>
+              <div className="d-flex gray-bg">
+                <label>NE2</label>
+                <select name="NE2Type" id="NE2Type"
+                  onChange={e => setNE2Type(e.currentTarget.value)}
+                >
+                  <option value="stat">Stats</option>
+                  <option value="evility">Evility</option>
+                  <option value="skill">Skill</option>
+                </select>
+                <Select 
+                  options={NEOptions} onChange={e => setNE2(e)}
+                  styles={selectStyles} className="Selector w-100" isSearchable
+                />
+              </div>
+              <div className="d-flex gray-bg">
+                <label>NE3</label>
+                <select name="NE3Type" id="NE3Type"
+                  onChange={e => setNE3Type(e.currentTarget.value)}
+                >
+                  <option value="skill">Skill</option>
+                  <option value="stat">Stats</option>
+                  <option value="evility">Evility</option>
+                </select>
+                <Select 
+                  options={NEOptions} onChange={e => setNE3(e)}
+                  styles={selectStyles} className="Selector w-100" isSearchable
+                />
+              </div>
+              <div className="d-flex gray-bg">
+                <label>NE4</label>
+                <select name="NE4Type" id="NE4Type"
+                  onChange={e => setNE4Type(e.currentTarget.value)}
+                >
+                  <option value="stat">Stats</option>
+                  <option value="evility">Evility</option>
+                  <option value="skill">Skill</option>
+                </select>
+                <Select 
+                  options={NEOptions} onChange={e => setNE4(e)}
+                  styles={selectStyles} className="Selector w-100" isSearchable
+                />
+              </div>
+              <div className="d-flex gray-bg">
+                <label>NE5</label>
+                <select name="NE5Type" id="NE5Type"
+                  onChange={e => setNE5Type(e.currentTarget.value)}
+                >
+                  <option value="evility">Evility</option>
+                  <option value="stat">Stats</option>
+                  <option value="skill">Skill</option>
+                </select>
+                <Select 
+                  options={NEOptions} onChange={e => setNE5(e)}
+                  styles={selectStyles} className="Selector w-100" isSearchable
+                />
+              </div>
+              <div className="d-flex gray-bg">
+                <label>NE6</label>
+                <select name="NE6Type" id="NE6Type"
+                  onChange={e => setNE6Type(e.currentTarget.value)}
+                >
+                  <option value="stat">Stats</option>
+                  <option value="evility">Evility</option>
+                  <option value="skill">Skill</option>
+                </select>
+                <Select 
+                  options={NEOptions} onChange={e => setNE6(e)}
+                  styles={selectStyles} className="Selector w-100" isSearchable
+                />
+              </div>
+              <div className="d-flex gray-bg">
+                <label>NE7</label>
+                <select name="NE7Type" id="NE7Type"
+                  onChange={e => setNE7Type(e.currentTarget.value)}
+                >
+                  <option value="evility">Evility</option>
+                  <option value="stat">Stats</option>
+                  <option value="skill">Skill</option>
+                </select>
+                <Select 
+                  options={NEOptions} onChange={e => setNE7(e)}
+                  styles={selectStyles} className="Selector w-100" isSearchable
+                />
+              </div>
+              <div className="d-flex gray-bg">
+                <label>NE8</label>
+                <select name="NE8Type" id="NE8Type"
+                  onChange={e => setNE8Type(e.currentTarget.value)}
+                >
+                  <option value="stat">Stats</option>
+                  <option value="evility">Evility</option>
+                  <option value="skill">Skill</option>
+                </select>
+                <Select 
+                  options={NEOptions} onChange={e => setNE8(e)}
+                  styles={selectStyles} className="Selector w-100" isSearchable
+                />
+              </div>
+              <div className="d-flex gray-bg">
+                <label>NE9</label>
+                <select name="NE9Type" id="NE9Type"
+                  onChange={e => setNE9Type(e.currentTarget.value)}
+                >
+                  <option value="stat">Stats</option>
+                  <option value="evility">Evility</option>
+                  <option value="skill">Skill</option>
+                </select>
+                <Select 
+                  options={NEOptions} onChange={e => setNE9(e)}
+                  styles={selectStyles} className="Selector w-100" isSearchable
+                />
+              </div>
+              <div className="d-flex gray-bg">
+                <label>NE10</label>
+                <select name="NE10Type" id="NE10Type"
+                  onChange={e => setNE10Type(e.currentTarget.value)}
+                >
+                  <option value="stat">Stats</option>
+                  <option value="evility">Evility</option>
+                  <option value="skill">Skill</option>
+                </select>
+                <Select 
+                  options={NEOptions} onChange={e => setNE10(e)}
+                  styles={selectStyles} className="Selector w-100" isSearchable
+                />
+              </div>
+            </div>
+           
+            <div className="">
+              <input className="" type="text" name="Cv" placeholder="Cv"
+                onChange={e => setCv(e.currentTarget.value)}
+              />
+              <div>
+                <label>Stars In</label>
+                <Select 
+                  options={StarsInOptions} onChange={e => setStarsIn(e)}
+                  styles={selectStyles} className="Selector" isSearchable isMulti autoFocus 
+                />
+              </div>
+              <input type="date" id="birthday" name="birthday"  onChange={e => setDate(e.currentTarget.value)} />
+            </div>
 
-            <button className="button">Post</button>
+            <div className="d-flex">
+              <div>
+                <label>Portrait</label>
+                <input type="file" onChange={handleChangePortrait} />
+              </div>
+              <div>
+                <label>Cut-In</label>
+                <input type="file" onChange={handleChangeCutIn} />
+              </div>
+              <div>
+                <label>Full</label>
+                <input type="file" onChange={handleChangeFull} />
+              </div>
+            </div>
+            
+            <button className="button add-button">Add</button>
           </form>
         </Col>
       </Row>
+
       <hr className="hr p-4" />
-      <Row>
+
+      <Row className="gray-bg">
         <Col lg={8}>
           <AddEvility />
         </Col>
         <Col>
           <AddTarget />
           <AddStat />
+        </Col>
+      </Row>
+      <Row className="gray-bg">
+        <Col lg={8}>
+          <AddSkill />
+        </Col>
+        <Col>
+          <AddSkillEffect />
         </Col>
       </Row>
       <hr className="hr p-4" />

@@ -52,10 +52,10 @@ const AddEvility = () => {
   const targets = useTargets();
   const stats = useStats();
 
-
   const [title, setTitle] = useState('');
-  const [target, setTarget] = useState('-');
-  const [stat, setStat] = useState('-');
+  const [type, setType] = useState('Sub Evility');
+  const [target, setTarget] = useState('');
+  const [stat, setStat] = useState('');
   const [int, setInt] = useState('');
   const [intType, setIntType] = useState('%');
   const [txt, setTxt] = useState('');
@@ -68,6 +68,7 @@ const AddEvility = () => {
 
     evilityRef.add({
       title,
+      type,
       target,
       stat,
       int,
@@ -82,15 +83,24 @@ const AddEvility = () => {
     <div>
       <h4 id="evility">Add Evility</h4>
       <form onSubmit={onSubmit}>
-        <input className="" type="text" name="title" placeholder="Title"
-          onChange={e => setTitle(e.currentTarget.value)}
-        />
+        
         <div className="d-flex">
+          <input className="" type="text" name="title" placeholder="Title"
+            onChange={e => setTitle(e.currentTarget.value)}
+          />
+          <select name="type" id="type"
+            onChange={e => setType(e.currentTarget.value)}
+          >
+            <option value="Sub Evility">Sub Evility</option>
+            <option value="Main Evility">Main Evility</option>
+          </select>
+        </div>
+        <div className="">
           <div>
             <select name="target" id="target"
               onChange={e => setTarget(e.currentTarget.value)}
             >
-              <option value="-">-</option>
+              <option value=""></option>
               {targets.map((target) => (
                 <Options
                   id={target.id}
@@ -99,12 +109,11 @@ const AddEvility = () => {
               ))}
             </select>
           </div>
-          :
           <div>
             <select name="stat" id="stat"
               onChange={e => setStat(e.currentTarget.value)}
             >
-              <option value="-">-</option>
+              <option value=""></option>
               {stats.map((target) => (
                 <Options
                   id={target.id}
@@ -126,7 +135,7 @@ const AddEvility = () => {
           <input className="w-10" type="number" name="Turns" onChange={e => setTurns(e.currentTarget.value)} />
         </div>
       
-        <button className="button">Post</button>
+        <button className="button add-button">Add</button>
       </form>
 
     </div>

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import firebase from '../../../firebase';
 
-const AddStat = () => {
+const AddSkillEffect = () => {
   const [title, setTitle] = useState('');
 
   function onSubmit(e) {
     e.preventDefault()
 
-    const statsRef = firebase.firestore().collection('games').doc('DRPG').collection('Stats');
+    const effectsRef = firebase.firestore().collection('games').doc('DRPG').collection('Effects');
 
-    statsRef.add({
+    effectsRef.add({
       title,
     })
 
@@ -19,7 +19,7 @@ const AddStat = () => {
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <label><h4 id="stat">Add Stat</h4></label>
+        <label><h4 id="effect">Add Effect</h4></label>
           <input className="w-90" type="text" name="title" placeholder="Title"
             onChange={e => setTitle(e.currentTarget.value)}
           />
@@ -29,4 +29,4 @@ const AddStat = () => {
   )
 }
 
-export default AddStat;
+export default AddSkillEffect;

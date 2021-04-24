@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import db from '../../../firebase';
 import CharsListItem from './CharsListItem';
+import { Row, Col, Image, Table, Container, Tabs, Tab } from 'react-bootstrap';
+
 
 function useChars() {
   const [chars, setChars] = useState([])
@@ -37,6 +39,11 @@ const CharsList = () => {
           title={char.title}
         />
       ))}
+      <div className="d-block">
+        <div>
+          <Image />
+        </div>
+      </div>
     </div>
   )
 }

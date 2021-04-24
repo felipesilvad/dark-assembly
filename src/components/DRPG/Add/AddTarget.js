@@ -23,7 +23,7 @@ const AddTarget = () => {
           <input className="w-90" type="text" name="title" placeholder="Title"
             onChange={e => setTitle(e.currentTarget.value)}
           />
-        <button className="button">Post</button>
+        <button className="button add-button">Add</button>
       </form>
     </div>
   )

@@ -53,6 +53,18 @@ label{
   font-weight: bold;
 }
 
+.Selector{
+  color: black;
+  text-shadow: none;
+}
+
+.add-button {
+  background-color: #28a745;
+  font-weight: bold;
+  padding: 0.5rem 2rem;
+  border-radius: 00.5rem;
+}
+
 .w-10{
   width: 10%;
 }
@@ -147,3 +159,4 @@ label{
   border: 0;
   border-top: 2px solid $gray-light;
 }
+

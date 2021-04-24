@@ -1,30 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import db from '../../../firebase';
+import CharDetailEvility from './CharDetailEvility';
 import { Row, Col, Image, Table, Container, Tabs, Tab } from 'react-bootstrap';
 
 
 const CharDetail = ({match}) => {
+  const charRef = db.firestore().collection('games').doc('DRPG').collection('Characters').doc(match.params.id)
+  const evilityRef = db.firestore().collection('games').doc('DRPG').collection('Evility')
 
   const [char, setChar] = useState('');
+  const [evilityList, setEvilityList] = useState('');
 
   useEffect(() => {
-    db
-      .firestore()
-      .collection('games')
-      .doc('DRPG')
-      .collection('Characters')
-      .doc(match.params.id)
-      .get()
-      .then((char) => {
-        const newChar = char.data();
-  
-        setChar(newChar)
-      })
+    charRef.get().then((char) => {
+      const newChar = char.data();
+      setChar(newChar)
+    })
   }, [])
-  
+
+  const evilities = []
+
+    
   const face = require('../../../assets/DRPG/temp/main.png');
   const cut = require('../../../assets/DRPG/temp/cut.png');
-  const frame = require('../../../assets/DRPG/icons/frames/chara_face_win01.png');
 
   const male = require('../../../assets/DRPG/icons/male.png');
   const star = require('../../../assets/DRPG/icons/rare_star.png');
@@ -45,8 +43,8 @@ const CharDetail = ({match}) => {
   const Spear = require('../../../assets/DRPG/icons/weapons/spear.png');
   const Staff = require('../../../assets/DRPG/icons/weapons/staff.png');
   const Sword = require('../../../assets/DRPG/icons/weapons/sword.png');
-  const Monster1 = require('../../../assets/DRPG/icons/weapons/monster1.png');
-  const Monster2 = require('../../../assets/DRPG/icons/weapons/monster2.png');
+  const Monster1 = require('../../../assets/DRPG/icons/weapons/monster-1.png');
+  const Monster2 = require('../../../assets/DRPG/icons/weapons/monster-2.png');
 
   const skill_axe = require('../../../assets/DRPG/icons/skill/skill_axe.png');
   const skill_bow = require('../../../assets/DRPG/icons/skill/skill_bow.png');
@@ -78,9 +76,8 @@ const CharDetail = ({match}) => {
     <Container className="p-0">
       <Row>
         <Col xs={3} className="p-1 pt-3">
-          <Image src={cut} className="main-img" />
+          <Image src={char.cut_in_url} className="main-img" />
         </Col>
-
         <Col xs={9} className="p-1">
           <div className="char-title__bg d-flex justify-content-between">
             <h2 className="char-title">{char.title}</h2>
@@ -230,63 +227,63 @@ const CharDetail = ({match}) => {
               <Image src={Sword} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0 ">
-                <th className="text-center ">10</th>
+                <th className="text-center ">{!!char.wm_sword ? char.wm_sword : ('-')}</th>
               </Table>
             </Col>
             <Col className="p-0 border-r">
               <Image src={Fist} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0">
-                <th className="text-center ">10</th>
+                <th className="text-center ">{!!char.wm_fist ? char.wm_fist : ('-')}</th>
               </Table>
             </Col>
             <Col className="p-0 border-r">
               <Image src={Spear} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0">
-                <th className="text-center ">10</th>
+                <th className="text-center ">{!!char.wm_spear ? char.wm_spear : ('-')}</th>
               </Table>
             </Col>
             <Col className="p-0 border-r">
               <Image src={Bow} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0">
-                <th className="text-center ">10</th>
+                <th className="text-center ">{!!char.wm_bow ? char.wm_bow : ('-')}</th>
               </Table>
             </Col>
             <Col className="p-0 border-r">
               <Image src={Gun} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0">
-                <th className="text-center ">3</th>
+                <th className="text-center ">{!!char.wm_gun ? char.wm_gun : ('-')}</th>
               </Table>
             </Col>
             <Col className="p-0 border-r">
               <Image src={Axe} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0">
-                <th className="text-center ">5</th>
+                <th className="text-center ">{!!char.wm_axe ? char.wm_axe : ('-')}</th>
               </Table>
             </Col>
             <Col className="p-0 border-r">
               <Image src={Staff} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0">
-                <th className="text-center ">10</th>
+                <th className="text-center ">{!!char.wm_staff ? char.wm_staff : ('-')}</th>
               </Table>
             </Col>
             <Col className="p-0 border-r">
               <Image src={Monster1} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0">
-                <th className="text-center ">-</th>
+                <th className="text-center ">{!!char.wm_monster1 ? char.wm_monster1 : ('-')}</th>
               </Table>
             </Col>
             <Col className="p-0 ">
               <Image src={Monster2} className="w_icons" />
               <hr className="hr" />
               <Table className="m-0">
-                <th className="text-center ">-</th>
+                <th className="text-center ">{!!char.wm_monster2 ? char.wm_monster2 : ('-')}</th>
               </Table>
             </Col>
           </Row>
@@ -296,47 +293,65 @@ const CharDetail = ({match}) => {
       <div className=" pt-3">
         <h3 className="sub-title">Classes</h3>
         <div className="gray-bg" >
-          <div className="border-b">
-            <Row>
-              <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /></Col>
-              <Col className="">{char.class_1}</Col>
-            </Row>
-          </div>
-          <div className="border-b">
-            <Row>
-              <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
-              <Col className="">{char.class_2}</Col>
-            </Row>
-          </div>
-          <div className="border-b">
-            <Row>
-              <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
-              <Col className="">{char.class_3}</Col>
-            </Row>
-          </div>
-          <div className="border-b">
-            <Row>
-              <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
-              <Col className="">{char.class_4}</Col>
-            </Row>
-          </div>
-          <div className="border-b">
-            <Row>
-              <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
-              <Col className="">{char.class_5}</Col>
-            </Row>
-          </div>
-          <div className="">
-            <Row>
-              <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
-              <Col className="">{char.class_6}</Col>
-            </Row>
-          </div>
+          {!!char.class_1 && (
+            <div className="border-b">
+              <Row>
+                <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /></Col>
+                <Col className="">{char.class_1}</Col>
+              </Row>
+            </div>
+          )}
+          {!!char.class_2 && (
+            <div className="border-b">
+              <Row>
+                <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
+                <Col className="">{char.class_2}</Col>
+              </Row>
+            </div>
+          )}
+          {!!char.class_3 && (
+            <div className="border-b">
+              <Row>
+                <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
+                <Col className="">{char.class_3}</Col>
+              </Row>
+            </div>
+          )}
+          {!!char.class_4 && (
+            <div className="border-b">
+              <Row>
+                <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
+                <Col className="">{char.class_4}</Col>
+              </Row>
+            </div>
+          )}
+          {!!char.class_5 && (
+            <div className="border-b">
+              <Row>
+                <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
+                <Col className="">{char.class_5}</Col>
+              </Row>
+            </div>
+          )}
+          {!!char.class_6 && (
+            <div className="">
+              <Row>
+                <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
+                <Col className="">{char.class_6}</Col>
+              </Row>
+            </div>
+          )}
         </div>
       </div>
 
       <div className=" pt-3">
         <h3 className="sub-title">Evilities</h3>
+
+        
+
+        {!! char.evility &&(char.evility.map((doc) => (
+          <CharDetailEvility id={doc.value}/>
+        )))}
 
         <h4 className="e-type main-e-color">Main Evility</h4>
         <div className="d-flex">
@@ -536,7 +551,7 @@ const CharDetail = ({match}) => {
           <div className="gray-bg w-90">
             <div className="d-flex border-b">
               <div className="d-flex skill-in border-r">
-                <h6 className="pt-3 pr-2 stat-txt">Unique Skill</h6>
+                <h6 className="pt-3 pr-1 stat-txt text-capitalize">{char.ne1Type}</h6>
               </div>
               <div className="d-flex skill-in">
                 <Image className="icon-skill" src={skill_humanoid} />
@@ -675,12 +690,22 @@ const CharDetail = ({match}) => {
       </div>
 
       <div className=" pt-3">
+        <Image src={char.full_url} className="img-fluid full-img mx-auto d-block" />
         <div className="gray-bg" >
           <div className="">
             <Row>
-              <Col className="text-center">CV: Apprentice Prinny</Col>
+              <Col className="text-center">CV: {!!char.cv ? char.cv : ('-')}</Col>
             </Row>
           </div>
+        </div>
+        <div className="gray-bg pt-1" >
+          <h3 className="text-center pt-1">Stars In</h3>
+          <div className="d-flex">
+            {!! char.starsIn &&(char.starsIn.map((game) => (
+              <Image src={require(`../../../assets/DRPG/icons/logo_${game.value}.png`)} className="img-icons" />
+            )))}
+          </div>
+
         </div>
       </div>
     </Container>
