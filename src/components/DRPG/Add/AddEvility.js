@@ -60,6 +60,8 @@ const AddEvility = () => {
   const [intType, setIntType] = useState('%');
   const [txt, setTxt] = useState('');
   const [turns, setTurns] = useState('');
+  const [unlock, setUnlock] = useState('');
+  const [unlockInt, setUnlockInt] = useState('');
 
   function onSubmit(e) {
     e.preventDefault()
@@ -74,7 +76,9 @@ const AddEvility = () => {
       int,
       intType,
       txt,
-      turns
+      turns,
+      unlock,
+      unlockInt
     })
   }
 
@@ -133,6 +137,16 @@ const AddEvility = () => {
             onChange={e => setTxt(e.currentTarget.value)}
           />
           <input className="w-10" type="number" name="Turns" onChange={e => setTurns(e.currentTarget.value)} />
+        </div>
+
+        <div className="d-flex">
+          <select name="Unlock" id="Unlock"
+            onChange={e => setUnlock(e.currentTarget.value)}
+          >
+            <option value=""></option>
+            <option value="N.E.">N.E.</option>
+          </select>
+          <input className="" type="number" name="UnlockInt" placeholder="UnlockInt" onChange={e => setUnlockInt(e.currentTarget.value)} />
         </div>
       
         <button className="button add-button">Add</button>

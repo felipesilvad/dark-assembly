@@ -93,7 +93,7 @@ const AddChar = () => {
   const [id, setID] = useState('');
   const [title, setTitle] = useState('');
   const [type, setType] = useState('humanoid');
-  const [forte, setForte] = useState('sword');
+  const [forte, setForte] = useState('Sword');
   const [gender, setGender] = useState('male');
   const [type_2, setType_2] = useState('unique');
   const [stars, setStars] = useState('');
@@ -270,15 +270,15 @@ const AddChar = () => {
                 <select name="forte" id="forte"
                   onChange={e => setForte(e.currentTarget.value)}
                 >
-                  <option value="sword">Sword</option>
-                  <option value="fist">Fist</option>
-                  <option value="spear">Spear</option>
-                  <option value="bow">Bow</option>
-                  <option value="gun">Gun</option>
-                  <option value="axe">Axe</option>
-                  <option value="staff">Staff</option>
-                  <option value="monster-1">Monster-1</option>
-                  <option value="monster-2">Monster-2</option>
+                  <option value="Sword">Sword</option>
+                  <option value="Fist">Fist</option>
+                  <option value="Spear">Spear</option>
+                  <option value="Bow">Bow</option>
+                  <option value="Gun">Gun</option>
+                  <option value="Axe">Axe</option>
+                  <option value="Staff">Staff</option>
+                  <option value="Monster1">Monster-1</option>
+                  <option value="Monster2">Monster-2</option>
                 </select>
               </div>
               <div>

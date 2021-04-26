@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import db from '../../../firebase';
 import CharDetailEvility from './CharDetailEvility';
+import CharDetailSkill from './CharDetailSkill';
 import { Row, Col, Image, Table, Container, Tabs, Tab } from 'react-bootstrap';
 
 
 const CharDetail = ({match}) => {
   const charRef = db.firestore().collection('games').doc('DRPG').collection('Characters').doc(match.params.id)
-  const evilityRef = db.firestore().collection('games').doc('DRPG').collection('Evility')
 
   const [char, setChar] = useState('');
-  const [evilityList, setEvilityList] = useState('');
 
   useEffect(() => {
     charRef.get().then((char) => {
@@ -17,9 +16,6 @@ const CharDetail = ({match}) => {
       setChar(newChar)
     })
   }, [])
-
-  const evilities = []
-
     
   const face = require('../../../assets/DRPG/temp/main.png');
   const cut = require('../../../assets/DRPG/temp/cut.png');
@@ -27,24 +23,24 @@ const CharDetail = ({match}) => {
   const male = require('../../../assets/DRPG/icons/male.png');
   const star = require('../../../assets/DRPG/icons/rare_star.png');
 
-  const e_fire = require('../../../assets/DRPG/icons/fire.png');
-  const e_water = require('../../../assets/DRPG/icons/water.png');
-  const e_wind = require('../../../assets/DRPG/icons/wind.png');
-  const e_star = require('../../../assets/DRPG/icons/star.png');
-  const poison = require('../../../assets/DRPG/icons/poison.png');
-  const paralysis = require('../../../assets/DRPG/icons/paralysis.png');
-  const sleep = require('../../../assets/DRPG/icons/sleep.png');
-  const forget = require('../../../assets/DRPG/icons/forget.png');
+  const e_fire = require('../../../assets/DRPG/icons/Fire.png');
+  const e_water = require('../../../assets/DRPG/icons/Water.png');
+  const e_wind = require('../../../assets/DRPG/icons/Wind.png');
+  const e_star = require('../../../assets/DRPG/icons/Star.png');
+  const poison = require('../../../assets/DRPG/icons/Poison.png');
+  const paralysis = require('../../../assets/DRPG/icons/Paralysis.png');
+  const sleep = require('../../../assets/DRPG/icons/Sleep.png');
+  const forget = require('../../../assets/DRPG/icons/Forget.png');
 
-  const Axe = require('../../../assets/DRPG/icons/weapons/axe.png');
-  const Bow = require('../../../assets/DRPG/icons/weapons/bow.png');
-  const Fist = require('../../../assets/DRPG/icons/weapons/fist.png');
-  const Gun = require('../../../assets/DRPG/icons/weapons/gun.png');
-  const Spear = require('../../../assets/DRPG/icons/weapons/spear.png');
-  const Staff = require('../../../assets/DRPG/icons/weapons/staff.png');
-  const Sword = require('../../../assets/DRPG/icons/weapons/sword.png');
-  const Monster1 = require('../../../assets/DRPG/icons/weapons/monster-1.png');
-  const Monster2 = require('../../../assets/DRPG/icons/weapons/monster-2.png');
+  const Axe = require('../../../assets/DRPG/icons/weapons/Axe.png');
+  const Bow = require('../../../assets/DRPG/icons/weapons/Bow.png');
+  const Fist = require('../../../assets/DRPG/icons/weapons/Fist.png');
+  const Gun = require('../../../assets/DRPG/icons/weapons/Gun.png');
+  const Spear = require('../../../assets/DRPG/icons/weapons/Spear.png');
+  const Staff = require('../../../assets/DRPG/icons/weapons/Staff.png');
+  const Sword = require('../../../assets/DRPG/icons/weapons/Sword.png');
+  const Monster1 = require('../../../assets/DRPG/icons/weapons/Monster1.png');
+  const Monster2 = require('../../../assets/DRPG/icons/weapons/Monster2.png');
 
   const skill_axe = require('../../../assets/DRPG/icons/skill/skill_axe.png');
   const skill_bow = require('../../../assets/DRPG/icons/skill/skill_bow.png');
@@ -346,21 +342,13 @@ const CharDetail = ({match}) => {
 
       <div className=" pt-3">
         <h3 className="sub-title">Evilities</h3>
-
-        
-
-        {!! char.evility &&(char.evility.map((doc) => (
-          <CharDetailEvility id={doc.value}/>
-        )))}
-
         <h4 className="e-type main-e-color">Main Evility</h4>
         <div className="d-flex">
           <div class="vl main-e-color"></div>
           <div className="d-block w-100">
-           <div className="gray-bg e-bg" >
-              <h3 className="border-b">Dodge Mastery</h3>
-              <h4>Self: SPD +7% when battle begins. (3 Turns)</h4>
-            </div>
+            {!! char.mainEvilities &&(char.mainEvilities.map((evility) => (
+              <CharDetailEvility id={evility.value}/>
+            )))}
           </div>
         </div>
 
@@ -368,35 +356,9 @@ const CharDetail = ({match}) => {
         <div className="d-flex">
           <div class="vl sub-e-color"></div>
           <div className="d-block w-100">
-
-            <div className="gray-bg e-bg" >
-              <div className="d-flex border-b">
-                <h5 className="ne-e border-r">N.E. 7</h5>
-                <div className=" w-90">
-                  <h3>Optimal Solution</h3>
-                </div>
-              </div>
-              <h4>Gun/Fist/Monster Physical-Equipping Members: Damage dealt +12%</h4>
-            </div>
-            
-            <div className="gray-bg e-bg" >
-              <div className="d-flex border-b">
-                <h5 className="ne-e border-r">N.E. 7</h5>
-                <div className=" w-90">
-                  <h3>Hero Me, Dood!</h3>
-                </div>
-              </div>
-              <h4>Self: Initial SP +10 when battle begins.</h4>
-            </div>
-            <div className="gray-bg e-bg" >
-              <div className="d-flex border-b">
-                <h5 className="ne-e border-r">N.E. 7</h5>
-                <div className=" w-90">
-                  <h3>Hero Me, Dood!</h3>
-                </div>
-              </div>
-              <h4>Self: Initial SP +10 when battle begins.</h4>
-            </div>
+            {!! char.subEvilities &&(char.subEvilities.map((evility) => (
+              <CharDetailEvility id={evility.value}/>
+            )))}
           </div>
         </div>
 
@@ -406,134 +368,14 @@ const CharDetail = ({match}) => {
         <h3 className="sub-title">Skills</h3>
         <Tabs className="d-flex justify-content-between" defaultActiveKey="unique">
           <Tab className="skill-tab" eventKey="unique" title="Unique Skills">
-            <div className="gray-bg e-bg" >
-              <div className="d-flex justify-content-between border-b">
-                <div className="d-flex skill-in">
-                  <Image className="icon-skill" src={skill_monster} />
-                  <h3 className="pt-1 pl-1">Optimal Solution</h3>
-                </div>
-                <div className="d-flex skill-in border-l">
-                  <h6 className="pt-3 pr-2 stat-txt">Lv</h6>
-                  <h3 className="pt-1 pl-0 pr-2">500</h3>
-                </div>
-              </div>
-              <div className="d-flex border-b">
-                <div className="d-flex skill-in pt-2 border-r">
-                  <Image className="icon-rank" src={pow_rank_s} />
-                  <Image className="icon-rank" src={pow_rank_plus} />
-                </div>
-                <div className="d-flex skill-in border-r">
-                  <h6 className="pt-3 pr-2 stat-txt">Element</h6>
-                  <Image className="icon-range" src={e_fire} />
-                </div>
-                <div className="d-flex skill-in">
-                  <h6 className="pt-3 stat-txt">Target</h6>
-                  <Image className="icon-range" src={range_icon_ally} />
-                  <h3 className="pt-3 pl-0 pr-2 sub-e-color e-type text-capitalize">One</h3>
-                </div>
-              </div>
-              <div className="d-flex ">
-                <div className="d-flex skill-in border-r">
-                  <h6 className="pt-3 pr-2 stat-txt">Stat</h6>
-                  <h3 className="pl-0 pr-2 RES-color e-type">RES</h3>
-                </div>
-                <div className="d-flex skill-in border-r">
-                  <h6 className="pt-3 pr-2 stat-txt">SP</h6>
-                  <h3 className="pt-1">20</h3>
-                </div>
-                <div className="d-flex skill-in">
-                  <h6 className="pt-3 pr-2 stat-txt">Effect</h6>
-                  <h3 className="pt-1 pl-0 pr-2">DEF -40%</h3>
-                </div>
-              </div>
-            </div>
-            <div className="gray-bg e-bg" >
-              <div className="d-flex justify-content-between border-b">
-                <div className="d-flex skill-in">
-                  <Image className="icon-skill" src={skill_monster} />
-                  <h3 className="pt-1">Sayonara Roboto</h3>
-                </div>
-                <div className="d-flex skill-in border-l">
-                  <h6 className="pt-3 pr-2 stat-txt">Wm</h6>
-                  <Image className="icon-range" src={Staff} />
-                  <h6 className="pt-3 pr-2 stat-txt">Lv</h6>
-                  <h3 className="pt-1 pl-0 pr-2">30</h3>
-                </div>
-              </div>
-              <div className="d-flex border-b">
-                <div className="d-flex skill-in pt-2 border-r">
-                  <Image className="icon-rank" src={pow_rank_s} />
-                  <Image className="icon-rank" src={pow_rank_plus} />
-                </div>
-                <div className="d-flex skill-in border-r">
-                  <h6 className="pt-3 pr-2 stat-txt">Element</h6>
-                  <Image className="icon-range" src={e_star} />
-                </div>
-                <div className="d-flex skill-in">
-                  <h6 className="pt-3 stat-txt">Target</h6>
-                  <Image className="icon-range" src={range_icon_ally} />
-                  <h3 className="pt-3 pl-0 pr-2 sub-e-color e-type text-capitalize">One</h3>
-                </div>
-              </div>
-              <div className="d-flex ">
-                <div className="d-flex skill-in border-r">
-                  <h6 className="pt-3 pr-2 stat-txt">Stat</h6>
-                  <h3 className="pl-0 pr-2 ATK-color e-type">ATK</h3>
-                </div>
-                <div className="d-flex skill-in border-r">
-                  <h6 className="pt-3 pr-2 stat-txt">SP</h6>
-                  <h3 className="pt-1">20</h3>
-                </div>
-                <div className="d-flex skill-in">
-                  <h6 className="pt-3 pr-2 stat-txt">Effect</h6>
-                  <h3 className="pt-1 pl-0 pr-2">Lesser Healing</h3>
-                </div>
-              </div>
-            </div>
-            <div className="gray-bg e-bg" >
-              <div className="d-flex justify-content-between border-b">
-                <div className="d-flex skill-in">
-                  <Image className="icon-skill" src={skill_monster} />
-                  <h3 className="pt-1">Optimal Solution</h3>
-                </div>
-                <div className="d-flex skill-in border-l">
-                  <h6 className="pt-3 pr-2 stat-txt">N.E.</h6>
-                  <h3 className="pt-1 pl-0 pr-2">30</h3>
-                </div>
-              </div>
-              <div className="d-flex border-b">
-                <div className="d-flex skill-in pt-2 border-r">
-                  <Image className="icon-rank" src={pow_rank_s} />
-                  <Image className="icon-rank" src={pow_rank_plus} />
-                </div>
-                <div className="d-flex skill-in border-r">
-                  <h6 className="pt-3 pr-2 stat-txt">Element</h6>
-                  <h3 className="pt-1">N/A</h3>
-                </div>
-                <div className="d-flex skill-in">
-                  <h6 className="pt-3 stat-txt">Target</h6>
-                  <Image className="icon-range" src={range_icon_enemy_all} />
-                  <h3 className="pt-3 pl-0 pr-2 sub-e-color e-type text-capitalize">All</h3>
-                </div>
-              </div>
-              <div className="d-flex ">
-                <div className="d-flex skill-in border-r">
-                  <h6 className="pt-3 pr-2 stat-txt">Stat</h6>
-                  <h3 className="pl-0 pr-2 INT-color e-type">INT</h3>
-                </div>
-                <div className="d-flex skill-in border-r">
-                  <h6 className="pt-3 pr-2 stat-txt">SP</h6>
-                  <h3 className="pt-1">20</h3>
-                </div>
-                <div className="d-flex skill-in">
-                  <h6 className="pt-3 pr-2 stat-txt">Effect</h6>
-                  <h3 className="pt-1 pl-0 pr-2">-</h3>
-                </div>
-              </div>
-            </div>
+            {!! char.uniqueSkills &&(char.uniqueSkills.map((skill) => (
+              <CharDetailSkill id={skill.value} type={char.type}/>
+            )))}
           </Tab>
           <Tab className="skill-tab" eventKey="spells" title="Spells">
-            Prof
+            {!! char.spells &&(char.spells.map((skill) => (
+              <CharDetailSkill id={skill.value} type={char.type}/>
+            )))}
           </Tab>
           <Tab className="skill-tab" eventKey="weapon" title="Weapon Skills">
             Prof
@@ -543,150 +385,226 @@ const CharDetail = ({match}) => {
 
       <div className=" pt-3">
         <h3 className="sub-title">N.E.</h3>
-
         <div className="d-flex pt-2">
           <div className="w-10">
             <h4 className="type_icons stat-txt ne-n p-2">1</h4>
           </div>
-          <div className="gray-bg w-90">
-            <div className="d-flex border-b">
-              <div className="d-flex skill-in border-r">
-                <h6 className="pt-3 pr-1 stat-txt text-capitalize">{char.ne1Type}</h6>
-              </div>
-              <div className="d-flex skill-in">
-                <Image className="icon-skill" src={skill_humanoid} />
-                <h3 className="pt-1 pl-1">Heart Catch</h3>
-              </div>
+          {(char.ne1Type == "stat") ? (
+            <div className="gray-bg w-90">
+              <h3 className="text-center p-2">All Stats except SPD +{char.ne1.value}%</h3>
             </div>
-            <div className="d-flex border-b">
-              <div className="d-flex skill-in pt-2 border-r">
-                <Image className="icon-rank" src={pow_rank_s} />
-                <Image className="icon-rank" src={pow_rank_plus} />
-              </div>
-              <div className="d-flex skill-in border-r">
-                <h6 className="pt-3 pr-2 stat-txt">Element</h6>
-                <h3 className="pt-1">N/A</h3>
-              </div>
-              <div className="d-flex skill-in">
-                <h6 className="pt-3 stat-txt">Target</h6>
-                <Image className="icon-range" src={range_icon_enemy_all} />
-                <h3 className="pt-3 pl-0 pr-2 sub-e-color e-type text-capitalize">All</h3>
-              </div>
+          ) : ('')}
+          {(char.ne1Type == "evility") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
+              <CharDetailEvility id={char.ne1.value} ne="True"/>
             </div>
-            <div className="d-flex ">
-              <div className="d-flex skill-in border-r">
-                <h6 className="pt-3 pr-2 stat-txt">Stat</h6>
-                <h3 className="pl-0 pr-2 INT-color e-type">INT</h3>
-              </div>
-              <div className="d-flex skill-in border-r">
-                <h6 className="pt-3 pr-2 stat-txt">SP</h6>
-                <h3 className="pt-1">20</h3>
-              </div>
-              <div className="d-flex skill-in">
-                <h6 className="pt-3 pr-2 stat-txt">Effect</h6>
-                <h3 className="pt-1 pl-0 pr-2">-</h3>
-              </div>
+          ) : ('')}
+          {(char.ne1Type == "skill") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
+              <CharDetailSkill id={char.ne1.value} ne="True"/>
             </div>
-          </div>
-        </div>
-
-        <div className="d-flex pt-2">
-          <div className="w-10">
-            <h5 className="type_icons stat-txt ne-n p-2">10</h5>
-          </div>
-          <div className="gray-bg w-90">
-            <div className="d-flex justify-content-between border-b">
-              <div className="d-flex skill-in">
-                <Image className="icon-skill" src={skill_monster} />
-                <h3 className="pt-1">Optimal Solution</h3>
-              </div>
-              <div className="d-flex skill-in border-l">
-                <h6 className="pt-3 pr-2 stat-txt">Wm</h6>
-                <Image className="icon-range" src={Axe} />
-                <h6 className="pt-3 pr-2 stat-txt">Lv</h6>
-                <h3 className="pt-1 pl-0 pr-2">30</h3>
-              </div>
-            </div>
-            <div className="d-flex border-b">
-              <div className="d-flex skill-in pt-2 border-r">
-                <Image className="icon-rank" src={pow_rank_s} />
-                <Image className="icon-rank" src={pow_rank_plus} />
-              </div>
-              <div className="d-flex skill-in border-r">
-                <h6 className="pt-3 pr-2 stat-txt">Element</h6>
-                <h3 className="pt-1">N/A</h3>
-              </div>
-              <div className="d-flex skill-in">
-                <h6 className="pt-3 stat-txt">Target</h6>
-                <Image className="icon-range" src={range_icon_enemy_all} />
-                <h3 className="pt-3 pl-0 pr-2 sub-e-color e-type text-capitalize">All</h3>
-              </div>
-            </div>
-            <div className="d-flex ">
-              <div className="d-flex skill-in border-r">
-                <h6 className="pt-3 pr-2 stat-txt">Stat</h6>
-                <h3 className="pl-0 pr-2 INT-color e-type">INT</h3>
-              </div>
-              <div className="d-flex skill-in border-r">
-                <h6 className="pt-3 pr-2 stat-txt">SP</h6>
-                <h3 className="pt-1">20</h3>
-              </div>
-              <div className="d-flex skill-in">
-                <h6 className="pt-3 pr-2 stat-txt">Effect</h6>
-                <h3 className="pt-1 pl-0 pr-2">-</h3>
-              </div>
-            </div>
-          </div>
+          ) : ('')}
         </div>
         <div className="d-flex pt-2">
           <div className="w-10">
             <h4 className="type_icons stat-txt ne-n p-2">2</h4>
           </div>
-          <div className="gray-bg w-90">
-            <div className="d-flex justify-content-between border-b">
-              <div className="d-flex skill-in">
-                <Image className="icon-skill" src={skill_monster} />
-                <h3 className="pt-1">Optimal Solution</h3>
-              </div>
-              <div className="d-flex skill-in border-l">
-                <h6 className="pt-3 pr-2 stat-txt">Wm</h6>
-                <Image className="icon-range" src={Axe} />
-                <h6 className="pt-3 pr-2 stat-txt">Lv</h6>
-                <h3 className="pt-1 pl-0 pr-2">30</h3>
-              </div>
+          {(char.ne2Type == "stat") ? (
+            <div className="gray-bg w-90">
+              <h3 className="text-center p-2">All Stats except SPD +{char.ne2.value}%</h3>
             </div>
-            <div className="d-flex border-b">
-              <div className="d-flex skill-in pt-2 border-r">
-                <Image className="icon-rank" src={pow_rank_s} />
-                <Image className="icon-rank" src={pow_rank_plus} />
-              </div>
-              <div className="d-flex skill-in border-r">
-                <h6 className="pt-3 pr-2 stat-txt">Element</h6>
-                <h3 className="pt-1">N/A</h3>
-              </div>
-              <div className="d-flex skill-in">
-                <h6 className="pt-3 stat-txt">Target</h6>
-                <Image className="icon-range" src={range_icon_enemy_all} />
-                <h3 className="pt-3 pl-0 pr-2 sub-e-color e-type text-capitalize">All</h3>
-              </div>
+          ) : ('')}
+          {(char.ne2Type == "evility") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
+              <CharDetailEvility id={char.ne2.value} ne="True"/>
             </div>
-            <div className="d-flex ">
-              <div className="d-flex skill-in border-r">
-                <h6 className="pt-3 pr-2 stat-txt">Stat</h6>
-                <h3 className="pl-0 pr-2 INT-color e-type">INT</h3>
-              </div>
-              <div className="d-flex skill-in border-r">
-                <h6 className="pt-3 pr-2 stat-txt">SP</h6>
-                <h3 className="pt-1">20</h3>
-              </div>
-              <div className="d-flex skill-in">
-                <h6 className="pt-3 pr-2 stat-txt">Effect</h6>
-                <h3 className="pt-1 pl-0 pr-2">-</h3>
-              </div>
+          ) : ('')}
+          {(char.ne2Type == "skill") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
+              <CharDetailSkill id={char.ne2.value} ne="True"/>
             </div>
-          </div>
+          ) : ('')}
         </div>
-        
+        <div className="d-flex pt-2">
+          <div className="w-10">
+            <h4 className="type_icons stat-txt ne-n p-2">3</h4>
+          </div>
+          {(char.ne3Type == "stat") ? (
+            <div className="gray-bg w-90">
+              <h3 className="text-center p-2">All Stats except SPD +{char.ne3.value}%</h3>
+            </div>
+          ) : ('')}
+          {(char.ne3Type == "evility") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
+              <CharDetailEvility id={char.ne3.value} ne="True"/>
+            </div>
+          ) : ('')}
+          {(char.ne3Type == "skill") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
+              <CharDetailSkill id={char.ne3.value} ne="True"/>
+            </div>
+          ) : ('')}
+        </div>
+        <div className="d-flex pt-2">
+          <div className="w-10">
+            <h4 className="type_icons stat-txt ne-n p-2">4</h4>
+          </div>
+          {(char.ne4Type == "stat") ? (
+            <div className="gray-bg w-90">
+              <h3 className="text-center p-2">All Stats except SPD +{char.ne4.value}%</h3>
+            </div>
+          ) : ('')}
+          {(char.ne4Type == "evility") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
+              <CharDetailEvility id={char.ne4.value} ne="True"/>
+            </div>
+          ) : ('')}
+          {(char.ne4Type == "skill") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
+              <CharDetailSkill id={char.ne4.value} ne="True"/>
+            </div>
+          ) : ('')}
+        </div>
+        <div className="d-flex pt-2">
+          <div className="w-10">
+            <h4 className="type_icons stat-txt ne-n p-2">5</h4>
+          </div>
+          {(char.ne5Type == "stat") ? (
+            <div className="gray-bg w-90">
+              <h3 className="text-center p-2">All Stats except SPD +{char.ne5.value}%</h3>
+            </div>
+          ) : ('')}
+          {(char.ne5Type == "evility") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
+              <CharDetailEvility id={char.ne5.value} ne="True"/>
+            </div>
+          ) : ('')}
+          {(char.ne5Type == "skill") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
+              <CharDetailSkill id={char.ne5.value} ne="True"/>
+            </div>
+          ) : ('')}
+        </div>
+        <div className="d-flex pt-2">
+          <div className="w-10">
+            <h4 className="type_icons stat-txt ne-n p-2">6</h4>
+          </div>
+          {(char.ne6Type == "stat") ? (
+            <div className="gray-bg w-90">
+              <h3 className="text-center p-2">All Stats except SPD +{char.ne6.value}%</h3>
+            </div>
+          ) : ('')}
+          {(char.ne6Type == "evility") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
+              <CharDetailEvility id={char.ne6.value} ne="True"/>
+            </div>
+          ) : ('')}
+          {(char.ne6Type == "skill") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
+              <CharDetailSkill id={char.ne6.value} ne="True"/>
+            </div>
+          ) : ('')}
+        </div>
+        <div className="d-flex pt-2">
+          <div className="w-10">
+            <h4 className="type_icons stat-txt ne-n p-2">7</h4>
+          </div>
+          {(char.ne7Type == "stat") ? (
+            <div className="gray-bg w-90">
+              <h3 className="text-center p-2">All Stats except SPD +{char.ne7.value}%</h3>
+            </div>
+          ) : ('')}
+          {(char.ne7Type == "evility") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
+              <CharDetailEvility id={char.ne7.value} ne="True"/>
+            </div>
+          ) : ('')}
+          {(char.ne7Type == "skill") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
+              <CharDetailSkill id={char.ne7.value} ne="True"/>
+            </div>
+          ) : ('')}
+        </div>
+        <div className="d-flex pt-2">
+          <div className="w-10">
+            <h4 className="type_icons stat-txt ne-n p-2">8</h4>
+          </div>
+          {(char.ne8Type == "stat") ? (
+            <div className="gray-bg w-90">
+              <h3 className="text-center p-2">All Stats except SPD +{char.ne8.value}%</h3>
+            </div>
+          ) : ('')}
+          {(char.ne8Type == "evility") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
+              <CharDetailEvility id={char.ne8.value} ne="True"/>
+            </div>
+          ) : ('')}
+          {(char.ne8Type == "skill") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
+              <CharDetailSkill id={char.ne8.value} ne="True"/>
+            </div>
+          ) : ('')}
+        </div>
+        <div className="d-flex pt-2">
+          <div className="w-10">
+            <h4 className="type_icons stat-txt ne-n p-2">9</h4>
+          </div>
+          {(char.ne9Type == "stat") ? (
+            <div className="gray-bg w-90">
+              <h3 className="text-center p-2">All Stats except SPD +{char.ne9.value}%</h3>
+            </div>
+          ) : ('')}
+          {(char.ne9Type == "evility") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
+              <CharDetailEvility id={char.ne9.value} ne="True"/>
+            </div>
+          ) : ('')}
+          {(char.ne9Type == "skill") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
+              <CharDetailSkill id={char.ne9.value} ne="True"/>
+            </div>
+          ) : ('')}
+        </div>
+        <div className="d-flex pt-2">
+          <div className="w-10">
+            <h4 className="type_icons stat-txt ne-n p-2">10</h4>
+          </div>
+          {(char.ne10Type == "stat") ? (
+            <div className="gray-bg w-90">
+              <h3 className="text-center p-2">All Stats except SPD +{char.ne10.value}%</h3>
+            </div>
+          ) : ('')}
+          {(char.ne10Type == "evility") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
+              <CharDetailEvility id={char.ne10.value} ne="True"/>
+            </div>
+          ) : ('')}
+          {(char.ne10Type == "skill") ? (
+            <div div className="w-90">
+              <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
+              <CharDetailSkill id={char.ne10.value} ne="True"/>
+            </div>
+          ) : ('')}
+        </div>
       </div>
 
       <div className=" pt-3">
