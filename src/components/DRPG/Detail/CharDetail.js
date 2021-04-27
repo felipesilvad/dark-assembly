@@ -4,10 +4,30 @@ import CharDetailEvility from './CharDetailEvility';
 import CharDetailSkill from './CharDetailSkill';
 import { Row, Col, Image, Table, Container, Tabs, Tab } from 'react-bootstrap';
 
+function useWmSkills() {
+  const [wmSkills, setWmSkills] = useState([])
+
+  useEffect(() => {
+    const unsubscribe = db.firestore().collection('games').doc('DRPG')
+      .collection('Skills').where('type', '==', 'Weapon Skill')
+      .onSnapshot((snapshot) => {
+        const newWmSkills = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data()
+        }))
+
+        setWmSkills(newWmSkills)
+      })
+    return () => unsubscribe()
+  }, [])
+
+  return wmSkills;
+}
 
 const CharDetail = ({match}) => {
-  const charRef = db.firestore().collection('games').doc('DRPG').collection('Characters').doc(match.params.id)
+  const wmSkills = useWmSkills()
 
+  const charRef = db.firestore().collection('games').doc('DRPG').collection('Characters').doc(match.params.id)
   const [char, setChar] = useState('');
 
   useEffect(() => {
@@ -16,11 +36,7 @@ const CharDetail = ({match}) => {
       setChar(newChar)
     })
   }, [])
-    
-  const face = require('../../../assets/DRPG/temp/main.png');
-  const cut = require('../../../assets/DRPG/temp/cut.png');
 
-  const male = require('../../../assets/DRPG/icons/male.png');
   const star = require('../../../assets/DRPG/icons/rare_star.png');
 
   const e_fire = require('../../../assets/DRPG/icons/Fire.png');
@@ -41,32 +57,6 @@ const CharDetail = ({match}) => {
   const Sword = require('../../../assets/DRPG/icons/weapons/Sword.png');
   const Monster1 = require('../../../assets/DRPG/icons/weapons/Monster1.png');
   const Monster2 = require('../../../assets/DRPG/icons/weapons/Monster2.png');
-
-  const skill_axe = require('../../../assets/DRPG/icons/skill/skill_axe.png');
-  const skill_bow = require('../../../assets/DRPG/icons/skill/skill_bow.png');
-  const skill_fist = require('../../../assets/DRPG/icons/skill/skill_fist.png');
-  const skill_gun = require('../../../assets/DRPG/icons/skill/skill_gun.png');
-  const skill_spear = require('../../../assets/DRPG/icons/skill/skill_spear.png');
-  const skill_sword = require('../../../assets/DRPG/icons/skill/skill_sword.png');
-  const skill_staff = require('../../../assets/DRPG/icons/skill/skill_staff.png');
-  const skill_humanoid = require('../../../assets/DRPG/icons/skill/skill_humanoid.png');
-  const skill_monster = require('../../../assets/DRPG/icons/skill/skill_monster.png');
-
-  const pow_rank_a = require('../../../assets/DRPG/icons/skill/pow_rank_a.png');
-  const pow_rank_b = require('../../../assets/DRPG/icons/skill/pow_rank_b.png');
-  const pow_rank_c = require('../../../assets/DRPG/icons/skill/pow_rank_c.png');
-  const pow_rank_d = require('../../../assets/DRPG/icons/skill/pow_rank_d.png');
-  const pow_rank_e = require('../../../assets/DRPG/icons/skill/pow_rank_e.png');
-  const pow_rank_f = require('../../../assets/DRPG/icons/skill/pow_rank_f.png');
-  const pow_rank_g = require('../../../assets/DRPG/icons/skill/pow_rank_g.png');
-  const pow_rank_s = require('../../../assets/DRPG/icons/skill/pow_rank_s.png');
-  const pow_rank_ss = require('../../../assets/DRPG/icons/skill/pow_rank_ss.png');
-  const pow_rank_plus = require('../../../assets/DRPG/icons/skill/pow_rank_plus.png');
-
-  const range_icon_ally = require('../../../assets/DRPG/icons/skill/range_icon_ally.png');
-  const range_icon_ally_all = require('../../../assets/DRPG/icons/skill/range_icon_ally_all.png');
-  const range_icon_enemy = require('../../../assets/DRPG/icons/skill/range_icon_enemy.png');
-  const range_icon_enemy_all = require('../../../assets/DRPG/icons/skill/range_icon_enemy_all.png');
 
   return (
     <Container className="p-0">
@@ -377,9 +367,42 @@ const CharDetail = ({match}) => {
               <CharDetailSkill id={skill.value} type={char.type}/>
             )))}
           </Tab>
-          <Tab className="skill-tab" eventKey="weapon" title="Weapon Skills">
-            Prof
-          </Tab>
+          {(char.type === "humanoid") ? (
+            <Tab className="skill-tab" eventKey="weapon" title="Weapon Skills">
+              <Tabs className="d-flex justify-content-between" defaultActiveKey="Sword">
+                <Tab className="skill-tab" eventKey="Sword" title={<Image src={Sword} className="w_icons" />}>
+                  {wmSkills.map((skill) => (
+                    (skill.weapon === "Sword") ? (<CharDetailSkill id={skill.id} type={char.type} />) : ('')
+                  ))}
+                </Tab>
+                <Tab className="skill-tab" eventKey="Fist" title={<Image src={Fist} className="w_icons" />}>
+                  {wmSkills.map((skill) => (
+                    (skill.weapon === "Fist") ? (<CharDetailSkill id={skill.id} type={char.type} />) : ('')
+                  ))}
+                </Tab>
+                <Tab className="skill-tab" eventKey="Spear" title={<Image src={Spear} className="w_icons" />}>
+                  {wmSkills.map((skill) => (
+                    (skill.weapon === "Spear") ? (<CharDetailSkill id={skill.id} type={char.type} />) : ('')
+                  ))}
+                </Tab>
+                <Tab className="skill-tab" eventKey="Bow" title={<Image src={Bow} className="w_icons" />}>
+                  {wmSkills.map((skill) => (
+                    (skill.weapon === "Bow") ? (<CharDetailSkill id={skill.id} type={char.type} />) : ('')
+                  ))}
+                </Tab>
+                <Tab className="skill-tab" eventKey="Gun" title={<Image src={Gun} className="w_icons" />}>
+                  {wmSkills.map((skill) => (
+                    (skill.weapon === "Gun") ? (<CharDetailSkill id={skill.id} type={char.type} />) : ('')
+                  ))}
+                </Tab>
+                <Tab className="skill-tab" eventKey="Axe" title={<Image src={Axe} className="w_icons" />}>
+                  {wmSkills.map((skill) => (
+                    (skill.weapon === "Axe") ? (<CharDetailSkill id={skill.id} type={char.type} />) : ('')
+                  ))}
+                </Tab>
+              </Tabs>
+            </Tab>
+          ) : ('')}
         </Tabs>
       </div>
 
@@ -389,18 +412,18 @@ const CharDetail = ({match}) => {
           <div className="w-10">
             <h4 className="type_icons stat-txt ne-n p-2">1</h4>
           </div>
-          {(char.ne1Type == "stat") ? (
+          {(char.ne1Type === "stat") ? (
             <div className="gray-bg w-90">
               <h3 className="text-center p-2">All Stats except SPD +{char.ne1.value}%</h3>
             </div>
           ) : ('')}
-          {(char.ne1Type == "evility") ? (
+          {(char.ne1Type === "evility") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
               <CharDetailEvility id={char.ne1.value} ne="True"/>
             </div>
           ) : ('')}
-          {(char.ne1Type == "skill") ? (
+          {(char.ne1Type === "skill") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
               <CharDetailSkill id={char.ne1.value} ne="True"/>
@@ -411,18 +434,18 @@ const CharDetail = ({match}) => {
           <div className="w-10">
             <h4 className="type_icons stat-txt ne-n p-2">2</h4>
           </div>
-          {(char.ne2Type == "stat") ? (
+          {(char.ne2Type === "stat") ? (
             <div className="gray-bg w-90">
               <h3 className="text-center p-2">All Stats except SPD +{char.ne2.value}%</h3>
             </div>
           ) : ('')}
-          {(char.ne2Type == "evility") ? (
+          {(char.ne2Type === "evility") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
               <CharDetailEvility id={char.ne2.value} ne="True"/>
             </div>
           ) : ('')}
-          {(char.ne2Type == "skill") ? (
+          {(char.ne2Type === "skill") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
               <CharDetailSkill id={char.ne2.value} ne="True"/>
@@ -433,18 +456,18 @@ const CharDetail = ({match}) => {
           <div className="w-10">
             <h4 className="type_icons stat-txt ne-n p-2">3</h4>
           </div>
-          {(char.ne3Type == "stat") ? (
+          {(char.ne3Type === "stat") ? (
             <div className="gray-bg w-90">
               <h3 className="text-center p-2">All Stats except SPD +{char.ne3.value}%</h3>
             </div>
           ) : ('')}
-          {(char.ne3Type == "evility") ? (
+          {(char.ne3Type === "evility") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
               <CharDetailEvility id={char.ne3.value} ne="True"/>
             </div>
           ) : ('')}
-          {(char.ne3Type == "skill") ? (
+          {(char.ne3Type === "skill") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
               <CharDetailSkill id={char.ne3.value} ne="True"/>
@@ -455,18 +478,18 @@ const CharDetail = ({match}) => {
           <div className="w-10">
             <h4 className="type_icons stat-txt ne-n p-2">4</h4>
           </div>
-          {(char.ne4Type == "stat") ? (
+          {(char.ne4Type === "stat") ? (
             <div className="gray-bg w-90">
               <h3 className="text-center p-2">All Stats except SPD +{char.ne4.value}%</h3>
             </div>
           ) : ('')}
-          {(char.ne4Type == "evility") ? (
+          {(char.ne4Type === "evility") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
               <CharDetailEvility id={char.ne4.value} ne="True"/>
             </div>
           ) : ('')}
-          {(char.ne4Type == "skill") ? (
+          {(char.ne4Type === "skill") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
               <CharDetailSkill id={char.ne4.value} ne="True"/>
@@ -477,18 +500,18 @@ const CharDetail = ({match}) => {
           <div className="w-10">
             <h4 className="type_icons stat-txt ne-n p-2">5</h4>
           </div>
-          {(char.ne5Type == "stat") ? (
+          {(char.ne5Type === "stat") ? (
             <div className="gray-bg w-90">
               <h3 className="text-center p-2">All Stats except SPD +{char.ne5.value}%</h3>
             </div>
           ) : ('')}
-          {(char.ne5Type == "evility") ? (
+          {(char.ne5Type === "evility") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
               <CharDetailEvility id={char.ne5.value} ne="True"/>
             </div>
           ) : ('')}
-          {(char.ne5Type == "skill") ? (
+          {(char.ne5Type === "skill") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
               <CharDetailSkill id={char.ne5.value} ne="True"/>
@@ -499,18 +522,18 @@ const CharDetail = ({match}) => {
           <div className="w-10">
             <h4 className="type_icons stat-txt ne-n p-2">6</h4>
           </div>
-          {(char.ne6Type == "stat") ? (
+          {(char.ne6Type === "stat") ? (
             <div className="gray-bg w-90">
               <h3 className="text-center p-2">All Stats except SPD +{char.ne6.value}%</h3>
             </div>
           ) : ('')}
-          {(char.ne6Type == "evility") ? (
+          {(char.ne6Type === "evility") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
               <CharDetailEvility id={char.ne6.value} ne="True"/>
             </div>
           ) : ('')}
-          {(char.ne6Type == "skill") ? (
+          {(char.ne6Type === "skill") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
               <CharDetailSkill id={char.ne6.value} ne="True"/>
@@ -521,18 +544,18 @@ const CharDetail = ({match}) => {
           <div className="w-10">
             <h4 className="type_icons stat-txt ne-n p-2">7</h4>
           </div>
-          {(char.ne7Type == "stat") ? (
+          {(char.ne7Type === "stat") ? (
             <div className="gray-bg w-90">
               <h3 className="text-center p-2">All Stats except SPD +{char.ne7.value}%</h3>
             </div>
           ) : ('')}
-          {(char.ne7Type == "evility") ? (
+          {(char.ne7Type === "evility") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
               <CharDetailEvility id={char.ne7.value} ne="True"/>
             </div>
           ) : ('')}
-          {(char.ne7Type == "skill") ? (
+          {(char.ne7Type === "skill") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
               <CharDetailSkill id={char.ne7.value} ne="True"/>
@@ -543,18 +566,18 @@ const CharDetail = ({match}) => {
           <div className="w-10">
             <h4 className="type_icons stat-txt ne-n p-2">8</h4>
           </div>
-          {(char.ne8Type == "stat") ? (
+          {(char.ne8Type === "stat") ? (
             <div className="gray-bg w-90">
               <h3 className="text-center p-2">All Stats except SPD +{char.ne8.value}%</h3>
             </div>
           ) : ('')}
-          {(char.ne8Type == "evility") ? (
+          {(char.ne8Type === "evility") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
               <CharDetailEvility id={char.ne8.value} ne="True"/>
             </div>
           ) : ('')}
-          {(char.ne8Type == "skill") ? (
+          {(char.ne8Type === "skill") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
               <CharDetailSkill id={char.ne8.value} ne="True"/>
@@ -565,18 +588,18 @@ const CharDetail = ({match}) => {
           <div className="w-10">
             <h4 className="type_icons stat-txt ne-n p-2">9</h4>
           </div>
-          {(char.ne9Type == "stat") ? (
+          {(char.ne9Type === "stat") ? (
             <div className="gray-bg w-90">
               <h3 className="text-center p-2">All Stats except SPD +{char.ne9.value}%</h3>
             </div>
           ) : ('')}
-          {(char.ne9Type == "evility") ? (
+          {(char.ne9Type === "evility") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
               <CharDetailEvility id={char.ne9.value} ne="True"/>
             </div>
           ) : ('')}
-          {(char.ne9Type == "skill") ? (
+          {(char.ne9Type === "skill") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
               <CharDetailSkill id={char.ne9.value} ne="True"/>
@@ -587,18 +610,18 @@ const CharDetail = ({match}) => {
           <div className="w-10">
             <h4 className="type_icons stat-txt ne-n p-2">10</h4>
           </div>
-          {(char.ne10Type == "stat") ? (
+          {(char.ne10Type === "stat") ? (
             <div className="gray-bg w-90">
               <h3 className="text-center p-2">All Stats except SPD +{char.ne10.value}%</h3>
             </div>
           ) : ('')}
-          {(char.ne10Type == "evility") ? (
+          {(char.ne10Type === "evility") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">Sub Evility</h6>
               <CharDetailEvility id={char.ne10.value} ne="True"/>
             </div>
           ) : ('')}
-          {(char.ne10Type == "skill") ? (
+          {(char.ne10Type === "skill") ? (
             <div div className="w-90">
               <h6 className="pr-1 stat-txt text-capitalize">unique skill</h6>
               <CharDetailSkill id={char.ne10.value} ne="True"/>
@@ -618,7 +641,7 @@ const CharDetail = ({match}) => {
         </div>
         <div className="gray-bg pt-1" >
           <h3 className="text-center pt-1">Stars In</h3>
-          <div className="d-flex">
+          <div className="d-block">
             {!! char.starsIn &&(char.starsIn.map((game) => (
               <Image src={require(`../../../assets/DRPG/icons/logo_${game.value}.png`)} className="img-icons" />
             )))}

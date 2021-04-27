@@ -51,7 +51,7 @@ const CharDetailSkill = ({id, type, ne}) => {
   const range_icon_enemy_all = require('../../../assets/DRPG/icons/skill/range_icon_enemy_all.png');
 
   return (
-    <div className="gray-bg e-bg" >
+    <div className="gray-bg e-bg" id={id} >
       <div className="d-flex justify-content-between border-b">
         <div className="d-flex skill-in">
           {(skill.type == "Unique Skill") ? (
@@ -89,23 +89,23 @@ const CharDetailSkill = ({id, type, ne}) => {
           {!!skill.pwr && (
             <>
               {(skill.pwr == "G") ? (<Image className="icon-rank" src={pow_rank_G} />) : ('')}
-              {(skill.pwr == "G+") ? (<><Image className="icon-rank" src={pow_rank_G} /><Image className="icon-rank" src={pow_rank_plus} /></>) : ('')}
+              {(skill.pwr == "G+") ? (<><Image className="icon-rank" src={pow_rank_G} /><Image className="icon-rank-plus" src={pow_rank_plus} /></>) : ('')}
               {(skill.pwr == "F") ? (<Image className="icon-rank" src={pow_rank_F} />) : ('')}
-              {(skill.pwr == "F+") ? (<><Image className="icon-rank" src={pow_rank_F} /><Image className="icon-rank" src={pow_rank_plus} /></>) : ('')}
+              {(skill.pwr == "F+") ? (<><Image className="icon-rank" src={pow_rank_F} /><Image className="icon-rank-plus" src={pow_rank_plus} /></>) : ('')}
               {(skill.pwr == "E") ? (<Image className="icon-rank" src={pow_rank_E} />) : ('')}
-              {(skill.pwr == "E+") ? (<><Image className="icon-rank" src={pow_rank_E} /><Image className="icon-rank" src={pow_rank_plus} /></>) : ('')}
+              {(skill.pwr == "E+") ? (<><Image className="icon-rank" src={pow_rank_E} /><Image className="icon-rank-plus" src={pow_rank_plus} /></>) : ('')}
               {(skill.pwr == "D") ? (<Image className="icon-rank" src={pow_rank_D} />) : ('')}
-              {(skill.pwr == "D+") ? (<><Image className="icon-rank" src={pow_rank_D} /><Image className="icon-rank" src={pow_rank_plus} /></>) : ('')}
+              {(skill.pwr == "D+") ? (<><Image className="icon-rank" src={pow_rank_D} /><Image className="icon-rank-plus" src={pow_rank_plus} /></>) : ('')}
               {(skill.pwr == "C") ? (<Image className="icon-rank" src={pow_rank_C} />) : ('')}
-              {(skill.pwr == "C+") ? (<><Image className="icon-rank" src={pow_rank_C} /><Image className="icon-rank" src={pow_rank_plus} /></>) : ('')}
+              {(skill.pwr == "C+") ? (<><Image className="icon-rank" src={pow_rank_C} /><Image className="icon-rank-plus" src={pow_rank_plus} /></>) : ('')}
               {(skill.pwr == "B") ? (<Image className="icon-rank" src={pow_rank_B} />) : ('')}
-              {(skill.pwr == "B+") ? (<><Image className="icon-rank" src={pow_rank_B} /><Image className="icon-rank" src={pow_rank_plus} /></>) : ('')}
+              {(skill.pwr == "B+") ? (<><Image className="icon-rank" src={pow_rank_B} /><Image className="icon-rank-plus" src={pow_rank_plus} /></>) : ('')}
               {(skill.pwr == "A") ? (<Image className="icon-rank" src={pow_rank_A} />) : ('')}
-              {(skill.pwr == "A+") ? (<><Image className="icon-rank" src={pow_rank_A} /><Image className="icon-rank" src={pow_rank_plus} /></>) : ('')}
+              {(skill.pwr == "A+") ? (<><Image className="icon-rank" src={pow_rank_A} /><Image className="icon-rank-plus" src={pow_rank_plus} /></>) : ('')}
               {(skill.pwr == "S") ? (<Image className="icon-rank" src={pow_rank_S} />) : ('')}
-              {(skill.pwr == "S+") ? (<><Image className="icon-rank" src={pow_rank_S} /><Image className="icon-rank" src={pow_rank_plus} /></>) : ('')}
+              {(skill.pwr == "S+") ? (<><Image className="icon-rank" src={pow_rank_S} /><Image className="icon-rank-plus" src={pow_rank_plus} /></>) : ('')}
               {(skill.pwr == "SS") ? (<Image className="icon-rank" src={pow_rank_SS} />) : ('')}
-              {(skill.pwr == "SS+") ? (<><Image className="icon-rank" src={pow_rank_SS} /><Image className="icon-rank" src={pow_rank_plus} /></>) : ('')}
+              {(skill.pwr == "SS+") ? (<><Image className="icon-rank" src={pow_rank_SS} /><Image className="icon-rank-plus" src={pow_rank_plus} /></>) : ('')}
             </>
           )}
         </div>
@@ -143,10 +143,12 @@ const CharDetailSkill = ({id, type, ne}) => {
         </div>
       </div>
       <div className="d-flex ">
-        <div className="d-flex skill-in border-r">
-          <h6 className="pt-3 pr-2 stat-txt">Stat</h6>
-          <h3 className={`pl-0 pr-2 ${skill.stat}-color e-type`}>{skill.stat}</h3>
-        </div>
+        {!!skill.stat && (
+          <div className="d-flex skill-in border-r">
+            <h6 className="pt-3 pr-2 stat-txt">Stat</h6>
+            <h3 className={`pl-0 pr-2 ${skill.stat}-color e-type`}>{skill.stat}</h3>
+          </div>
+        )}
         <div className="d-flex skill-in border-r">
           <h6 className="pt-3 pr-2 stat-txt">SP</h6>
           <h3 className="pt-1">{skill.sp}</h3>

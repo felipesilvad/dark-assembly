@@ -91,23 +91,23 @@ const AddEvility = () => {
           >
             <option value=""></option>
             <option value="G">G</option>
-            <option value="G">G+</option>
+            <option value="G+">G+</option>
             <option value="F">F</option>
-            <option value="F">F+</option>
+            <option value="F+">F+</option>
             <option value="E">E</option>
-            <option value="E">E+</option>
+            <option value="E+">E+</option>
             <option value="D">D</option>
-            <option value="D">D+</option>
+            <option value="D+">D+</option>
             <option value="C">C</option>
-            <option value="C">C+</option>
+            <option value="C+">C+</option>
             <option value="B">B</option>
-            <option value="B">B+</option>
+            <option value="B+">B+</option>
             <option value="A">A</option>
-            <option value="A">A+</option>
+            <option value="A+">A+</option>
             <option value="S">S</option>
-            <option value="S">S+</option>
+            <option value="S+">S+</option>
             <option value="SS">SS</option>
-            <option value="SS">SS+</option>
+            <option value="SS+">SS+</option>
           </select>
         </div>
         <div className="d-flex">
