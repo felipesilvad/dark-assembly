@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import db from '../../../firebase';
 import CharsListItem from './CharsListItem';
-import { Row, Col, Image, Table, Container, Tabs, Tab } from 'react-bootstrap';
-
+import { Row } from 'react-bootstrap';
 
 function useChars() {
   const [chars, setChars] = useState([])
@@ -33,17 +32,15 @@ const CharsList = () => {
   return (
     <div>
       <h2>Characters List</h2>
-      {chars.map((char) => (
-        <CharsListItem
-          id={char.id}
-          title={char.title}
-        />
-      ))}
-      <div className="d-block">
-        <div>
-          <Image />
-        </div>
-      </div>
+      <Row className="">
+        {chars.map((char) => (
+          <CharsListItem
+            id={char.id}
+            title={char.title}
+            portrait_url={char.portrait_url}
+          />
+        ))}
+      </Row>
     </div>
   )
 }

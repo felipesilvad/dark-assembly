@@ -11,6 +11,7 @@ function useTargets() {
       .collection('games')
       .doc('DRPG')
       .collection('Targets')
+      .orderBy('title')
       .onSnapshot((snapshot) => {
         const newTargets = snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -34,6 +35,7 @@ function useStats() {
       .collection('games')
       .doc('DRPG')
       .collection('Stats')
+      .orderBy('title')
       .onSnapshot((snapshot) => {
         const newStats = snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -60,8 +62,8 @@ const AddEvility = () => {
   const [intType, setIntType] = useState('%');
   const [txt, setTxt] = useState('');
   const [turns, setTurns] = useState('');
-  const [unlock, setUnlock] = useState('');
-  const [unlockInt, setUnlockInt] = useState('');
+  // const [unlock, setUnlock] = useState('');
+  // const [unlockInt, setUnlockInt] = useState('');
 
   function onSubmit(e) {
     e.preventDefault()
@@ -77,8 +79,8 @@ const AddEvility = () => {
       intType,
       txt,
       turns,
-      unlock,
-      unlockInt
+      // unlock,
+      // unlockInt
     })
   }
 
@@ -139,7 +141,7 @@ const AddEvility = () => {
           <input className="w-10" type="number" name="Turns" onChange={e => setTurns(e.currentTarget.value)} />
         </div>
 
-        <div className="d-flex">
+        {/* <div className="d-flex">
           <select name="Unlock" id="Unlock"
             onChange={e => setUnlock(e.currentTarget.value)}
           >
@@ -147,7 +149,7 @@ const AddEvility = () => {
             <option value="N.E.">N.E.</option>
           </select>
           <input className="" type="number" name="UnlockInt" placeholder="UnlockInt" onChange={e => setUnlockInt(e.currentTarget.value)} />
-        </div>
+        </div> */}
       
         <button className="button add-button">Add</button>
       </form>

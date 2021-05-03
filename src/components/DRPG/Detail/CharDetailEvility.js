@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import db from '../../../firebase';
 
-const CharDetailEvility = ({id, ne}) => {
+const CharDetailEvility = ({id, ne, neInt}) => {
   const evilityRef = db.firestore().collection('games').doc('DRPG').collection('Evility').doc(id)
   const [evility, setEvility] = useState('');
 
@@ -15,11 +15,11 @@ const CharDetailEvility = ({id, ne}) => {
   return (
     <>
       {!ne ? (
-        <div key={id} className="gray-bg e-bg" >
-          {!!evility.unlock ? (
+        <div key={id} id={id} className="gray-bg e-bg" >
+          {!!neInt ? (
             <div className="d-flex border-b">
-              <h5 className="ne-e border-r">{evility.unlock} {evility.unlockInt}</h5>
-              <div className=" w-90">
+              <h5 className="ne-e border-r">N.E. {neInt}</h5>
+              <div className="w-90 pr-4">
                 <h3>{evility.title}</h3>
               </div>
             </div>
@@ -27,14 +27,14 @@ const CharDetailEvility = ({id, ne}) => {
             <h3 className="border-b">{evility.title}</h3>
           )}
           <h4>
-            {evility.target}: {evility.stat}{evility.int}{evility.intType} {!!evility.txt && evility.txt} {!!evility.turn && (`(${evility.turn} turns)`)}
+          {evility.target}{(evility.target !== "") ? (': ') : ('')} {evility.stat}{evility.int}{evility.intType} {!!evility.txt && evility.txt} {!!evility.turn && (`(${evility.turn} turns)`)}
           </h4>
         </div>
       ) : (
-        <div key={id} className="gray-bg e-bg" >
+        <div key={id} id={id} className="gray-bg e-bg" >
           <h3 className="border-b">{evility.title}</h3>
           <h4>
-            {evility.target}: {evility.stat}{evility.int}{evility.intType} {!!evility.txt && evility.txt} {!!evility.turn && (`(${evility.turn} turns)`)}
+            {evility.target}{(evility.target !== "") ? (': ') : ('')} {evility.stat}{evility.int}{evility.intType} {!!evility.txt && evility.txt} {!!evility.turn && (`(${evility.turn} turns)`)}
           </h4>
         </div>
       )}

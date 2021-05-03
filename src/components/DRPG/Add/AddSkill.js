@@ -11,6 +11,7 @@ function useSkillEffect() {
       .collection('games')
       .doc('DRPG')
       .collection('Effects')
+      .orderBy('title')
       .onSnapshot((snapshot) => {
         const newEffects = snapshot.docs.map((doc) => ({
           id: doc.id,

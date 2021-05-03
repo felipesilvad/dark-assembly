@@ -6,8 +6,9 @@ export default class Header extends PureComponent {
     return (
       <div>
         <nav>
-          <Link to='/add-char'>Add Character</Link>
-          <Link to='/characters'>Character List</Link>
+          <Link to='/DRPG/adm/add-char'>Add Character</Link>
+          <Link to='/DRPG/characters'>Character List</Link>
+          <Link to='/DRPG/evilities'>Evility List</Link>
         </nav>
       </div>
     )

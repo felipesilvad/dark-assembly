@@ -80,8 +80,8 @@ const CharDetail = ({match}) => {
             </div>
           </div>
           <div className="mt-2 d-flex">
-            <h3 className="font-weight-bold text-uppercase pt-1 pr-2">Stats at</h3>
-            <Image src={star} className="star" /> <Image src={star} className="star" /> <Image src={star} className="star" /> <Image src={star} className="star" /> <Image src={star} className="star" /> <Image src={star} className="star" />
+            <h3 className="font-weight-bold text-uppercase pt-1 pr-2">Stats</h3>
+            {/* <Image src={star} className="star" /> <Image src={star} className="star" /> <Image src={star} className="star" /> <Image src={star} className="star" /> <Image src={star} className="star" /> <Image src={star} className="star" /> */}
           </div>
           <Table striped bordered className="gray-bg" >
             <thead>
@@ -336,9 +336,9 @@ const CharDetail = ({match}) => {
         <div className="d-flex">
           <div class="vl main-e-color"></div>
           <div className="d-block w-100">
-            {!! char.mainEvilities &&(char.mainEvilities.map((evility) => (
-              <CharDetailEvility id={evility.value}/>
-            )))}
+            {!! char.mainEvility &&(
+              <CharDetailEvility id={char.mainEvility.value}/>
+            )}
           </div>
         </div>
 
@@ -346,9 +346,36 @@ const CharDetail = ({match}) => {
         <div className="d-flex">
           <div class="vl sub-e-color"></div>
           <div className="d-block w-100">
-            {!! char.subEvilities &&(char.subEvilities.map((evility) => (
-              <CharDetailEvility id={evility.value}/>
-            )))}
+            {(char.ne1Type === "evility") ? (
+              <CharDetailEvility id={char.ne1.value} neInt="1"/>
+            ) : ('')}
+            {(char.ne2Type === "evility") ? (
+              <CharDetailEvility id={char.ne2.value} neInt="2"/>
+            ) : ('')}
+            {(char.ne3Type === "evility") ? (
+              <CharDetailEvility id={char.ne3.value} neInt="3"/>
+            ) : ('')}
+            {(char.ne4Type === "evility") ? (
+              <CharDetailEvility id={char.ne4.value} neInt="4"/>
+            ) : ('')}
+            {(char.ne5Type === "evility") ? (
+              <CharDetailEvility id={char.ne5.value} neInt="5"/>
+            ) : ('')}
+            {(char.ne6Type === "evility") ? (
+              <CharDetailEvility id={char.ne6.value} neInt="6"/>
+            ) : ('')}
+            {(char.ne7Type === "evility") ? (
+              <CharDetailEvility id={char.ne7.value} neInt="7"/>
+            ) : ('')}
+            {(char.ne8Type === "evility") ? (
+              <CharDetailEvility id={char.ne8.value} neInt="8"/>
+            ) : ('')}
+            {(char.ne9Type === "evility") ? (
+              <CharDetailEvility id={char.ne9.value} neInt="9"/>
+            ) : ('')}
+            {(char.ne10Type === "evility") ? (
+              <CharDetailEvility id={char.ne10.value} neInt="10"/>
+            ) : ('')}
           </div>
         </div>
 
@@ -363,9 +390,21 @@ const CharDetail = ({match}) => {
             )))}
           </Tab>
           <Tab className="skill-tab" eventKey="spells" title="Spells">
-            {!! char.spells &&(char.spells.map((skill) => (
-              <CharDetailSkill id={skill.value} type={char.type}/>
-            )))}
+            {!! char.spell4 &&(
+              <CharDetailSkill id={char.spell4.value} type={char.type} wmlv={4} />
+            )}
+            {!! char.spell9 &&(
+              <CharDetailSkill id={char.spell9.value} type={char.type} wmlv={9} />
+            )}
+            {!! char.spell15 &&(
+              <CharDetailSkill id={char.spell15.value} type={char.type} wmlv={15} />
+            )}
+            {!! char.spell22 &&(
+              <CharDetailSkill id={char.spell22.value} type={char.type} wmlv={22} />
+            )}
+            {!! char.spell30 &&(
+              <CharDetailSkill id={char.spell30.value} type={char.type} wmlv={30} />
+            )}
           </Tab>
           {(char.type === "humanoid") ? (
             <Tab className="skill-tab" eventKey="weapon" title="Weapon Skills">

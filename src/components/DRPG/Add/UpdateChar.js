@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import firebase, {storage} from '../../../firebase';
-import { toast } from 'react-toastify';
+import db from '../../../firebase';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Row, Col, Container } from 'react-bootstrap';
 import AddEvility from './AddEvility';
@@ -10,8 +11,6 @@ import AddSkill from './AddSkill';
 import AddSkillEffect from './AddSkillEffect';
 import Select from 'react-select';
 import moment from 'moment';
-
-
 
 function useEvilities() {
   const [evilities, setEvilities] = useState([])
@@ -58,7 +57,17 @@ function useSkills() {
 }
 
 
-const AddChar = () => {
+const UpdateChar = ({match}) => {
+
+  const charRef = db.firestore().collection('games').doc('DRPG').collection('Characters').doc(match.params.id)
+  const [char, setChar] = useState('');
+
+  useEffect(() => {
+    charRef.get().then((char) => {
+      const newChar = char.data();
+      setChar(newChar)
+    })
+  }, [])
 
   const evilities = useEvilities();
   const skills = useSkills();
@@ -88,133 +97,93 @@ const AddChar = () => {
     inputValue: () => ({ color: 'black' }), 
   }
 
+  const [title, setTitle] = useState(char.title);
+  const [type, setType] = useState(char.type);
+  const [forte, setForte] = useState(char.forte);
+  const [gender, setGender] = useState(char.gender);
+  const [type_2, setType_2] = useState(char.type_2);
+  const [stars, setStars] = useState(char.stars);
 
-  const [id, setID] = useState('');
-  const [title, setTitle] = useState('');
-  const [type, setType] = useState('humanoid');
-  const [forte, setForte] = useState('Sword');
-  const [gender, setGender] = useState('male');
-  const [type_2, setType_2] = useState('unique');
-  const [stars, setStars] = useState('');
+  const [hp_1, setHP_1] = useState(char.hp_1);
+  const [atk_1, setATK_1] = useState(char.atk_1);
+  const [def_1, setDEF_1] = useState(char.def_1);
+  const [int_1, setINT_1] = useState(char.int_1);
+  const [res_1, setRES_1] = useState(char.res_1);
+  const [spd_1, setSPD_1] = useState(char.spd_1);
+  const [hp_9, setHP_9] = useState(char.hp_9);
+  const [atk_9, setATK_9] = useState(char.atk_9);
+  const [def_9, setDEF_9] = useState(char.def_9);
+  const [int_9, setINT_9] = useState(char.int_9);
+  const [res_9, setRES_9] = useState(char.res_9);
+  const [spd_9, setSPD_9] = useState(char.spd_9);
+  const [crt, setCRT] = useState(char.crt);
+  const [crd, setCRD] = useState(char.crd);
 
-  const [hp_1, setHP_1] = useState('');
-  const [atk_1, setATK_1] = useState('');
-  const [def_1, setDEF_1] = useState('');
-  const [int_1, setINT_1] = useState('');
-  const [res_1, setRES_1] = useState('');
-  const [spd_1, setSPD_1] = useState('');
-  const [hp_9, setHP_9] = useState('');
-  const [atk_9, setATK_9] = useState('');
-  const [def_9, setDEF_9] = useState('');
-  const [int_9, setINT_9] = useState('');
-  const [res_9, setRES_9] = useState('');
-  const [spd_9, setSPD_9] = useState('');
-  const [crt, setCRT] = useState('4');
-  const [crd, setCRD] = useState('140');
+  const [r_fire, setR_Fire] = useState(char.r_fire);
+  const [r_water, setR_Water] = useState(char.r_water);
+  const [r_wind, setR_Wind] = useState(char.r_wind);
+  const [r_star, setR_Star] = useState(char.r_star);
+  const [r_poison, setR_Poison] = useState(char.r_poison);
+  const [r_paralysis, setR_Paralysis] = useState(char.r_paralysis);
+  const [r_sleep, setR_Sleep] = useState(char.r_sleep);
+  const [r_forget, setR_Forget] = useState(char.r_forget);
 
-  const [r_fire, setR_Fire] = useState('');
-  const [r_water, setR_Water] = useState('');
-  const [r_wind, setR_Wind] = useState('');
-  const [r_star, setR_Star] = useState('');
-  const [r_poison, setR_Poison] = useState('40');
-  const [r_paralysis, setR_Paralysis] = useState('40');
-  const [r_sleep, setR_Sleep] = useState('40');
-  const [r_forget, setR_Forget] = useState('40');
+  const [class_1, setClass1] = useState(char.class_1);
+  const [class_2, setClass2] = useState(char.class_2);
+  const [class_3, setClass3] = useState(char.class_3);
+  const [class_4, setClass4] = useState(char.class_4);
+  const [class_5, setClass5] = useState(char.class_5);
+  const [class_6, setClass6] = useState(char.class_6);
 
-  const [class_1, setClass1] = useState('');
-  const [class_2, setClass2] = useState('');
-  const [class_3, setClass3] = useState('');
-  const [class_4, setClass4] = useState('');
-  const [class_5, setClass5] = useState('');
-  const [class_6, setClass6] = useState('');
+  const [wm_sword, setWmSword] = useState(char.wm_sword);
+  const [wm_fist, setWmFist] = useState(char.wm_fist);
+  const [wm_spear, setWmSpear] = useState(char.wm_spear);
+  const [wm_bow, setWmBow] = useState(char.wm_bow);
+  const [wm_gun, setWmGun] = useState(char.wm_gun);
+  const [wm_axe, setWmAxe] = useState(char.wm_axe);
+  const [wm_staff, setWmStaff] = useState(char.wm_staff);
+  const [wm_monster1, setWmMonster1] = useState(char.wm_monster1);
+  const [wm_monster2, setWmMonster2] = useState(char.wm_monster2);
 
-  const [wm_sword, setWmSword] = useState('');
-  const [wm_fist, setWmFist] = useState('');
-  const [wm_spear, setWmSpear] = useState('');
-  const [wm_bow, setWmBow] = useState('');
-  const [wm_gun, setWmGun] = useState('');
-  const [wm_axe, setWmAxe] = useState('');
-  const [wm_staff, setWmStaff] = useState('');
-  const [wm_monster1, setWmMonster1] = useState('');
-  const [wm_monster2, setWmMonster2] = useState('');
+  const [mainEvility, setMainEvility] = useState(char.mainEvility);
+  // const [subEvilities, setSubEvilities] = useState(char.subEvilities);
+  const [uniqueSkills, setUniqueSkills] = useState(char.uniqueSkills);
+  const [spell4, setSpell4] = useState(char.spell4);
+  const [spell9, setSpell9] = useState(char.spell9);
+  const [spell15, setSpell15] = useState(char.spell15);
+  const [spell22, setSpell22] = useState(char.spell22);
+  const [spell30, setSpell30] = useState(char.spell30);
 
-  const [mainEvility, setMainEvility] = useState('');
-  // const [subEvilities, setSubEvilities] = useState('');
-  const [uniqueSkills, setUniqueSkills] = useState('');
-  const [spell4, setSpell4] = useState('');
-  const [spell9, setSpell9] = useState('');
-  const [spell15, setSpell15] = useState('');
-  const [spell22, setSpell22] = useState('');
-  const [spell30, setSpell30] = useState('');
+  const [ne1, setNE1] = useState(char.ne1);
+  const [ne1Type, setNE1Type] = useState(char.ne1Type);
+  const [ne2, setNE2] = useState(char.ne2);
+  const [ne2Type, setNE2Type] = useState(char.ne2Type);
+  const [ne3, setNE3] = useState(char.ne3);
+  const [ne3Type, setNE3Type] = useState(char.ne3Type);
+  const [ne4, setNE4] = useState(char.ne4);
+  const [ne4Type, setNE4Type] = useState(char.ne4Type);
+  const [ne5, setNE5] = useState(char.ne5);
+  const [ne5Type, setNE5Type] = useState(char.ne5Type);
+  const [ne6, setNE6] = useState(char.ne6);
+  const [ne6Type, setNE6Type] = useState(char.ne6Type);
+  const [ne7, setNE7] = useState(char.ne7);
+  const [ne7Type, setNE7Type] = useState(char.ne7Type);
+  const [ne8, setNE8] = useState(char.ne8);
+  const [ne8Type, setNE8Type] = useState(char.ne8Type);
+  const [ne9, setNE9] = useState(char.ne9);
+  const [ne9Type, setNE9Type] = useState(char.ne9Type);
+  const [ne10, setNE10] = useState(char.ne10);
+  const [ne10Type, setNE10Type] = useState(char.ne10Type);
 
-  const [ne1, setNE1] = useState('');
-  const [ne1Type, setNE1Type] = useState('evility');
-  const [ne2, setNE2] = useState('');
-  const [ne2Type, setNE2Type] = useState('stat');
-  const [ne3, setNE3] = useState('');
-  const [ne3Type, setNE3Type] = useState('skill');
-  const [ne4, setNE4] = useState('');
-  const [ne4Type, setNE4Type] = useState('stat');
-  const [ne5, setNE5] = useState('');
-  const [ne5Type, setNE5Type] = useState('evility');
-  const [ne6, setNE6] = useState('');
-  const [ne6Type, setNE6Type] = useState('stat');
-  const [ne7, setNE7] = useState('');
-  const [ne7Type, setNE7Type] = useState('evility');
-  const [ne8, setNE8] = useState('');
-  const [ne8Type, setNE8Type] = useState('stat');
-  const [ne9, setNE9] = useState('');
-  const [ne9Type, setNE9Type] = useState('stat');
-  const [ne10, setNE10] = useState('');
-  const [ne10Type, setNE10Type] = useState('stat');
+  const [cv, setCv] = useState(char.cv);
+  const [starsIn, setStarsIn] = useState(char.starsIn);
 
-  const [cv, setCv] = useState('');
-  const [starsIn, setStarsIn] = useState('');
-  const [date, setDate] = useState('');
-
-  const notify = () => toast("Character Added");
-
-  const handleChangePortrait = async (e) => {
-    if (e.target.files[0]) {
-      const portrait = e.target.files[0]
-      const imgRef = storage.ref("images/DRPG/characters");
-      const portraitRef = imgRef.child(`${id}_portrait`)
-      await portraitRef.put(portrait)
-      const charRef = firebase.firestore().collection('games').doc('DRPG').collection('Characters');
-      await portraitRef.getDownloadURL().then((portrait_url) => {
-        charRef.doc(id).set({portrait_url}, { merge: true })
-      })
-    }
-  }
-  const handleChangeCutIn = async (e) => {
-    if (e.target.files[0]) {
-      const cut_in = e.target.files[0]
-      const imgRef = storage.ref("images/DRPG/characters");
-      const cut_inRef = imgRef.child(`${id}_cut_in`)
-      await cut_inRef.put(cut_in)
-      const charRef = firebase.firestore().collection('games').doc('DRPG').collection('Characters');
-      await cut_inRef.getDownloadURL().then((cut_in_url) => {
-        charRef.doc(id).set({cut_in_url}, { merge: true })
-      })
-    }
-  }
-  const handleChangeFull = async (e) => {
-    if (e.target.files[0]) {
-      const full = e.target.files[0]
-      const imgRef = storage.ref("images/DRPG/characters");
-      const fullRef = imgRef.child(`${id}_full`)
-      await fullRef.put(full)
-      const charRef = firebase.firestore().collection('games').doc('DRPG').collection('Characters');
-      await fullRef.getDownloadURL().then((full_url) => {
-        charRef.doc(id).set({full_url}, { merge: true })
-      })
-    }
-  }
+  console.log(char.id, char.title)
 
   function onSubmit(e) {
     e.preventDefault()
     const charRef = firebase.firestore().collection('games').doc('DRPG').collection('Characters');
-    charRef.doc(id).set({
+    charRef.doc(match.params.id).set({
       title,
       type,
       forte,
@@ -232,10 +201,8 @@ const AddChar = () => {
       ne1Type, ne2Type, ne3Type, ne4Type, ne5Type, ne6Type, ne7Type, ne8Type, ne9Type, ne10Type,
       ne1, ne2, ne3, ne4, ne5, ne6, ne7, ne8, ne9, ne10,
       cv, starsIn,
-      added_date: firebase.firestore.Timestamp.fromDate(new Date(moment(date).format('MMMM D YYYY')))
     }, { merge: true }).then(
-      notify,
-      setID('')
+      setTitle('')
     )
   }
 
@@ -248,7 +215,7 @@ const AddChar = () => {
             <Row>
               <Col xs={2}>
                 <input className="w-100" type="number" name="id" placeholder="ID"
-                  onChange={e => setID(e.currentTarget.value)}
+                  value={match.params.id}
                 />
               </Col>
               <Col xs={10}>
@@ -370,15 +337,13 @@ const AddChar = () => {
                   <tr>
                     <th className="text-uppercase">CRT</th>
                     <td>
-                      <input type="number" name="CRT" placeholder="4"
-                      onChange={e => setCRT(e.currentTarget.value)} />
+                      <input type="number" name="CRT" onChange={e => setCRT(e.currentTarget.value)} />
                     </td>
                   </tr>
                   <tr>
                     <th className="text-uppercase">CRD</th>
                     <td>
-                      <input type="number" name="CRD" placeholder="140"
-                      onChange={e => setCRD(e.currentTarget.value)} />
+                      <input type="number" name="CRD" onChange={e => setCRD(e.currentTarget.value)} />
                     </td>
                   </tr>
                 </table>
@@ -420,7 +385,7 @@ const AddChar = () => {
                   <tr >
                     <th><label className="">Poison</label></th>
                     <td>
-                      <input type="number" name="r_poison" placeholder="40"
+                      <input type="number" name="r_poison"
                         onChange={e => setR_Poison(e.currentTarget.value)}
                       />
                     </td>
@@ -428,7 +393,7 @@ const AddChar = () => {
                   <tr >
                     <th><label className="">Paralysis</label></th>
                     <td>
-                      <input type="number" name="r_paralysis" placeholder="40"
+                      <input type="number" name="r_paralysis"
                         onChange={e => setR_Paralysis(e.currentTarget.value)}
                       />
                     </td>
@@ -436,7 +401,7 @@ const AddChar = () => {
                   <tr >
                     <th><label className="">Sleep</label></th>
                     <td>
-                      <input type="number" name="r_sleep" placeholder="40"
+                      <input type="number" name="r_sleep"
                         onChange={e => setR_Sleep(e.currentTarget.value)}
                       />
                     </td>
@@ -444,7 +409,7 @@ const AddChar = () => {
                   <tr >
                     <th><label className="">Forget</label></th>
                     <td>
-                      <input type="number" name="r_forget" placeholder="40"
+                      <input type="number" name="r_forget"
                         onChange={e => setR_Forget(e.currentTarget.value)}
                       />
                     </td>
@@ -747,24 +712,8 @@ const AddChar = () => {
                   styles={selectStyles} className="Selector" isSearchable isMulti autoFocus 
                 />
               </div>
-              <input type="date" onChange={e => setDate(e.currentTarget.value)} />
             </div>
 
-            <div className="d-flex">
-              <div>
-                <label>Portrait</label>
-                <input type="file" onChange={handleChangePortrait} />
-              </div>
-              <div>
-                <label>Cut-In</label>
-                <input type="file" onChange={handleChangeCutIn} />
-              </div>
-              <div>
-                <label>Full</label>
-                <input type="file" onChange={handleChangeFull} />
-              </div>
-            </div>
-            
             <button className="button add-button">Add</button>
           </form>
         </Col>
@@ -797,4 +746,4 @@ const AddChar = () => {
   )
 }
 
-export default AddChar;
+export default UpdateChar;
