@@ -5,6 +5,7 @@ import UpdateChar from './components/DRPG/Add/UpdateChar';
 import CharDetail from './components/DRPG/Detail/CharDetail';
 import CharsList from './components/DRPG/List/CharsList';
 import EvilitiesList from './components/DRPG/List/EvilitiesList';
+import SkillsList from './components/DRPG/List/SkillsList';
 import Header from './components/DRPG/Header';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import { Container } from 'react-bootstrap';
@@ -21,6 +22,7 @@ export default class App extends PureComponent {
           <Route path="/DRPG/characters" component={CharsList} exact/>
           <Route path="/DRPG/characters/:id" component={CharDetail} exact/>
           <Route path="/DRPG/evilities" component={EvilitiesList} exact/>
+          <Route path="/DRPG/skills" component={SkillsList} exact/>
         </Container>
       </Router>
     )

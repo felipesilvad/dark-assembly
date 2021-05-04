@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import firebase from '../../../firebase';
 import EvilitiesListItem from './EvilitiesListItem';
-import { Row, Col, Image, Table, Container, Tabs, Tab } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 function useEvilities(filterTarget) {
   const [evilities, setEvilities] = useState([])

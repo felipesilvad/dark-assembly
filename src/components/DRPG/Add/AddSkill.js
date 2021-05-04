@@ -40,6 +40,9 @@ const AddEvility = () => {
   const [effect, setEffect] = useState('');
   const [effectInt, setEffectInt] = useState('');
   const [effectIntType, setEffectIntType] = useState('%');
+  const [effect2, setEffect2] = useState('');
+  const [effectInt2, setEffectInt2] = useState('');
+  const [effectIntType2, setEffectIntType2] = useState('%');
   const [unlock, setUnlock] = useState('Lv');
   const [unlockInt, setUnlockInt] = useState('');
   const [weapon, setWeapon] = useState('');
@@ -63,6 +66,9 @@ const AddEvility = () => {
       effect,
       effectInt,
       effectIntType,
+      effect2,
+      effectInt2,
+      effectIntType2,
       unlock,
       unlockInt,
       weapon,
@@ -156,6 +162,27 @@ const AddEvility = () => {
           <input className="" type="number" name="EffectInt" placeholder="EffectInt" onChange={e => setEffectInt(e.currentTarget.value)} />
           <select name="EffectIntType" id="EffectIntType"
             onChange={e => setEffectIntType(e.currentTarget.value)}
+          >
+            <option value="%">%</option>
+            <option value=""></option>
+          </select>
+        </div>
+        <div className="d-flex">
+          Effect2
+          <select name="effect" id="effect"
+            onChange={e => setEffect2(e.currentTarget.value)}
+          >
+            <option value=""></option>
+            {effects.map((effect) => (
+              <Options
+                id={effect.id}
+                title={effect.title}
+              />
+            ))}
+          </select>
+          <input className="" type="number" name="EffectInt" placeholder="EffectInt" onChange={e => setEffectInt2(e.currentTarget.value)} />
+          <select name="EffectIntType" id="EffectIntType"
+            onChange={e => setEffectIntType2(e.currentTarget.value)}
           >
             <option value="%">%</option>
             <option value=""></option>

@@ -9,6 +9,7 @@ export default class Header extends PureComponent {
           <Link to='/DRPG/adm/add-char'>Add Character</Link>
           <Link to='/DRPG/characters'>Character List</Link>
           <Link to='/DRPG/evilities'>Evility List</Link>
+          <Link to='/DRPG/skills'>Skills List</Link>
         </nav>
       </div>
     )

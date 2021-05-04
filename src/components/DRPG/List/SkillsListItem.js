@@ -1,9 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import db from '../../../firebase';
-import { Image } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
+import { Image} from 'react-bootstrap';
 
+function useChars() {
+  const [chars, setChars] = useState([])
+  useEffect(() => {
+    const unsubscribe = db
+      .firestore()
+      .collection('games')
+      .doc('DRPG')
+      .collection('Characters')
+      .onSnapshot((snapshot) => {
+        const newChars = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data()
+        }))
 
-const CharDetailSkill = ({id, type, ne, wmlv}) => {
+        setChars(newChars)
+      })
+    return () => unsubscribe()
+  }, [])
+
+  return chars;
+}
+
+const SkillsListItem = ({id, title, target, stat, int, intType, txt, turn}) => {
+  const chars = useChars();
+
   const skillRef = db.firestore().collection('games').doc('DRPG').collection('Skills').doc(id)
   const [skill, setSkill] = useState('');
 
@@ -39,7 +63,7 @@ const CharDetailSkill = ({id, type, ne, wmlv}) => {
       <div className="d-flex justify-content-between border-b">
         <div className="d-flex skill-in">
           {(skill.type === "Unique Skill") ? (
-            (type === 'humanoid') ? (
+            (skill.type === 'humanoid') ? (
               <Image className="icon-skill" src={skill_humanoid} />
             ) : (
               <Image className="icon-skill" src={skill_monster} />
@@ -55,7 +79,6 @@ const CharDetailSkill = ({id, type, ne, wmlv}) => {
           ) : ('')}
           <h3 className="pt-1 pl-1">{skill.title}</h3>
         </div>
-        {!ne ? (
           <div className="d-flex skill-in border-l">
             {(skill.type === "Spell") ? (
               <h6 className="pt-3 pr-2 stat-txt">Wm</h6>
@@ -76,12 +99,11 @@ const CharDetailSkill = ({id, type, ne, wmlv}) => {
               )
             )}
             {(skill.type === "Spell") ? (
-              <h3 className="pt-1 pl-0 pr-2">{wmlv}</h3>
+              <h3 className="pt-1 pl-0 pr-2">wmlv</h3>
             ) : (
               <h3 className="pt-1 pl-0 pr-2">{skill.unlockInt}</h3>
             )}
           </div>
-        ) : ('')}
       </div>
       <div className="d-flex border-b">
         <div className="d-flex skill-in pt-2 border-r">
@@ -111,7 +133,7 @@ const CharDetailSkill = ({id, type, ne, wmlv}) => {
         <div className="d-flex skill-in border-r">
           <h6 className="pt-3 pr-2 stat-txt">Element</h6>
           {(skill.element === "N/A") ? (
-            <h3 class="pt-1">N/A</h3>
+            <h3 className="pt-1">N/A</h3>
           ) : (
             !!skill.element && (
               <Image src={require(`../../../assets/DRPG/icons/${skill.element}.png`)} className="icon-range" />
@@ -163,4 +185,4 @@ const CharDetailSkill = ({id, type, ne, wmlv}) => {
   )
 }
 
-export default CharDetailSkill;
+export default SkillsListItem;

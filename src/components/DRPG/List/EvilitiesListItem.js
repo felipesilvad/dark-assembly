@@ -25,9 +25,10 @@ function useChars() {
   return chars;
 }
 
-const CharsListItem = ({id, title, target, stat, int, intType, txt, turn}) => {
+const EvilitiesListItem = ({id, title, target, stat, int, intType, txt, turn}) => {
   const count = 0;
   const chars = useChars();
+  
 
   return (
     <div key={id} id={id} className="gray-bg e-bg mlr-0">
@@ -101,4 +102,4 @@ const CharsListItem = ({id, title, target, stat, int, intType, txt, turn}) => {
   )
 }
 
-export default CharsListItem;
+export default EvilitiesListItem;
