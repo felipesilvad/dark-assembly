@@ -197,6 +197,18 @@ const AddChar = () => {
       })
     }
   }
+  const handleChangeMain = async (e) => {
+    if (e.target.files[0]) {
+      const main = e.target.files[0]
+      const imgRef = storage.ref("images/DRPG/characters");
+      const mainRef = imgRef.child(`${id}_main`)
+      await mainRef.put(main)
+      const charRef = firebase.firestore().collection('games').doc('DRPG').collection('Characters');
+      await mainRef.getDownloadURL().then((main_url) => {
+        charRef.doc(id).set({main_url}, { merge: true })
+      })
+    }
+  }
   const handleChangeFull = async (e) => {
     if (e.target.files[0]) {
       const full = e.target.files[0]
@@ -749,20 +761,24 @@ const AddChar = () => {
               <input type="date" onChange={e => setDate(e.currentTarget.value)} />
             </div>
 
-            <div className="d-flex">
-              <div>
+            <Row>
+              <Col>
                 <label>Portrait</label>
                 <input type="file" onChange={handleChangePortrait} />
-              </div>
-              <div>
+              </Col>
+              <Col>
                 <label>Cut-In</label>
                 <input type="file" onChange={handleChangeCutIn} />
-              </div>
-              <div>
+              </Col>
+              <Col>
+                <label>Main</label>
+                <input type="file" onChange={handleChangeMain} />
+              </Col>
+              <Col>
                 <label>Full</label>
                 <input type="file" onChange={handleChangeFull} />
-              </div>
-            </div>
+              </Col>
+            </Row>
             
             <button className="button add-button">Add</button>
           </form>

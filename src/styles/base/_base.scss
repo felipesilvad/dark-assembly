@@ -45,6 +45,10 @@ label{
   padding: 0.2rem 0.5rem 0 0.5rem;
 }
 
+.bg-highlight {
+  background-color: $highlight;
+}
+
 .highlight-2 {
   color: $highlight-2;
 }
@@ -52,6 +56,18 @@ label{
 .mlr-0 {
   margin-left: 0;
   margin-left: 0;
+}
+
+.d-none-max-m {
+  @media screen and (max-width: $md) {
+    display: none;
+  }
+}
+
+.d-none-min-m {
+  @media screen and (min-width: $md) {
+    display: none;
+  }
 }
 
 .is-active {

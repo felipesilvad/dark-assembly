@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import db from '../../../firebase';
+import { Row, Col, Image, Table, Container, Tabs, Tab } from 'react-bootstrap';
+
 
 const CharDetailEvility = ({id, ne, neInt}) => {
   const evilityRef = db.firestore().collection('games').doc('DRPG').collection('Evility').doc(id)
@@ -19,7 +21,7 @@ const CharDetailEvility = ({id, ne, neInt}) => {
           {!!neInt ? (
             <div className="d-flex border-b">
               <h5 className="ne-e border-r">N.E. {neInt}</h5>
-              <div className="w-90 pr-4">
+              <div className="w-90 sub-e-title">
                 <h3>{evility.title}</h3>
               </div>
             </div>

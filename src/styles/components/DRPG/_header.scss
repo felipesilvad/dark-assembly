@@ -1,0 +1,55 @@
+.sidebar {
+  background-color: $light;
+  z-index: 1000;
+  position: fixed;
+  display: flex;
+  width: 100%;
+  margin-left: 0;
+  height: fit-content;
+}
+
+.sidebar-nav{
+  width: 100%;
+  display: block;
+}
+
+@media (min-width: $md) {
+  .sidebar {
+    position: fixed;
+    width: 20%;
+    height: 100%;
+  }
+  .sidebar-nav{
+    height: 100%;
+  }
+}
+
+@media (min-width: $lg) {
+  .sidebar {
+    position: fixed;
+    width: 15%;
+    margin-left: 4%;
+  }
+}
+
+@media (min-width: $xl) {
+  .sidebar {
+    position: fixed;
+    width: 15%;
+    margin-left: 5%;
+  }
+}
+
+.navbar-light .navbar-toggler {
+  color: rgba(256,256,256,.5);
+  border-color: rgba(256,256,256,.1);
+}
+
+.nav-link {
+  color: $dark-white!important;
+  text-transform: uppercase;
+  // font-weight: bold;
+  text-shadow: NONE;
+  margin: 0.2rem 0;
+  border-bottom: 0.1rem solid $highlight;
+}

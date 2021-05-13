@@ -35,56 +35,57 @@ const CharDetailSkill = ({id, type, ne, wmlv}) => {
   const range_icon_enemy_all = require('../../../assets/DRPG/icons/skill/range_icon_enemy_all.png');
 
   return (
-    <div key={id} className="gray-bg e-bg" id={id} >
-      <div className="d-flex justify-content-between border-b">
-        <div className="d-flex skill-in">
-          {(skill.type === "Unique Skill") ? (
-            (type === 'humanoid') ? (
-              <Image className="icon-skill" src={skill_humanoid} />
-            ) : (
-              <Image className="icon-skill" src={skill_monster} />
-            )
-          ) : ('')}
-          {(skill.type === "Spell") ? (
-            <Image className="icon-skill" src={skill_staff} />
-          ) : ('')}
-          {(skill.type === "Weapon Skill") ? (
-            !!skill.weapon &&(
-              <Image src={require(`../../../assets/DRPG/icons/weapons/${skill.weapon}.png`)} className="icon-range" />
-            )
-          ) : ('')}
-          <h3 className="pt-1 pl-1">{skill.title}</h3>
-        </div>
-        {!ne ? (
-          <div className="d-flex skill-in border-l">
+      <tr>
+        <td>
+          <div className="d-flex">
+            {(skill.type === "Unique Skill") ? (
+              (type === 'humanoid') ? (
+                <Image className="icon-skill" src={skill_humanoid} />
+              ) : (
+                <Image className="icon-skill" src={skill_monster} />
+              )
+            ) : ('')}
             {(skill.type === "Spell") ? (
-              <h6 className="pt-3 pr-2 stat-txt">Wm</h6>
-            ) : (
-              <h6 className="pt-3 pr-2 stat-txt">{skill.unlock}</h6>
-            )}
-            {(skill.type === "Spell") ? (
-              <>
-                <Image src={require(`../../../assets/DRPG/icons/weapons/Staff.png`)} className="icon-range" />
-                <h6 className="pt-3 pr-2 stat-txt">Lv</h6>
-              </>
-            ) : (
+              <Image className="icon-skill" src={skill_staff} />
+            ) : ('')}
+            {(skill.type === "Weapon Skill") ? (
               !!skill.weapon &&(
+                <Image src={require(`../../../assets/DRPG/icons/weapons/${skill.weapon}.png`)} className="icon-range" />
+              )
+            ) : ('')}
+            <h4 className="pt-1 pl-1">{skill.title}</h4>
+          </div>
+        </td>
+        <td>
+          {!ne ? (
+            <div className="d-flex">
+              {(skill.type === "Spell") ? (
+                <h6 className="pt-3 pr-2 stat-txt">Wm</h6>
+              ) : (
+                <h6 className="pt-3 pr-2 stat-txt">{skill.unlock}</h6>
+              )}
+              {(skill.type === "Spell") ? (
                 <>
-                  <Image src={require(`../../../assets/DRPG/icons/weapons/${skill.weapon}.png`)} className="icon-range" />
+                  <Image src={require(`../../../assets/DRPG/icons/weapons/Staff.png`)} className="icon-range" />
                   <h6 className="pt-3 pr-2 stat-txt">Lv</h6>
                 </>
-              )
-            )}
-            {(skill.type === "Spell") ? (
-              <h3 className="pt-1 pl-0 pr-2">{wmlv}</h3>
-            ) : (
-              <h3 className="pt-1 pl-0 pr-2">{skill.unlockInt}</h3>
-            )}
-          </div>
-        ) : ('')}
-      </div>
-      <div className="d-flex border-b">
-        <div className="d-flex skill-in pt-2 border-r">
+              ) : (
+                !!skill.weapon &&(
+                  <>
+                    <Image src={require(`../../../assets/DRPG/icons/weapons/${skill.weapon}.png`)} className="icon-range" />
+                    <h6 className="pt-3 pr-2 stat-txt">Lv</h6>
+                  </>
+                )
+              )}
+              {(skill.type === "Spell") ? (
+                <h3 className="pt-1 pl-0 pr-2">{wmlv}</h3>
+              ) : (
+                <h3 className="pt-1 pl-0 pr-2">{skill.unlockInt}</h3>
+              )}
+            </div>
+          ) : ('')}
+        </td>
+        <td>
           {!!skill.pwr && (
             <>
               {(skill.pwr === "G") ? (<Image className="icon-rank" src={pow_rank_G} />) : ('')}
@@ -107,9 +108,8 @@ const CharDetailSkill = ({id, type, ne, wmlv}) => {
               {(skill.pwr === "SS+") ? (<><Image className="icon-rank" src={pow_rank_SS} /><Image className="icon-rank-plus" src={pow_rank_plus} /></>) : ('')}
             </>
           )}
-        </div>
-        <div className="d-flex skill-in border-r">
-          <h6 className="pt-3 pr-2 stat-txt">Element</h6>
+        </td>
+        <td>
           {(skill.element === "N/A") ? (
             <h3 class="pt-1">N/A</h3>
           ) : (
@@ -117,11 +117,10 @@ const CharDetailSkill = ({id, type, ne, wmlv}) => {
               <Image src={require(`../../../assets/DRPG/icons/${skill.element}.png`)} className="icon-range" />
             )
           )}
-        </div>
-        <div className="d-flex skill-in">
-          <h6 className="pt-3 stat-txt">Target</h6>
+        </td>
+        <td>
           {!!skill.target && (
-            <>
+            <div className="d-flex">
               {(skill.target === "One Enemy") ? (
                 <><Image className="icon-range" src={range_icon_enemy} /> <h3 className="pt-3 pl-0 pr-2 main-e-color e-type text-capitalize">One</h3></>
               ) : ('')}
@@ -137,29 +136,21 @@ const CharDetailSkill = ({id, type, ne, wmlv}) => {
               {(skill.target === "Self") ? (
                 <h3 className="pt-3 pl-0 pr-2 sub-e-color e-type text-capitalize">Self</h3>
               ) : ('')}
-            </>
+            </div>
           )}
-        </div>
-      </div>
-      <div className="d-flex ">
-        {!!skill.stat && (
-          <div className="d-flex skill-in border-r">
-            <h6 className="pt-3 pr-2 stat-txt">Stat</h6>
-            <h3 className={`pl-0 pr-2 ${skill.stat}-color e-type`}>{skill.stat}</h3>
-          </div>
-        )}
-        <div className="d-flex skill-in border-r">
-          <h6 className="pt-3 pr-2 stat-txt">SP</h6>
+        </td>
+        <td>
+          <h3 className={`pl-0 pr-2 ${skill.stat}-color e-type`}>{skill.stat}</h3>
+        </td>
+        <td>
           <h3 className="pt-1">{skill.sp}</h3>
-        </div>
-        <div className="d-flex skill-in">
-          <h6 className="pt-3 pr-2 stat-txt">Effect</h6>
+        </td>
+        <td>
           {!!skill.effect ? (
             <h4 className="pt-1 pl-0 pr-2">{skill.effect}{skill.effectInt}{skill.effectIntType} {!!skill.effect2 && ('&')} {skill.effect2}{skill.effectInt2}{skill.effectIntType2}</h4>
           ) : (<h4 className="pt-1 pl-0 pr-2">-</h4>)}
-        </div>
-      </div>
-    </div>
+        </td>
+      </tr>
   )
 }
 

@@ -25,7 +25,7 @@ function useChars() {
   return chars;
 }
 
-const SkillsListItem = ({id, title, target, stat, int, intType, txt, turn}) => {
+const SkillsListItem = ({id}) => {
   const chars = useChars();
 
   const skillRef = db.firestore().collection('games').doc('DRPG').collection('Skills').doc(id)

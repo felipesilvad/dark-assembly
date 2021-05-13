@@ -1,6 +1,13 @@
-.main-img {
+.cut-in-img {
   border: 0.1rem solid $light;
   width: inherit;
+  
+}
+
+.portrait-img {
+  border: 0.2rem solid $gray-light;
+  width: inherit;
+  background-color: $gray;
 }
 
 .char-title {
@@ -20,6 +27,19 @@
   padding: 0.1rem;
 }
 
+.type_icons-d {
+  width: 2rem;
+  height: 2rem;
+  // background-color: $gray;
+  // border-radius: 50%;
+  // border: 0.2rem solid $gray-light;
+}
+
+.type-txt {
+  text-transform: capitalize;
+  padding: 0.2rem;
+}
+
 .sub-title{
   font-weight: bold;
   text-transform: uppercase;
@@ -30,8 +50,8 @@
 }
 
 .res_icons {
-  width: 4rem;
-  height: 4rem;
+  width: 3.5rem;
+  height: 3.5rem;
 }
 
 
@@ -42,8 +62,6 @@
   height: 3rem;
 }
 
-
-
 .star-class{
   width: 1.7rem;
 }
@@ -51,8 +69,6 @@
 .mw-class {
   max-width: 63%;
 }
-
-
 
 .vl {
   border-left: 0.2rem solid ;
@@ -99,7 +115,9 @@
   font-size: 1.32rem;
 }
 
-
+.sub-e-title {
+  margin-right: 10%;
+}
 
 .skill-tab {
   text-transform: none;
