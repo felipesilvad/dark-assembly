@@ -12,10 +12,7 @@ const AddStat = () => {
     statsRef.add({
       title,
     })
-
   }
-
-
   return (
     <div>
       <form onSubmit={onSubmit}>

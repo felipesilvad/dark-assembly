@@ -29,8 +29,9 @@ function useChars() {
 
 const CharsList = () => {
   const chars = useChars();
+  const [sort, setSort] = useState('title')
 
-  function order(a, b) {
+  function intid(a, b) {
     const idA = parseInt(a.id);
     const idB = parseInt(b.id);
   
@@ -42,9 +43,29 @@ const CharsList = () => {
     }
     return comparison;
   }
+
+  function order(a, b) {
+    const sortA = a.title;
+    const sortB = b.title;
+  
+    let comparison = 0;
+    if (sortA > sortB) {
+      comparison = 1;
+    } else if (sortA < sortB) {
+      comparison = -1;
+    }
+    return comparison;
+  }
   
   return (
     <div>
+      <label>Sort</label>
+      <select name="Sort" id="Sort"
+        onChange={e => setSort(e.currentSort.value)}
+      >
+        <option value="Self">Self</option>
+        <option value="Sword-Wielding Allies">Sword-Wielding Allies</option>
+      </select>
       <h2>Characters List</h2>
       <Row className="">
         {chars.sort(order).map((char) => (
