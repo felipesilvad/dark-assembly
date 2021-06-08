@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import db from '../../../firebase';
 import firebase from '../../../firebase';
-import CharsListItem from './CharsListItem';
-import { Row } from 'react-bootstrap';
 
 function useChars() {
   const [chars, setChars] = useState([])
@@ -27,7 +25,7 @@ function useChars() {
   return chars;
 }
 
-const CharsList = () => {
+const AdmCharList = () => {
   const chars = useChars();
   const [sort, setSort] = useState('title')
 
@@ -59,25 +57,14 @@ const CharsList = () => {
 
   return (
     <div>
-      <label>Sort</label>
-      <select name="Sort" id="Sort"
-        onChange={e => setSort(e.currentSort.value)}
-      >
-        <option value="Self">Self</option>
-        <option value="Sword-Wielding Allies">Sword-Wielding Allies</option>
-      </select>
       <h2>Characters List</h2>
-      <Row className="">
         {chars.sort(order).map((char) => (
-          <CharsListItem
-            id={char.id}
-            title={char.title}
-            portrait_url={char.portrait_url}
-          />
+          <h4>
+            {char.id}-{char.title}
+          </h4>
         ))}
-      </Row>
     </div>
   )
 }
 
-export default CharsList;
+export default AdmCharList;
