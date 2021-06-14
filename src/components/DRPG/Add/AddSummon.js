@@ -1,52 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import firebase, {storage} from '../../../firebase';
+import Select from 'react-select';
+
+
+function useChars() {
+  const [chars, setChars] = useState([])
+  useEffect(() => {
+    const unsubscribe = firebase
+      .firestore()
+      .collection('games')
+      .doc('DRPG')
+      .collection('Characters')
+      .orderBy(firebase.firestore.FieldPath.documentId())
+      .onSnapshot((snapshot) => {
+        const newChars = snapshot.docs.map((doc) => ({
+          value: doc.id, label: doc.id + " " + doc.data().title
+        }))
+
+        setChars(newChars)
+      })
+    return () => unsubscribe()
+  }, [])
+
+  return chars;
+}
 
 const AddSummon = () => {
+  const chars = useChars();
+  const [id, setId] = useState('');
   const [title, setTitle] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [type, setType] = useState('');
-  const [fourStars, setFourStars] = useState('');
+  const [featured, setFeatured] = useState('');
 
+  const selectStyles = { 
+    option: () => ({ color: 'black' }), 
+    multiValueLabel: provided => ({ ...provided, whiteSpace: 'normal', color: 'black' }),
+    inputValue: () => ({ color: 'black' }), 
+  }
 
-  // const handleChangeImage = async (e) => {
-  //   if (e.target.files[0]) {
-  //     const image = e.target.files[0]
-  //     const imgRef = storage.ref("images/DRPG/summons");
-  //     const imageRef = imgRef.child(`${title}`)
-  //     await imageRef.put(image)
-  //     const summonRef = firebase.firestore().collection('games').doc('DRPG').collection('Summons');
-  //     await imageRef.getDownloadURL().then((image_url) => {
-  //       summonRef.where('title', "==", title).set({image_url}, { merge: true })
-  //     })
-  //   }
-  // }
+  const handleChangeImage = async (e) => {
+    if (e.target.files[0]) {
+      const image = e.target.files[0]
+      const imgRef = storage.ref("images/DRPG/summons");
+      const imageRef = imgRef.child(`${title}`)
+      await imageRef.put(image)
+      const summonRef = firebase.firestore().collection('games').doc('DRPG').collection('Summons').doc(id);
+      await imageRef.getDownloadURL().then((image_url) => {
+        summonRef.set({image_url}, { merge: true })
+      })
+    }
+  }
 
   function onSubmit(e) {
     e.preventDefault()
-
-    var fourStarsArea = document.getElementById("fourStars");
-    var arrayOfLines = fourStarsArea.value.split("\n");
-    var arrayFourStars = []
-    for(var i = 0;i < arrayOfLines.length;i++){
-      arrayFourStars.push({
-        "id": arrayOfLines[i].split("/")[0],
-        "title": arrayOfLines[i].split("/")[1],
-        "rate": arrayOfLines[i].split("/")[2]
-      })
-    }
-    console.log(arrayFourStars)
     
     const statsRef = firebase.firestore().collection('games').doc('DRPG').collection('Summons');
-    statsRef.add({
+    statsRef.doc(id).set({
       title,
-      arrayFourStars
-    })
+      featured
+    }, { merge: true })
 
   }
   return (
     <div>
       <form onSubmit={onSubmit}>
+        <div>
+          <label><h4 id="stat">ID</h4></label>
+        </div>
+        <div>
+          <input type="text" name="title" placeholder="Title"
+            onChange={e => setId(e.currentTarget.value)}
+          />
+        </div>
         <div>
           <label><h4 id="stat">Add Summon</h4></label>
         </div>
@@ -56,11 +80,14 @@ const AddSummon = () => {
           />
         </div>
         <div>
-          <textarea
-            id="fourStars" className="summon-ta"
-            onChange={e => setFourStars(e.currentTarget.value)}
+          <label>Featured</label>
+          <Select 
+            options={chars} onChange={e => setFeatured(e)}
+            styles={selectStyles} className="Selector" isSearchable isMulti autoFocus 
           />
         </div>
+        <label>Image</label>
+        <input type="file" onChange={handleChangeImage} />
         <button className="button add-button">Add</button>
       </form>
     </div>

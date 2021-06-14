@@ -68,7 +68,7 @@ const CharsList = () => {
       </select>
       <h2>Characters List</h2>
       <Row className="">
-        {chars.sort(order).map((char) => (
+        {chars.sort(intid).map((char) => (
           <CharsListItem
             id={char.id}
             title={char.title}

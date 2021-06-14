@@ -58,7 +58,7 @@ const AdmCharList = () => {
   return (
     <div>
       <h2>Characters List</h2>
-        {chars.sort(order).map((char) => (
+        {chars.sort(intid).map((char) => (
           <h4>
             {char.id}-{char.title}
           </h4>

@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import AddChar from './components/DRPG/Add/AddChar';
 import AddSummon from './components/DRPG/Add/AddSummon';
+import AddSummonDate from './components/DRPG/Add/AddSummonDate';
+import AddSummonRates from './components/DRPG/Add/AddSummonRates';
 import UpdateChar from './components/DRPG/Add/UpdateChar';
 import AdmCharList from './components/DRPG/List/AdmCharList';
 
@@ -26,6 +28,9 @@ export default class App extends PureComponent {
               <Container className="m-0 p-0">
                 <Route path="/DRPG/adm/add-char" component={AddChar} exact/>
                 <Route path="/DRPG/adm/add-summon" component={AddSummon} exact/>
+                <Route path="/DRPG/adm/add-summon/date" component={AddSummonDate} exact/>
+                <Route path="/DRPG/adm/add-summon/rates" component={AddSummonRates} exact/>
+
                 <Route path="/DRPG/adm/characters" component={AdmCharList} exact/>
                 <Route path="/DRPG/adm/characters/:id" component={UpdateChar} exact/>
                 <Route path="/DRPG/characters" component={CharsList} exact/>

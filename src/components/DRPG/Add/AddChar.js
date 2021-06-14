@@ -23,7 +23,7 @@ function useEvilities() {
       .collection('Evility')
       .onSnapshot((snapshot) => {
         const newEvilities = snapshot.docs.map((doc) => ({
-          value: doc.id, label: doc.data().title
+          value: doc.id, label: doc.data().title + " " + doc.data().int
         }))
 
         setEvilities(newEvilities)
