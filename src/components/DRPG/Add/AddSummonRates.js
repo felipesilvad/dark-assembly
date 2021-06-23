@@ -30,9 +30,10 @@ const AddSummon = () => {
 
   const [summon, setSummon] = useState('');
   const [id, setId] = useState('');
-  const [price1x, setPrice1x] = useState('');
-  const [price10x, setPrice10x] = useState('');
-  const [paid, setPaid] = useState('');
+  const [price1x, setPrice1x] = useState('1500');
+  const [currency1x, setCurrency1x] = useState('nether-quartz');
+  const [price10x, setPrice10x] = useState('1500');
+  const [currency10x, setCurrency10x] = useState('nether-quartz');
   const [twoStars, setTwoStars] = useState('');
   const [threeStars, setThreeStars] = useState('');
   const [fourStars, setFourStars] = useState('');
@@ -152,8 +153,9 @@ const AddSummon = () => {
       ratesThreeStarsG,
       ratesFourStarsG,
       price1x,
+      currency1x,
       price10x,
-      paid,
+      currency10x,
     }, { merge: true })
 
   }
@@ -174,16 +176,26 @@ const AddSummon = () => {
           <input className="" type="number" name="id" placeholder="ID"
             onChange={e => setId(e.currentTarget.value)}
           />
-          <input className="" type="number" name="Price1x" placeholder="Price1x"
+          <input className="" type="number" name="Price1x" placeholder="150"
             onChange={e => setPrice1x(e.currentTarget.value)}
           />
-          <input className="" type="number" name="Price10x" placeholder="Price10x"
+          <select name="currency1x" id="Currency1x"
+            onChange={e => setCurrency1x(e.currentTarget.value)}
+          >
+            <option value="nether-quartz">Nether Quartz</option>
+            <option value="paid-nether-quartz">Piad Nether Quartz</option>
+            <option value="free">Free</option>
+          </select>
+          <input className="" type="number" name="Price10x" placeholder="1500"
             onChange={e => setPrice10x(e.currentTarget.value)}
           />
-          Paid:
-          <input className="" type="checkbox" name="paid" placeholder="paid"
-            onChange={e => setPaid(e.currentTarget.value)}
-          />
+          <select name="currency10x" id="Currency10x"
+            onChange={e => setCurrency10x(e.currentTarget.value)}
+          >
+            <option value="nether-quartz">Nether Quartz</option>
+            <option value="paid-nether-quartz">Piad Nether Quartz</option>
+            <option value="free">Free</option>
+          </select>
         </div>
         <label>Image</label>
         <input type="file" onChange={handleChangeImage} />
