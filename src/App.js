@@ -10,6 +10,8 @@ import CharDetail from './components/DRPG/Detail/CharDetail';
 import CharsList from './components/DRPG/List/CharsList';
 import EvilitiesList from './components/DRPG/List/EvilitiesList';
 import SkillsList from './components/DRPG/List/SkillsList';
+import SummonDetail from './components/DRPG/Detail/SummonDetail';
+import SummonsList from './components/DRPG/List/SummonsList';
 import Header from './components/DRPG/Header';
 import Home from './components/DRPG/Home';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
@@ -34,10 +36,14 @@ export default class App extends PureComponent {
                 <Route path="/DRPG/adm/add-summon/rates" component={AddSummonRates} exact/>
                 <Route path="/DRPG/adm/characters" component={AdmCharList} exact/>
                 <Route path="/DRPG/adm/characters/:id" component={UpdateChar} exact/>
+
                 <Route path="/DRPG/characters" component={CharsList} exact/>
                 <Route path="/DRPG/characters/:id" component={CharDetail} exact/>
                 <Route path="/DRPG/evilities" component={EvilitiesList} exact/>
                 <Route path="/DRPG/skills" component={SkillsList} exact/>
+                <Route path="/DRPG/summons" component={SummonsList} exact/>
+                <Route path="/DRPG/summons/:id" component={SummonDetail} exact/>
+
               </Container>
             </Col>
           </Row>

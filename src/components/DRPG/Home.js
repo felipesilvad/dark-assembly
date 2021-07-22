@@ -28,10 +28,34 @@ function useChars() {
 }
 
 const Home = () => {
+  const chars = useChars();
+
+  function order(a, b) {
+    const sortA = a['added_date'];
+    const sortB = b.added_date;
+  
+    let comparison = 0;
+    if (sortA > sortB) {
+      comparison = -1;
+    } else if (sortA < sortB) {
+      comparison = 1;
+    }
+    return comparison;
+  }
 
   return (
-    <>
-    </>
+    <div>
+      <h3 className="sub-title">Latest Characters Added</h3>
+      <Row className="">
+        {chars.sort(order).slice(0,20).map((char) => (
+          <CharsListItem
+            id={char.id}
+            title={char.title}
+            portrait_url={char.portrait_url}
+          />
+        ))}
+      </Row>
+    </div>
   )
 }
 

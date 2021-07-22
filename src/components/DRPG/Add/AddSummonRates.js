@@ -37,7 +37,7 @@ const AddSummon = () => {
   const [twoStars, setTwoStars] = useState('');
   const [threeStars, setThreeStars] = useState('');
   const [fourStars, setFourStars] = useState('');
-  const [twoStarsG, setTwoStarsG] = useState('');
+  // const [twoStarsG, setTwoStarsG] = useState('');
   const [threeStarsG, setThreeStarsG] = useState('');
   const [fourStarsG, setFourStarsG] = useState('');
 
@@ -61,6 +61,8 @@ const AddSummon = () => {
     }
   }
   
+  console.log(id)
+
   function onSubmit(e) {
     e.preventDefault()
 
@@ -103,18 +105,18 @@ const AddSummon = () => {
       }
     }
     
-    var twoStarsGArea = document.getElementById("twoStarsG");
-    var arrayOfLines2G = twoStarsGArea.value.split("\n");
-    var ratesTwoStarsG = []
-    if (ratesTwoStarsG !== []) {
-      for(var i2G = 0;i2G < arrayOfLines2G.length;i2G++){
-        ratesTwoStarsG.push({
-          "id": arrayOfLines2G[i2G].split("/")[0],
-          "title": arrayOfLines2G[i2G].split("/")[1],
-          "rate": arrayOfLines2G[i2G].split("/")[2]
-        })
-      }
-    }
+    // var twoStarsGArea = document.getElementById("twoStarsG");
+    // var arrayOfLines2G = twoStarsGArea.value.split("\n");
+    // var ratesTwoStarsG = []
+    // if (ratesTwoStarsG !== []) {
+    //   for(var i2G = 0;i2G < arrayOfLines2G.length;i2G++){
+    //     ratesTwoStarsG.push({
+    //       "id": arrayOfLines2G[i2G].split("/")[0],
+    //       "title": arrayOfLines2G[i2G].split("/")[1],
+    //       "rate": arrayOfLines2G[i2G].split("/")[2]
+    //     })
+    //   }
+    // }
     
     var threeStarsAreaG = document.getElementById("threeStarsG");
     var arrayOfLines3G = threeStarsAreaG.value.split("\n");
@@ -149,7 +151,7 @@ const AddSummon = () => {
       ratesTwoStars,
       ratesThreeStars,
       ratesFourStars,
-      ratesTwoStarsG,
+      // ratesTwoStarsG,
       ratesThreeStarsG,
       ratesFourStarsG,
       price1x,
@@ -232,12 +234,13 @@ const AddSummon = () => {
               id="threeStarsG" className="summon-ta"
               onChange={e => setThreeStarsG(e.currentTarget.value)}
             />
-          </Col><Col>
+          </Col>
+          {/* <Col>
             <textarea
               id="twoStarsG" className="summon-ta"
               onChange={e => setTwoStarsG(e.currentTarget.value)}
             />
-          </Col>
+          </Col> */}
         </Row>
         <button className="button add-button">Add</button>
       </form>
