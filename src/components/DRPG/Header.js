@@ -15,6 +15,7 @@ export default class Header extends PureComponent {
               <Nav.Link className="nav-link" href='/DRPG/characters'>Characters</Nav.Link>
               <Nav.Link className="nav-link" href='/DRPG/evilities'>Evilities</Nav.Link>
               <Nav.Link className="nav-link" href='/DRPG/skills'>Skills</Nav.Link>
+              <Nav.Link className="nav-link" href='/DRPG/summons'>Summons</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>

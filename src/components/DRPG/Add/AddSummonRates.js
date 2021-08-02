@@ -34,12 +34,13 @@ const AddSummon = () => {
   const [currency1x, setCurrency1x] = useState('nether-quartz');
   const [price10x, setPrice10x] = useState('1500');
   const [currency10x, setCurrency10x] = useState('nether-quartz');
-  const [twoStars, setTwoStars] = useState('');
-  const [threeStars, setThreeStars] = useState('');
+  // const [twoStars, setTwoStars] = useState('');
+  // const [threeStars, setThreeStars] = useState('');
   const [fourStars, setFourStars] = useState('');
   // const [twoStarsG, setTwoStarsG] = useState('');
-  const [threeStarsG, setThreeStarsG] = useState('');
+  // const [threeStarsG, setThreeStarsG] = useState('');
   const [fourStarsG, setFourStarsG] = useState('');
+  const [image_url, setImage_url] = useState('');
 
   const selectStyles = { 
     option: () => ({ color: 'black' }), 
@@ -47,50 +48,48 @@ const AddSummon = () => {
     inputValue: () => ({ color: 'black' }), 
   }
 
-  const handleChangeImage = async (e) => {
-    if (e.target.files[0]) {
-      const image = e.target.files[0]
-      const imgRef = storage.ref("images/DRPG/summons");
-      const imageRef = imgRef.child(`${summon.title} - ${id}`)
-      await imageRef.put(image)
-      const ratesRef = firebase.firestore().collection('games').doc('DRPG')
-        .collection('Summons').doc(summon.value).collection('Rates').doc(id);
-      await imageRef.getDownloadURL().then((image_url) => {
-        ratesRef.set({image_url}, { merge: true })
-      })
-    }
-  }
-  
-  console.log(id)
+  // const handleChangeImage = async (e) => {
+  //   if (e.target.files[0]) {
+  //     const image = e.target.files[0]
+  //     const imgRef = storage.ref("images/DRPG/summons");
+  //     const imageRef = imgRef.child(`${summon.title} - ${id}`)
+  //     await imageRef.put(image)
+  //     await imageRef.getDownloadURL().then((image_url) => {
+  //       firebase.firestore().collection('games').doc('DRPG')
+  //       .collection('Summons').doc(summon.value).collection('Rates')
+  //       .doc(id).set({image_url}, { merge: true })
+  //     })
+  //   }
+  // }
 
   function onSubmit(e) {
     e.preventDefault()
 
-    var twoStarsArea = document.getElementById("twoStars");
-    var arrayOfLines2 = twoStarsArea.value.split("\n");
-    var ratesTwoStars = []
-    if (ratesTwoStars !== []) {
-      for(var i2 = 0;i2 < arrayOfLines2.length;i2++){
-        ratesTwoStars.push({
-          "id": arrayOfLines2[i2].split("/")[0],
-          "title": arrayOfLines2[i2].split("/")[1],
-          "rate": arrayOfLines2[i2].split("/")[2]
-        })
-      }
-    }
+    // var twoStarsArea = document.getElementById("twoStars");
+    // var arrayOfLines2 = twoStarsArea.value.split("\n");
+    // var ratesTwoStars = []
+    // if (ratesTwoStars !== []) {
+    //   for(var i2 = 0;i2 < arrayOfLines2.length;i2++){
+    //     ratesTwoStars.push({
+    //       "id": arrayOfLines2[i2].split("/")[0],
+    //       "title": arrayOfLines2[i2].split("/")[1],
+    //       "rate": arrayOfLines2[i2].split("/")[2]
+    //     })
+    //   }
+    // }
     
-    var threeStarsArea = document.getElementById("threeStars");
-    var arrayOfLines3 = threeStarsArea.value.split("\n");
-    var ratesThreeStars = []
-    if (ratesThreeStars !== []) {
-      for(var i3 = 0;i3 < arrayOfLines3.length;i3++){
-        ratesThreeStars.push({
-          "id": arrayOfLines3[i3].split("/")[0],
-          "title": arrayOfLines3[i3].split("/")[1],
-          "rate": arrayOfLines3[i3].split("/")[2]
-        })
-      }
-    }
+    // var threeStarsArea = document.getElementById("threeStars");
+    // var arrayOfLines3 = threeStarsArea.value.split("\n");
+    // var ratesThreeStars = []
+    // if (ratesThreeStars !== []) {
+    //   for(var i3 = 0;i3 < arrayOfLines3.length;i3++){
+    //     ratesThreeStars.push({
+    //       "id": arrayOfLines3[i3].split("/")[0],
+    //       "title": arrayOfLines3[i3].split("/")[1],
+    //       "rate": arrayOfLines3[i3].split("/")[2]
+    //     })
+    //   }
+    // }
 
     var fourStarsArea = document.getElementById("fourStars");
     var arrayOfLines4 = fourStarsArea.value.split("\n");
@@ -118,46 +117,47 @@ const AddSummon = () => {
     //   }
     // }
     
-    var threeStarsAreaG = document.getElementById("threeStarsG");
-    var arrayOfLines3G = threeStarsAreaG.value.split("\n");
-    var ratesThreeStarsG = []
-    if (ratesThreeStarsG !== []) {
-      for(var i3G = 0;i3G < arrayOfLines3G.length;i3G++){
-        ratesThreeStarsG.push({
-          "id": arrayOfLines3G[i3G].split("/")[0],
-          "title": arrayOfLines3G[i3G].split("/")[1],
-          "rate": arrayOfLines3G[i3G].split("/")[2]
-        })
-      }
-    }
+    // var threeStarsAreaG = document.getElementById("threeStarsG");
+    // var arrayOfLines3G = threeStarsAreaG.value.split("\n");
+    // var ratesThreeStarsG = []
+    // if (ratesThreeStarsG !== []) {
+    //   for(var i3G = 0;i3G < arrayOfLines3G.length;i3G++){
+    //     ratesThreeStarsG.push({
+    //       "id": arrayOfLines3G[i3G].split("/")[0],
+    //       "title": arrayOfLines3G[i3G].split("/")[1],
+    //       "rate": arrayOfLines3G[i3G].split("/")[2]
+    //     })
+    //   }
+    // }
 
-    var fourStarsAreaG = document.getElementById("fourStarsG");
-    var arrayOfLines4G = fourStarsAreaG.value.split("\n");
-    var ratesFourStarsG = []
-    if (ratesFourStarsG !== []) {
-      for(var i4G = 0;i4G < arrayOfLines4G.length;i4G++){
-        ratesFourStarsG.push({
-          "id": arrayOfLines4G[i4G].split("/")[0],
-          "title": arrayOfLines4G[i4G].split("/")[1],
-          "rate": arrayOfLines4G[i4G].split("/")[2]
-        })
-      }
-    }
+    // var fourStarsAreaG = document.getElementById("fourStarsG");
+    // var arrayOfLines4G = fourStarsAreaG.value.split("\n");
+    // var ratesFourStarsG = []
+    // if (ratesFourStarsG !== []) {
+    //   for(var i4G = 0;i4G < arrayOfLines4G.length;i4G++){
+    //     ratesFourStarsG.push({
+    //       "id": arrayOfLines4G[i4G].split("/")[0],
+    //       "title": arrayOfLines4G[i4G].split("/")[1],
+    //       "rate": arrayOfLines4G[i4G].split("/")[2]
+    //     })
+    //   }
+    // }
     
     
     const ratesRef = firebase.firestore().collection('games').doc('DRPG')
       .collection('Summons').doc(summon.value).collection('Rates');
     ratesRef.doc(id).set({
-      ratesTwoStars,
-      ratesThreeStars,
+      // ratesTwoStars,
+      // ratesThreeStars,
       ratesFourStars,
       // ratesTwoStarsG,
-      ratesThreeStarsG,
-      ratesFourStarsG,
+      // ratesThreeStarsG,
+      // ratesFourStarsG,
       price1x,
       currency1x,
       price10x,
       currency10x,
+      image_url
     }, { merge: true })
 
   }
@@ -200,7 +200,9 @@ const AddSummon = () => {
           </select>
         </div>
         <label>Image</label>
-        <input type="file" onChange={handleChangeImage} />
+          <input className="" type="text" name="id" placeholder="Image Url"
+            onChange={e => setImage_url(e.currentTarget.value)}
+          />
         <Row>
           <label>Normal</label>
           <Col>
@@ -209,19 +211,20 @@ const AddSummon = () => {
               onChange={e => setFourStars(e.currentTarget.value)}
             />
           </Col>
-          <Col>
+          {/* <Col>
             <textarea
               id="threeStars" className="summon-ta"
               onChange={e => setThreeStars(e.currentTarget.value)}
             />
-          </Col><Col>
+          </Col>
+          <Col>
             <textarea
               id="twoStars" className="summon-ta"
               onChange={e => setTwoStars(e.currentTarget.value)}
             />
-          </Col>
+          </Col> */}
         </Row>
-        <Row>
+        {/* <Row>
           <label>Guaranteed</label>
           <Col>
             <textarea
@@ -235,13 +238,13 @@ const AddSummon = () => {
               onChange={e => setThreeStarsG(e.currentTarget.value)}
             />
           </Col>
-          {/* <Col>
+          <Col>
             <textarea
               id="twoStarsG" className="summon-ta"
               onChange={e => setTwoStarsG(e.currentTarget.value)}
             />
-          </Col> */}
-        </Row>
+          </Col>
+        </Row> */}
         <button className="button add-button">Add</button>
       </form>
     </div>
