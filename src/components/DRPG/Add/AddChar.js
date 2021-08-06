@@ -56,9 +56,7 @@ function useSkills() {
   return skills;
 }
 
-
 const AddChar = () => {
-
   const evilities = useEvilities();
   const skills = useSkills();
   const NEOptions = [
