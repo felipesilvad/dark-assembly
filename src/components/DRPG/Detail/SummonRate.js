@@ -21,7 +21,7 @@ const SummonRate = ({summonID}) => {
 
   return (
     <div>
-      <h3 className="sub-title">Rates</h3>
+      <h3 className="sub-title mt-2">Rates</h3>
       {!! rates &&(rates.map((rate) => (
         <Row className="gray-bg mt-2">
           <Col md={5}>
