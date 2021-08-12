@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import db from '../../../firebase';
 import firebase from '../../../firebase';
 import {Link} from 'react-router-dom';
-import { Row } from 'react-bootstrap';
+import { Row, Col, Image} from 'react-bootstrap';
 
 function useSummons() {
   const [summons, setSummons] = useState([])
@@ -67,14 +67,16 @@ const SummonsList = () => {
         <option value="Sword-Wielding Allies">Sword-Wielding Allies</option>
       </select>
       <h2>Characters List</h2>
-      {summons.sort(intid).map((summon) => (
-        // <SummonsListItem
-        //   id={summon.id}
-        //   title={summon.title}
-        //   portrait_url={summon.portrait_url}
-        // />
-        <h4><Link to={`/DRPG/summons/${summon.id}`}>{summon.id} - {summon.title}</Link></h4>
-      ))}
+      <Row>
+        {summons.sort(intid).map((summon) => (
+          <Col className="summon-list"  key={summon.id}>
+            <Link to={`/DRPG/summons/${summon.id}`}>
+              <Image className="mx-auto d-block gray-bg sumon-list_img" src={summon.image_url} />
+              <h4 className="text-center">{summon.title}</h4>
+            </Link>
+          </Col>
+        ))}
+      </Row>
     </div>
   )
 }

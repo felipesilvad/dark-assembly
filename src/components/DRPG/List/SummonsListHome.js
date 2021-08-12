@@ -14,7 +14,7 @@ const SummonsListHome = ({summon}) => {
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           // console.log(now, '<' ,doc.data().endDate.seconds)
-          if (now < doc.data().endDate.seconds) {
+          if (now <= doc.data().endDate.seconds) {
             console.log(summon.id, doc.data().endDate.seconds)
             setBoolean(true)
           }
@@ -23,19 +23,17 @@ const SummonsListHome = ({summon}) => {
     .catch((error) => {
         console.log("Error getting documents: ", error);
     });
-  // console.log(dates)
+
   return (
     <Row>
-      <Col>
-        {(boolean === true) ? (
-          <Col className="chars-list-item" key={summon.id}>
-            <Link to={`/DRPG/summons/${summon.id}`}>
-              <Image className="mx-auto d-block gray-bg" src={summon.image_url} />
-              <h4 className="text-center">{summon.title}</h4>
-            </Link>
-          </Col>
-        ) : ('')}
-      </Col>
+      {(boolean === true) ? (
+        <Col className="chars-list-item" key={summon.id}>
+          <Link to={`/DRPG/summons/${summon.id}`}>
+            <Image className="mx-auto d-block gray-bg" src={summon.image_url} />
+            <h4 className="text-center">{summon.title}</h4>
+          </Link>
+        </Col>
+      ) : ('')}
     </Row>
   )
 }

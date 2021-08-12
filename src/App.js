@@ -22,7 +22,7 @@ export default class App extends PureComponent {
   render() {
     return (
       <Router>
-        <Container fuild>
+        <Container fuild className="responsive-mt">
           <Row className="m-0">
             <Col md={2} className="p-0">
               <Header />

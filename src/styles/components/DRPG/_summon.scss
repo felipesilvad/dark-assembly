@@ -10,3 +10,16 @@
 .nq-icon {
   width: 2rem;
 }
+
+.summon-list{
+  width: 25%;
+  padding: 0.2rem;
+  @media screen and (max-width: $md) {
+    width: 50%;
+  }
+}
+
+.sumon-list_img {
+  width: -webkit-fill-available;
+  max-width: 25rem;
+}

@@ -80,6 +80,12 @@ label{
   width: -webkit-fill-available;
 }
 
+.responsive-mt{
+  @media screen and (max-width: $md) {
+    margin-top: 4.5rem;
+  }
+}
+
 .add-button {
   background-color: #28a745;
   font-weight: bold;
