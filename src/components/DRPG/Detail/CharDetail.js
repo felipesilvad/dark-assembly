@@ -3,6 +3,7 @@ import db from '../../../firebase';
 import CharDetailEvility from './CharDetailEvility';
 import CharDetailSkill from './CharDetailSkill';
 import CharDetailSkillD from './CharDetailSkillD';
+import CharDetailLinkChar from './CharDetailLinkChar';
 import { Row, Col, Image, Table, Container, Tabs, Tab } from 'react-bootstrap';
 
 function useWmSkills() {
@@ -37,6 +38,8 @@ const CharDetail = ({match}) => {
       setChar(newChar)
     })
   }, [])
+
+  console.log(char.links)
 
   const star = require('../../../assets/DRPG/icons/rare_star.png');
 
@@ -440,8 +443,14 @@ const CharDetail = ({match}) => {
                 {!! char.spell9 &&(
                   <CharDetailSkillD id={char.spell9.value} type={char.type} wmlv={9} />
                 )}
+                {!! char.spell14 &&(
+                  <CharDetailSkillD id={char.spell14.value} type={char.type} wmlv={14} />
+                )}
                 {!! char.spell15 &&(
                   <CharDetailSkillD id={char.spell15.value} type={char.type} wmlv={15} />
+                )}
+                {!! char.spell16 &&(
+                  <CharDetailSkillD id={char.spell16.value} type={char.type} wmlv={16} />
                 )}
                 {!! char.spell22 &&(
                   <CharDetailSkillD id={char.spell22.value} type={char.type} wmlv={22} />
@@ -561,6 +570,19 @@ const CharDetail = ({match}) => {
             ) : ('')}
           </Tabs>
         </div>
+        
+        {!! char.links &&(
+          <div className=" pt-3">
+            <h3 className="sub-title">Character Links</h3>
+            <Row className="">
+              {!! char.links &&(
+                char.links.map((link) => (
+                  <CharDetailLinkChar id={link} />
+                ))
+              )}
+            </Row>
+          </div>
+        )}
 
         <Row>
           <Col md={7}>
@@ -790,6 +812,19 @@ const CharDetail = ({match}) => {
           </Col>
           <Col md={5}>
             <div className=" pt-3">
+              {!! char.videoLink &&(
+                <div className="video-responsive gray-bg">
+                  <iframe
+                    width="853"
+                    height="480"
+                    src={`https://www.youtube.com/embed/${char.videoLink}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    title="Embedded youtube"
+                  />
+                </div>
+              )}
               <Row>
                 <Col xs={8}>
                   <Image src={char.full_url} className="img-fluid full-img mx-auto d-block" />
@@ -803,6 +838,13 @@ const CharDetail = ({match}) => {
                 <div className="">
                   <Row>
                     <Col className="text-center">CV: {!!char.cv ? char.cv : ('-')}</Col>
+                  </Row>
+                </div>
+              </div>
+              <div className="gray-bg" >
+                <div className="">
+                  <Row>
+                    <Col className="text-center">{!!char.description ? char.description : ('-')}</Col>
                   </Row>
                 </div>
               </div>
@@ -1037,60 +1079,6 @@ const CharDetail = ({match}) => {
         </div>
 
         <div className=" pt-3">
-          <h3 className="sub-title">Classes</h3>
-          <div className="gray-bg" >
-            {!!char.class_1 && (
-              <div className="border-b">
-                <Row>
-                  <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /></Col>
-                  <Col className="">{char.class_1}</Col>
-                </Row>
-              </div>
-            )}
-            {!!char.class_2 && (
-              <div className="border-b">
-                <Row>
-                  <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
-                  <Col className="">{char.class_2}</Col>
-                </Row>
-              </div>
-            )}
-            {!!char.class_3 && (
-              <div className="border-b">
-                <Row>
-                  <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
-                  <Col className="">{char.class_3}</Col>
-                </Row>
-              </div>
-            )}
-            {!!char.class_4 && (
-              <div className="border-b">
-                <Row>
-                  <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
-                  <Col className="">{char.class_4}</Col>
-                </Row>
-              </div>
-            )}
-            {!!char.class_5 && (
-              <div className="border-b">
-                <Row>
-                  <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
-                  <Col className="">{char.class_5}</Col>
-                </Row>
-              </div>
-            )}
-            {!!char.class_6 && (
-              <div className="">
-                <Row>
-                  <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
-                  <Col className="">{char.class_6}</Col>
-                </Row>
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className=" pt-3">
           <h3 className="sub-title">Evilities</h3>
           <h4 className="e-type main-e-color">Main Evility</h4>
           <div className="d-flex">
@@ -1203,6 +1191,60 @@ const CharDetail = ({match}) => {
               </Tab>
             ) : ('')}
           </Tabs>
+        </div>
+
+        <div className=" pt-3">
+          <h3 className="sub-title">Classes</h3>
+          <div className="gray-bg" >
+            {!!char.class_1 && (
+              <div className="border-b">
+                <Row>
+                  <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /></Col>
+                  <Col className="">{char.class_1}</Col>
+                </Row>
+              </div>
+            )}
+            {!!char.class_2 && (
+              <div className="border-b">
+                <Row>
+                  <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
+                  <Col className="">{char.class_2}</Col>
+                </Row>
+              </div>
+            )}
+            {!!char.class_3 && (
+              <div className="border-b">
+                <Row>
+                  <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
+                  <Col className="">{char.class_3}</Col>
+                </Row>
+              </div>
+            )}
+            {!!char.class_4 && (
+              <div className="border-b">
+                <Row>
+                  <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
+                  <Col className="">{char.class_4}</Col>
+                </Row>
+              </div>
+            )}
+            {!!char.class_5 && (
+              <div className="border-b">
+                <Row>
+                  <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
+                  <Col className="">{char.class_5}</Col>
+                </Row>
+              </div>
+            )}
+            {!!char.class_6 && (
+              <div className="">
+                <Row>
+                  <Col xs={4} className="text-right border-r p-0"><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /><Image src={star} className="star-class" /></Col>
+                  <Col className="">{char.class_6}</Col>
+                </Row>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className=" pt-3">
@@ -1429,12 +1471,45 @@ const CharDetail = ({match}) => {
           </div>
         </div>
 
+        {!! char.links &&(
+          <div className=" pt-3">
+            <h3 className="sub-title">Character Links</h3>
+            <Row className="">
+              {!! char.links &&(
+                char.links.map((link) => (
+                  <CharDetailLinkChar id={link} />
+                ))
+              )}
+            </Row>
+          </div>
+        )}
+        
         <div className=" pt-3">
+          {!! char.videoLink &&(
+            <div className="video-responsive gray-bg">
+              <iframe
+                width="853"
+                height="480"
+                src={`https://www.youtube.com/embed/${char.videoLink}`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title="Embedded youtube"
+              />
+            </div>
+          )}
           <Image src={char.full_url} className="img-fluid full-img mx-auto d-block" />
           <div className="gray-bg" >
             <div className="">
               <Row>
                 <Col className="text-center">CV: {!!char.cv ? char.cv : ('-')}</Col>
+              </Row>
+            </div>
+          </div>
+          <div className="gray-bg" >
+            <div className="">
+              <Row>
+                <Col className="text-center">{!!char.description ? char.description : ('-')}</Col>
               </Row>
             </div>
           </div>
@@ -1445,9 +1520,9 @@ const CharDetail = ({match}) => {
                 <Image src={require(`../../../assets/DRPG/icons/logo_${game.value}.png`)} className="img-icons" />
               )))}
             </div>
-
           </div>
         </div>
+        
       </div>
     </Container>
   )

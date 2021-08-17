@@ -165,8 +165,12 @@ const AddChar = () => {
   const [ne10, setNE10] = useState('');
   const [ne10Type, setNE10Type] = useState('stat');
 
+  const [linkstxt, setLinkstxt] = useState('');
+
   const [cv, setCv] = useState('');
   const [starsIn, setStarsIn] = useState('');
+  const [description, setDescription] = useState('');
+  const [videoLink, setVideoLink] = useState('');
   const [date, setDate] = useState('');
 
   const notify = () => toast("Character Added");
@@ -222,6 +226,15 @@ const AddChar = () => {
 
   function onSubmit(e) {
     e.preventDefault()
+
+    var links = []
+    var arrayOfLinks = linkstxt.split(',');
+    if (links !== []) {
+      for(var i = 0;i < arrayOfLinks.length;i++){
+        links.push(arrayOfLinks[i])
+      }
+    }
+
     const charRef = firebase.firestore().collection('games').doc('DRPG').collection('Characters');
     charRef.doc(id).set({
       title,
@@ -240,7 +253,7 @@ const AddChar = () => {
       uniqueSkills, spell4, spell9, spell15, spell22, spell30,
       ne1Type, ne2Type, ne3Type, ne4Type, ne5Type, ne6Type, ne7Type, ne8Type, ne9Type, ne10Type,
       ne1, ne2, ne3, ne4, ne5, ne6, ne7, ne8, ne9, ne10,
-      cv, starsIn,
+      cv, starsIn, links, description, videoLink,
       added_date: firebase.firestore.Timestamp.fromDate(new Date(moment(date).format('MMMM D YYYY')))
     }, { merge: true }).then(
       notify,
@@ -748,6 +761,15 @@ const AddChar = () => {
             <div className="">
               <input className="" type="text" name="Cv" placeholder="Cv"
                 onChange={e => setCv(e.currentTarget.value)}
+              />
+              <input className="" type="text" name="Linkstxt" placeholder="Linkstxt"
+                onChange={e => setLinkstxt(e.currentTarget.value)}
+              />
+              <input className="" type="text" name="Description" placeholder="Description"
+                onChange={e => setDescription(e.currentTarget.value)}
+              />
+              <input className="" type="text" name="VideoLink" placeholder="VideoLink"
+                onChange={e => setVideoLink(e.currentTarget.value)}
               />
               <div>
                 <label>Stars In</label>
