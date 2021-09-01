@@ -25,16 +25,14 @@ const SummonsListHome = ({summon}) => {
     });
 
   return (
-    <Row>
-      {(boolean === true) ? (
-        <Col className="chars-list-item" key={summon.id}>
-          <Link to={`/DRPG/summons/${summon.id}`}>
-            <Image className="mx-auto d-block gray-bg" src={summon.image_url} />
-            <h4 className="text-center">{summon.title}</h4>
-          </Link>
-        </Col>
-      ) : ('')}
-    </Row>
+    (boolean === true) ? (
+      <Col className="summon-list"  key={summon.id}>
+        <Link to={`/DRPG/summons/${summon.id}`}>
+          <Image className="mx-auto d-block gray-bg sumon-list_img" src={summon.image_url} />
+          <h4 className="text-center">{summon.title}</h4>
+        </Link>
+      </Col>
+    ) : ('')
   )
 }
 
