@@ -10,7 +10,7 @@ import AddSkill from './AddSkill';
 import AddSkillEffect from './AddSkillEffect';
 import Select from 'react-select';
 import moment from 'moment';
-
+import LogIn from '../../../components/LogIn';
 
 function useEvilities() {
   const [evilities, setEvilities] = useState([])
@@ -93,6 +93,7 @@ const AddChar = () => {
   const [gender, setGender] = useState('male');
   const [type_2, setType_2] = useState('unique');
   const [stars, setStars] = useState('');
+  const [symbol, setSymbol] = useState('');
 
   const [hp_1, setHP_1] = useState('');
   const [atk_1, setATK_1] = useState('');
@@ -237,12 +238,7 @@ const AddChar = () => {
 
     const charRef = firebase.firestore().collection('games').doc('DRPG').collection('Characters');
     charRef.doc(id).set({
-      title,
-      type,
-      forte,
-      gender,
-      type_2,
-      stars,
+      title, type, symbol, forte, gender, type_2, stars,
       hp_1,atk_1,def_1,int_1,res_1,spd_1,
       hp_9,atk_9,def_9,int_9,res_9,spd_9,
       crt, crd,
@@ -261,572 +257,596 @@ const AddChar = () => {
     )
   }
 
+  const [hasAccount, setHasAccount] = useState('');
+
   return (
     <Container>
-      <Row className="gray-bg">
-        <Col>
-          <label>Add Character</label>
-          <form onSubmit={onSubmit}>
-            <Row>
-              <Col xs={2}>
-                <input className="w-100" type="number" name="id" placeholder="ID"
-                  onChange={e => setID(e.currentTarget.value)}
-                />
-              </Col>
-              <Col xs={10}>
-                <input className="w-100" type="text" name="title" placeholder="Title"
-                  onChange={e => setTitle(e.currentTarget.value)}
-                />
-              </Col>
-            </Row>
+      <LogIn setHasAccount={setHasAccount} />
+      {hasAccount ? (
+        <>
+          <Row className="gray-bg">
+          <Col>
+            <label>Add Character</label>
+            <form onSubmit={onSubmit}>
+              <Row>
+                <Col xs={2}>
+                  <input className="w-100" type="number" name="id" placeholder="ID"
+                    onChange={e => setID(e.currentTarget.value)}
+                  />
+                </Col>
+                <Col xs={10}>
+                  <input className="w-100" type="text" name="title" placeholder="Title"
+                    onChange={e => setTitle(e.currentTarget.value)}
+                  />
+                </Col>
+              </Row>
 
-            <Row className=" pt-2">
-              <Col>
-                <label>Type</label>
-                <select name="type" id="type"
-                  onChange={e => setType(e.currentTarget.value)}
-                >
-                  <option value="humanoid">Humanoid</option>
-                  <option value="monster">Monster</option>
-                </select>
-              </Col>
-              <Col>
-                <label>Forte</label>
-                <select name="forte" id="forte"
-                  onChange={e => setForte(e.currentTarget.value)}
-                >
-                  <option value="Sword">Sword</option>
-                  <option value="Fist">Fist</option>
-                  <option value="Spear">Spear</option>
-                  <option value="Bow">Bow</option>
-                  <option value="Gun">Gun</option>
-                  <option value="Axe">Axe</option>
-                  <option value="Staff">Staff</option>
-                  <option value="Monster1">Monster-1</option>
-                  <option value="Monster2">Monster-2</option>
-                </select>
-              </Col>
-              <Col>
-                <label>Gender</label>
-                <select name="gender" id="gender"
-                  onChange={e => setGender(e.currentTarget.value)}
-                >
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-              </Col>
-              <Col>
-                <label>Type_2</label>
-                <select name="type_2" id="type_2"
-                  onChange={e => setType_2(e.currentTarget.value)}
-                >
-                  <option value="unique">Unique</option>
-                  <option value="generic">Generic</option>
-                </select>
-              </Col>
-              <Col>
-                <label>Stars</label>
-                <input type="number" name="star"
-                  onChange={e => setStars(e.currentTarget.value)}
-                />
-              </Col>
-            </Row>
+              <Row className=" pt-2">
+                <Col>
+                  <label>Type</label>
+                  <select name="type" id="type"
+                    onChange={e => setType(e.currentTarget.value)}
+                  >
+                    <option value="humanoid">Humanoid</option>
+                    <option value="monster">Monster</option>
+                  </select>
+                </Col>
+                <Col>
+                  <label>Symbol</label>
+                  <select name="Symbol" id="Symbol"
+                    onChange={e => setSymbol(e.currentTarget.value)}
+                  >
+                    <option value="King">King</option>
+                    <option value="Pawn">Pawn</option>
+                    <option value="Rook">Rook</option>
+                    <option value="Bishop">Bishop</option>
+                    <option value="Knight">Knight</option>
+                    <option value="Queen">Queen</option>
+                  </select>
+                </Col>
+                <Col>
+                  <label>Forte</label>
+                  <select name="forte" id="forte"
+                    onChange={e => setForte(e.currentTarget.value)}
+                  >
+                    <option value="Sword">Sword</option>
+                    <option value="Fist">Fist</option>
+                    <option value="Spear">Spear</option>
+                    <option value="Bow">Bow</option>
+                    <option value="Gun">Gun</option>
+                    <option value="Axe">Axe</option>
+                    <option value="Staff">Staff</option>
+                    <option value="Monster1">Monster-1</option>
+                    <option value="Monster2">Monster-2</option>
+                  </select>
+                </Col>
+                <Col>
+                  <label>Gender</label>
+                  <select name="gender" id="gender"
+                    onChange={e => setGender(e.currentTarget.value)}
+                  >
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </Col>
+                <Col>
+                  <label>Type_2</label>
+                  <select name="type_2" id="type_2"
+                    onChange={e => setType_2(e.currentTarget.value)}
+                  >
+                    <option value="unique">Unique</option>
+                    <option value="generic">Generic</option>
+                  </select>
+                </Col>
+                <Col>
+                  <label>Stars</label>
+                  <input type="number" name="star"
+                    onChange={e => setStars(e.currentTarget.value)}
+                  />
+                </Col>
+              </Row>
+              
+              <Row>
+                <Col>
+                  <table id="stats">
+                    <tr>
+                      <th className="text-uppercase">HP</th>
+                      <td>
+                        <input type="number" name="HP_1" onChange={e => setHP_1(e.currentTarget.value)} />
+                      </td>
+                      <td>
+                        <input type="number" name="HP_9" onChange={e => setHP_9(e.currentTarget.value)} />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className="text-uppercase">ATK</th>
+                      <td>
+                        <input type="number" name="ATK_1" onChange={e => setATK_1(e.currentTarget.value)} />
+                      </td>
+                      <td>
+                        <input type="number" name="ATK_9" onChange={e => setATK_9(e.currentTarget.value)} />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className="text-uppercase">DEF</th>
+                      <td>
+                        <input type="number" name="DEF_1" onChange={e => setDEF_1(e.currentTarget.value)} />
+                      </td>
+                      <td>
+                        <input type="number" name="DEF_9" onChange={e => setDEF_9(e.currentTarget.value)} />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className="text-uppercase">INT</th>
+                      <td>
+                        <input type="number" name="INT_1" onChange={e => setINT_1(e.currentTarget.value)} />
+                      </td>
+                      <td>
+                        <input type="number" name="INT_9" onChange={e => setINT_9(e.currentTarget.value)} />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className="text-uppercase">RES</th>
+                      <td>
+                        <input type="number" name="RES_1" onChange={e => setRES_1(e.currentTarget.value)} />
+                      </td>
+                      <td>
+                        <input type="number" name="RES_9" onChange={e => setRES_9(e.currentTarget.value)} />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className="text-uppercase">SPD</th>
+                      <td>
+                        <input type="number" name="SPD_1" onChange={e => setSPD_1(e.currentTarget.value)} />
+                      </td>
+                      <td>
+                        <input type="number" name="SPD_9" onChange={e => setSPD_9(e.currentTarget.value)} />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className="text-uppercase">CRT</th>
+                      <td>
+                        <input type="number" name="CRT" placeholder="4"
+                        onChange={e => setCRT(e.currentTarget.value)} />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className="text-uppercase">CRD</th>
+                      <td>
+                        <input type="number" name="CRD" placeholder="140"
+                        onChange={e => setCRD(e.currentTarget.value)} />
+                      </td>
+                    </tr>
+                  </table>
+                </Col>
+                <Col>
+                  <table id="resistences">
+                    <tr >
+                      <th><label className="ATK-color stat-txt">Fire</label></th>
+                      <td>
+                        <input type="number" name="r_fire"
+                          onChange={e => setR_Fire(e.currentTarget.value)}
+                        />
+                      </td>
+                    </tr>
+                    <tr >
+                      <th><label className="RES-color stat-txt">Water</label></th>
+                      <td>
+                        <input type="number" name="r_sater"
+                          onChange={e => setR_Water(e.currentTarget.value)}
+                        />
+                      </td>
+                    </tr>
+                    <tr >
+                      <th><label className="sub-e-color stat-txt">Wind</label></th>
+                      <td>
+                        <input type="number" name="r_wind"
+                          onChange={e => setR_Wind(e.currentTarget.value)}
+                        />
+                      </td>
+                    </tr>
+                    <tr >
+                      <th><label className="INT-color stat-txt">Star</label></th>
+                      <td>
+                        <input type="number" name="r_star"
+                          onChange={e => setR_Star(e.currentTarget.value)}
+                        />
+                      </td>
+                    </tr>
+                    <tr >
+                      <th><label className="">Poison</label></th>
+                      <td>
+                        <input type="number" name="r_poison" placeholder="40"
+                          onChange={e => setR_Poison(e.currentTarget.value)}
+                        />
+                      </td>
+                    </tr>
+                    <tr >
+                      <th><label className="">Paralysis</label></th>
+                      <td>
+                        <input type="number" name="r_paralysis" placeholder="40"
+                          onChange={e => setR_Paralysis(e.currentTarget.value)}
+                        />
+                      </td>
+                    </tr>
+                    <tr >
+                      <th><label className="">Sleep</label></th>
+                      <td>
+                        <input type="number" name="r_sleep" placeholder="40"
+                          onChange={e => setR_Sleep(e.currentTarget.value)}
+                        />
+                      </td>
+                    </tr>
+                    <tr >
+                      <th><label className="">Forget</label></th>
+                      <td>
+                        <input type="number" name="r_forget" placeholder="40"
+                          onChange={e => setR_Forget(e.currentTarget.value)}
+                        />
+                      </td>
+                    </tr>
+                  </table>
+                </Col>
+              </Row>
+              
+              <div id="classes">
+                <div className="d-flex">
+                  <label>Class_1</label>
+                  <input className="w-90" type="text" name="Class_1" placeholder="Class_1"
+                    onChange={e => setClass1(e.currentTarget.value)}
+                  />
+                </div>
+                <div className="d-flex">
+                  <label>Class_2</label>
+                  <input className="w-90" type="text" name="Class_2" placeholder="Class_2"
+                    onChange={e => setClass2(e.currentTarget.value)}
+                  />
+                </div>
+                <div className="d-flex">
+                  <label>Class_3</label>
+                  <input className="w-90" type="text" name="Class_3" placeholder="Class_3"
+                    onChange={e => setClass3(e.currentTarget.value)}
+                  />
+                </div>
+                <div className="d-flex">
+                  <label>Class_4</label>
+                  <input className="w-90" type="text" name="Class_4" placeholder="Class_4"
+                    onChange={e => setClass4(e.currentTarget.value)}
+                  />
+                </div>
+                <div className="d-flex">
+                  <label>Class_5</label>
+                  <input className="w-90" type="text" name="Class_5" placeholder="Class_5"
+                    onChange={e => setClass5(e.currentTarget.value)}
+                  />
+                </div>
+                <div className="d-flex">
+                  <label>Class_6</label>
+                  <input className="w-90" type="text" name="Class_6" placeholder="Class_6"
+                    onChange={e => setClass6(e.currentTarget.value)}
+                  />
+                </div>
+              </div>
+              
+              <div id="wm" className="d-flex">
+                <div className="w-10">
+                  <label>Sword</label>
+                  <input type="number" name="WmSword" onChange={e => setWmSword(e.currentTarget.value)} />
+                </div>
+                <div className="w-10">
+                  <label>Fist</label>
+                  <input type="number" name="WmFist" onChange={e => setWmFist(e.currentTarget.value)} />
+                </div>
+                <div className="w-10">
+                  <label>Spear</label>
+                  <input type="number" name="WmSpear" onChange={e => setWmSpear(e.currentTarget.value)} />
+                </div>
+                <div className="w-10">
+                  <label>Bow</label>
+                  <input type="number" name="WmBow" onChange={e => setWmBow(e.currentTarget.value)} />
+                </div>
+                <div className="w-10">
+                  <label>Gun</label>
+                  <input type="number" name="WmGun" onChange={e => setWmGun(e.currentTarget.value)} />
+                </div>
+                <div className="w-10">
+                  <label>Axe</label>
+                  <input type="number" name="WmAxe" onChange={e => setWmAxe(e.currentTarget.value)} />
+                </div>
+                <div className="w-10">
+                  <label>Staff</label>
+                  <input type="number" name="WmStaff" onChange={e => setWmStaff(e.currentTarget.value)} />
+                </div>
+                <div className="w-10">
+                  <label>Monster1</label>
+                  <input type="number" name="WmMonster1" onChange={e => setWmMonster1(e.currentTarget.value)} />
+                </div>
+                <div className="w-10">
+                  <label>Monster2</label>
+                  <input type="number" name="WmMonster2" onChange={e => setWmMonster2(e.currentTarget.value)} />
+                </div>
+              </div>
             
-            <Row>
-              <Col>
-                <table id="stats">
-                  <tr>
-                    <th className="text-uppercase">HP</th>
-                    <td>
-                      <input type="number" name="HP_1" onChange={e => setHP_1(e.currentTarget.value)} />
-                    </td>
-                    <td>
-                      <input type="number" name="HP_9" onChange={e => setHP_9(e.currentTarget.value)} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <th className="text-uppercase">ATK</th>
-                    <td>
-                      <input type="number" name="ATK_1" onChange={e => setATK_1(e.currentTarget.value)} />
-                    </td>
-                    <td>
-                      <input type="number" name="ATK_9" onChange={e => setATK_9(e.currentTarget.value)} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <th className="text-uppercase">DEF</th>
-                    <td>
-                      <input type="number" name="DEF_1" onChange={e => setDEF_1(e.currentTarget.value)} />
-                    </td>
-                    <td>
-                      <input type="number" name="DEF_9" onChange={e => setDEF_9(e.currentTarget.value)} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <th className="text-uppercase">INT</th>
-                    <td>
-                      <input type="number" name="INT_1" onChange={e => setINT_1(e.currentTarget.value)} />
-                    </td>
-                    <td>
-                      <input type="number" name="INT_9" onChange={e => setINT_9(e.currentTarget.value)} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <th className="text-uppercase">RES</th>
-                    <td>
-                      <input type="number" name="RES_1" onChange={e => setRES_1(e.currentTarget.value)} />
-                    </td>
-                    <td>
-                      <input type="number" name="RES_9" onChange={e => setRES_9(e.currentTarget.value)} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <th className="text-uppercase">SPD</th>
-                    <td>
-                      <input type="number" name="SPD_1" onChange={e => setSPD_1(e.currentTarget.value)} />
-                    </td>
-                    <td>
-                      <input type="number" name="SPD_9" onChange={e => setSPD_9(e.currentTarget.value)} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <th className="text-uppercase">CRT</th>
-                    <td>
-                      <input type="number" name="CRT" placeholder="4"
-                      onChange={e => setCRT(e.currentTarget.value)} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <th className="text-uppercase">CRD</th>
-                    <td>
-                      <input type="number" name="CRD" placeholder="140"
-                      onChange={e => setCRD(e.currentTarget.value)} />
-                    </td>
-                  </tr>
-                </table>
-              </Col>
-              <Col>
-                <table id="resistences">
-                  <tr >
-                    <th><label className="ATK-color stat-txt">Fire</label></th>
-                    <td>
-                      <input type="number" name="r_fire"
-                        onChange={e => setR_Fire(e.currentTarget.value)}
-                      />
-                    </td>
-                  </tr>
-                  <tr >
-                    <th><label className="RES-color stat-txt">Water</label></th>
-                    <td>
-                      <input type="number" name="r_sater"
-                        onChange={e => setR_Water(e.currentTarget.value)}
-                      />
-                    </td>
-                  </tr>
-                  <tr >
-                    <th><label className="sub-e-color stat-txt">Wind</label></th>
-                    <td>
-                      <input type="number" name="r_wind"
-                        onChange={e => setR_Wind(e.currentTarget.value)}
-                      />
-                    </td>
-                  </tr>
-                  <tr >
-                    <th><label className="INT-color stat-txt">Star</label></th>
-                    <td>
-                      <input type="number" name="r_star"
-                        onChange={e => setR_Star(e.currentTarget.value)}
-                      />
-                    </td>
-                  </tr>
-                  <tr >
-                    <th><label className="">Poison</label></th>
-                    <td>
-                      <input type="number" name="r_poison" placeholder="40"
-                        onChange={e => setR_Poison(e.currentTarget.value)}
-                      />
-                    </td>
-                  </tr>
-                  <tr >
-                    <th><label className="">Paralysis</label></th>
-                    <td>
-                      <input type="number" name="r_paralysis" placeholder="40"
-                        onChange={e => setR_Paralysis(e.currentTarget.value)}
-                      />
-                    </td>
-                  </tr>
-                  <tr >
-                    <th><label className="">Sleep</label></th>
-                    <td>
-                      <input type="number" name="r_sleep" placeholder="40"
-                        onChange={e => setR_Sleep(e.currentTarget.value)}
-                      />
-                    </td>
-                  </tr>
-                  <tr >
-                    <th><label className="">Forget</label></th>
-                    <td>
-                      <input type="number" name="r_forget" placeholder="40"
-                        onChange={e => setR_Forget(e.currentTarget.value)}
-                      />
-                    </td>
-                  </tr>
-                </table>
-              </Col>
-            </Row>
+              <Row id="evilities">
+                <Col>
+                  <label>Main Evility</label>
+                  <Select 
+                    options={evilities} onChange={e => setMainEvility(e)}
+                    styles={selectStyles} className="Selector" isSearchable
+                  />
+                </Col>
+                <Col>
+                  <label>Unique Skills</label>
+                  <Select 
+                    options={skills} onChange={e => setUniqueSkills(e)}
+                    styles={selectStyles} className="Selector" isSearchable isMulti autoFocus 
+                  />
+                </Col>
+                {/* <Col>
+                  <label>Sub Evilities</label>
+                  <Select 
+                    options={evilities} onChange={e => setSubEvilities(e)}
+                    styles={selectStyles} className="Selector" isSearchable isMulti autoFocus 
+                  />
+                </Col> */}
+              </Row>
+
+              <Row>
+                <Col>
+                  <label>Spell4</label>
+                  <Select 
+                    options={skills} onChange={e => setSpell4(e)}
+                    styles={selectStyles} className="Selector" isSearchable 
+                  />
+                </Col>
+                <Col>
+                  <label>Spell9</label>
+                  <Select 
+                    options={skills} onChange={e => setSpell9(e)}
+                    styles={selectStyles} className="Selector" isSearchable 
+                  />
+                </Col>
+                <Col>
+                  <label>Spell15</label>
+                  <Select 
+                    options={skills} onChange={e => setSpell15(e)}
+                    styles={selectStyles} className="Selector" isSearchable 
+                  />
+                </Col>
+                <Col>
+                  <label>Spell22</label>
+                  <Select 
+                    options={skills} onChange={e => setSpell22(e)}
+                    styles={selectStyles} className="Selector" isSearchable 
+                  />
+                </Col>
+                <Col>
+                  <label>Spell30</label>
+                  <Select 
+                    options={skills} onChange={e => setSpell30(e)}
+                    styles={selectStyles} className="Selector" isSearchable 
+                  />
+                </Col>
+              </Row>
+
+              <div id="NE" className="pt-2 pb-2">
+                <div className="d-flex gray-bg">
+                  <label>NE1</label>
+                  <select name="NE1Type" id="NE1Type"
+                    onChange={e => setNE1Type(e.currentTarget.value)}
+                  >
+                    <option value="evility">Evility</option>
+                    <option value="stat">Stats</option>
+                    <option value="skill">Skill</option>
+                  </select>
+                  <Select 
+                    options={NEOptions} onChange={e => setNE1(e)}
+                    styles={selectStyles} className="Selector w-100" isSearchable
+                  />
+                </div>
+                <div className="d-flex gray-bg">
+                  <label>NE2</label>
+                  <select name="NE2Type" id="NE2Type"
+                    onChange={e => setNE2Type(e.currentTarget.value)}
+                  >
+                    <option value="stat">Stats</option>
+                    <option value="evility">Evility</option>
+                    <option value="skill">Skill</option>
+                  </select>
+                  <Select 
+                    options={NEOptions} onChange={e => setNE2(e)}
+                    styles={selectStyles} className="Selector w-100" isSearchable
+                  />
+                </div>
+                <div className="d-flex gray-bg">
+                  <label>NE3</label>
+                  <select name="NE3Type" id="NE3Type"
+                    onChange={e => setNE3Type(e.currentTarget.value)}
+                  >
+                    <option value="skill">Skill</option>
+                    <option value="stat">Stats</option>
+                    <option value="evility">Evility</option>
+                  </select>
+                  <Select 
+                    options={NEOptions} onChange={e => setNE3(e)}
+                    styles={selectStyles} className="Selector w-100" isSearchable
+                  />
+                </div>
+                <div className="d-flex gray-bg">
+                  <label>NE4</label>
+                  <select name="NE4Type" id="NE4Type"
+                    onChange={e => setNE4Type(e.currentTarget.value)}
+                  >
+                    <option value="stat">Stats</option>
+                    <option value="evility">Evility</option>
+                    <option value="skill">Skill</option>
+                  </select>
+                  <Select 
+                    options={NEOptions} onChange={e => setNE4(e)}
+                    styles={selectStyles} className="Selector w-100" isSearchable
+                  />
+                </div>
+                <div className="d-flex gray-bg">
+                  <label>NE5</label>
+                  <select name="NE5Type" id="NE5Type"
+                    onChange={e => setNE5Type(e.currentTarget.value)}
+                  >
+                    <option value="evility">Evility</option>
+                    <option value="stat">Stats</option>
+                    <option value="skill">Skill</option>
+                  </select>
+                  <Select 
+                    options={NEOptions} onChange={e => setNE5(e)}
+                    styles={selectStyles} className="Selector w-100" isSearchable
+                  />
+                </div>
+                <div className="d-flex gray-bg">
+                  <label>NE6</label>
+                  <select name="NE6Type" id="NE6Type"
+                    onChange={e => setNE6Type(e.currentTarget.value)}
+                  >
+                    <option value="stat">Stats</option>
+                    <option value="evility">Evility</option>
+                    <option value="skill">Skill</option>
+                  </select>
+                  <Select 
+                    options={NEOptions} onChange={e => setNE6(e)}
+                    styles={selectStyles} className="Selector w-100" isSearchable
+                  />
+                </div>
+                <div className="d-flex gray-bg">
+                  <label>NE7</label>
+                  <select name="NE7Type" id="NE7Type"
+                    onChange={e => setNE7Type(e.currentTarget.value)}
+                  >
+                    <option value="evility">Evility</option>
+                    <option value="stat">Stats</option>
+                    <option value="skill">Skill</option>
+                  </select>
+                  <Select 
+                    options={NEOptions} onChange={e => setNE7(e)}
+                    styles={selectStyles} className="Selector w-100" isSearchable
+                  />
+                </div>
+                <div className="d-flex gray-bg">
+                  <label>NE8</label>
+                  <select name="NE8Type" id="NE8Type"
+                    onChange={e => setNE8Type(e.currentTarget.value)}
+                  >
+                    <option value="stat">Stats</option>
+                    <option value="evility">Evility</option>
+                    <option value="skill">Skill</option>
+                  </select>
+                  <Select 
+                    options={NEOptions} onChange={e => setNE8(e)}
+                    styles={selectStyles} className="Selector w-100" isSearchable
+                  />
+                </div>
+                <div className="d-flex gray-bg">
+                  <label>NE9</label>
+                  <select name="NE9Type" id="NE9Type"
+                    onChange={e => setNE9Type(e.currentTarget.value)}
+                  >
+                    <option value="stat">Stats</option>
+                    <option value="evility">Evility</option>
+                    <option value="skill">Skill</option>
+                  </select>
+                  <Select 
+                    options={NEOptions} onChange={e => setNE9(e)}
+                    styles={selectStyles} className="Selector w-100" isSearchable
+                  />
+                </div>
+                <div className="d-flex gray-bg">
+                  <label>NE10</label>
+                  <select name="NE10Type" id="NE10Type"
+                    onChange={e => setNE10Type(e.currentTarget.value)}
+                  >
+                    <option value="stat">Stats</option>
+                    <option value="evility">Evility</option>
+                    <option value="skill">Skill</option>
+                  </select>
+                  <Select 
+                    options={NEOptions} onChange={e => setNE10(e)}
+                    styles={selectStyles} className="Selector w-100" isSearchable
+                  />
+                </div>
+              </div>
             
-            <div id="classes">
-              <div className="d-flex">
-                <label>Class_1</label>
-                <input className="w-90" type="text" name="Class_1" placeholder="Class_1"
-                  onChange={e => setClass1(e.currentTarget.value)}
+              <div className="">
+                <input className="" type="text" name="Cv" placeholder="Cv"
+                  onChange={e => setCv(e.currentTarget.value)}
                 />
-              </div>
-              <div className="d-flex">
-                <label>Class_2</label>
-                <input className="w-90" type="text" name="Class_2" placeholder="Class_2"
-                  onChange={e => setClass2(e.currentTarget.value)}
+                <input className="" type="text" name="Linkstxt" placeholder="Linkstxt"
+                  onChange={e => setLinkstxt(e.currentTarget.value)}
                 />
-              </div>
-              <div className="d-flex">
-                <label>Class_3</label>
-                <input className="w-90" type="text" name="Class_3" placeholder="Class_3"
-                  onChange={e => setClass3(e.currentTarget.value)}
+                <input className="" type="text" name="Description" placeholder="Description"
+                  onChange={e => setDescription(e.currentTarget.value)}
                 />
-              </div>
-              <div className="d-flex">
-                <label>Class_4</label>
-                <input className="w-90" type="text" name="Class_4" placeholder="Class_4"
-                  onChange={e => setClass4(e.currentTarget.value)}
+                <input className="" type="text" name="VideoLink" placeholder="VideoLink"
+                  onChange={e => setVideoLink(e.currentTarget.value)}
                 />
+                <div>
+                  <label>Stars In</label>
+                  <Select 
+                    options={StarsInOptions} onChange={e => setStarsIn(e)}
+                    styles={selectStyles} className="Selector" isSearchable isMulti autoFocus 
+                  />
+                </div>
+                <input type="date" onChange={e => setDate(e.currentTarget.value)} />
               </div>
-              <div className="d-flex">
-                <label>Class_5</label>
-                <input className="w-90" type="text" name="Class_5" placeholder="Class_5"
-                  onChange={e => setClass5(e.currentTarget.value)}
-                />
-              </div>
-              <div className="d-flex">
-                <label>Class_6</label>
-                <input className="w-90" type="text" name="Class_6" placeholder="Class_6"
-                  onChange={e => setClass6(e.currentTarget.value)}
-                />
-              </div>
-            </div>
-            
-            <div id="wm" className="d-flex">
-              <div className="w-10">
-                <label>Sword</label>
-                <input type="number" name="WmSword" onChange={e => setWmSword(e.currentTarget.value)} />
-              </div>
-              <div className="w-10">
-                <label>Fist</label>
-                <input type="number" name="WmFist" onChange={e => setWmFist(e.currentTarget.value)} />
-              </div>
-              <div className="w-10">
-                <label>Spear</label>
-                <input type="number" name="WmSpear" onChange={e => setWmSpear(e.currentTarget.value)} />
-              </div>
-              <div className="w-10">
-                <label>Bow</label>
-                <input type="number" name="WmBow" onChange={e => setWmBow(e.currentTarget.value)} />
-              </div>
-              <div className="w-10">
-                <label>Gun</label>
-                <input type="number" name="WmGun" onChange={e => setWmGun(e.currentTarget.value)} />
-              </div>
-              <div className="w-10">
-                <label>Axe</label>
-                <input type="number" name="WmAxe" onChange={e => setWmAxe(e.currentTarget.value)} />
-              </div>
-              <div className="w-10">
-                <label>Staff</label>
-                <input type="number" name="WmStaff" onChange={e => setWmStaff(e.currentTarget.value)} />
-              </div>
-              <div className="w-10">
-                <label>Monster1</label>
-                <input type="number" name="WmMonster1" onChange={e => setWmMonster1(e.currentTarget.value)} />
-              </div>
-              <div className="w-10">
-                <label>Monster2</label>
-                <input type="number" name="WmMonster2" onChange={e => setWmMonster2(e.currentTarget.value)} />
-              </div>
-            </div>
-          
-            <Row id="evilities">
-              <Col>
-                <label>Main Evility</label>
-                <Select 
-                  options={evilities} onChange={e => setMainEvility(e)}
-                  styles={selectStyles} className="Selector" isSearchable
-                />
-              </Col>
-              <Col>
-                <label>Unique Skills</label>
-                <Select 
-                  options={skills} onChange={e => setUniqueSkills(e)}
-                  styles={selectStyles} className="Selector" isSearchable isMulti autoFocus 
-                />
-              </Col>
-              {/* <Col>
-                <label>Sub Evilities</label>
-                <Select 
-                  options={evilities} onChange={e => setSubEvilities(e)}
-                  styles={selectStyles} className="Selector" isSearchable isMulti autoFocus 
-                />
-              </Col> */}
-            </Row>
 
-            <Row>
-              <Col>
-                <label>Spell4</label>
-                <Select 
-                  options={skills} onChange={e => setSpell4(e)}
-                  styles={selectStyles} className="Selector" isSearchable 
-                />
-              </Col>
-              <Col>
-                <label>Spell9</label>
-                <Select 
-                  options={skills} onChange={e => setSpell9(e)}
-                  styles={selectStyles} className="Selector" isSearchable 
-                />
-              </Col>
-              <Col>
-                <label>Spell15</label>
-                <Select 
-                  options={skills} onChange={e => setSpell15(e)}
-                  styles={selectStyles} className="Selector" isSearchable 
-                />
-              </Col>
-              <Col>
-                <label>Spell22</label>
-                <Select 
-                  options={skills} onChange={e => setSpell22(e)}
-                  styles={selectStyles} className="Selector" isSearchable 
-                />
-              </Col>
-              <Col>
-                <label>Spell30</label>
-                <Select 
-                  options={skills} onChange={e => setSpell30(e)}
-                  styles={selectStyles} className="Selector" isSearchable 
-                />
-              </Col>
-            </Row>
+              <Row>
+                <Col>
+                  <label>Portrait</label>
+                  <input type="file" onChange={handleChangePortrait} />
+                </Col>
+                <Col>
+                  <label>Cut-In</label>
+                  <input type="file" onChange={handleChangeCutIn} />
+                </Col>
+                <Col>
+                  <label>Main</label>
+                  <input type="file" onChange={handleChangeMain} />
+                </Col>
+                <Col>
+                  <label>Full</label>
+                  <input type="file" onChange={handleChangeFull} />
+                </Col>
+              </Row>
+              
+              <button className="button add-button">Add</button>
+            </form>
+          </Col>
+        </Row>
 
-            <div id="NE" className="pt-2 pb-2">
-              <div className="d-flex gray-bg">
-                <label>NE1</label>
-                <select name="NE1Type" id="NE1Type"
-                  onChange={e => setNE1Type(e.currentTarget.value)}
-                >
-                  <option value="evility">Evility</option>
-                  <option value="stat">Stats</option>
-                  <option value="skill">Skill</option>
-                </select>
-                <Select 
-                  options={NEOptions} onChange={e => setNE1(e)}
-                  styles={selectStyles} className="Selector w-100" isSearchable
-                />
-              </div>
-              <div className="d-flex gray-bg">
-                <label>NE2</label>
-                <select name="NE2Type" id="NE2Type"
-                  onChange={e => setNE2Type(e.currentTarget.value)}
-                >
-                  <option value="stat">Stats</option>
-                  <option value="evility">Evility</option>
-                  <option value="skill">Skill</option>
-                </select>
-                <Select 
-                  options={NEOptions} onChange={e => setNE2(e)}
-                  styles={selectStyles} className="Selector w-100" isSearchable
-                />
-              </div>
-              <div className="d-flex gray-bg">
-                <label>NE3</label>
-                <select name="NE3Type" id="NE3Type"
-                  onChange={e => setNE3Type(e.currentTarget.value)}
-                >
-                  <option value="skill">Skill</option>
-                  <option value="stat">Stats</option>
-                  <option value="evility">Evility</option>
-                </select>
-                <Select 
-                  options={NEOptions} onChange={e => setNE3(e)}
-                  styles={selectStyles} className="Selector w-100" isSearchable
-                />
-              </div>
-              <div className="d-flex gray-bg">
-                <label>NE4</label>
-                <select name="NE4Type" id="NE4Type"
-                  onChange={e => setNE4Type(e.currentTarget.value)}
-                >
-                  <option value="stat">Stats</option>
-                  <option value="evility">Evility</option>
-                  <option value="skill">Skill</option>
-                </select>
-                <Select 
-                  options={NEOptions} onChange={e => setNE4(e)}
-                  styles={selectStyles} className="Selector w-100" isSearchable
-                />
-              </div>
-              <div className="d-flex gray-bg">
-                <label>NE5</label>
-                <select name="NE5Type" id="NE5Type"
-                  onChange={e => setNE5Type(e.currentTarget.value)}
-                >
-                  <option value="evility">Evility</option>
-                  <option value="stat">Stats</option>
-                  <option value="skill">Skill</option>
-                </select>
-                <Select 
-                  options={NEOptions} onChange={e => setNE5(e)}
-                  styles={selectStyles} className="Selector w-100" isSearchable
-                />
-              </div>
-              <div className="d-flex gray-bg">
-                <label>NE6</label>
-                <select name="NE6Type" id="NE6Type"
-                  onChange={e => setNE6Type(e.currentTarget.value)}
-                >
-                  <option value="stat">Stats</option>
-                  <option value="evility">Evility</option>
-                  <option value="skill">Skill</option>
-                </select>
-                <Select 
-                  options={NEOptions} onChange={e => setNE6(e)}
-                  styles={selectStyles} className="Selector w-100" isSearchable
-                />
-              </div>
-              <div className="d-flex gray-bg">
-                <label>NE7</label>
-                <select name="NE7Type" id="NE7Type"
-                  onChange={e => setNE7Type(e.currentTarget.value)}
-                >
-                  <option value="evility">Evility</option>
-                  <option value="stat">Stats</option>
-                  <option value="skill">Skill</option>
-                </select>
-                <Select 
-                  options={NEOptions} onChange={e => setNE7(e)}
-                  styles={selectStyles} className="Selector w-100" isSearchable
-                />
-              </div>
-              <div className="d-flex gray-bg">
-                <label>NE8</label>
-                <select name="NE8Type" id="NE8Type"
-                  onChange={e => setNE8Type(e.currentTarget.value)}
-                >
-                  <option value="stat">Stats</option>
-                  <option value="evility">Evility</option>
-                  <option value="skill">Skill</option>
-                </select>
-                <Select 
-                  options={NEOptions} onChange={e => setNE8(e)}
-                  styles={selectStyles} className="Selector w-100" isSearchable
-                />
-              </div>
-              <div className="d-flex gray-bg">
-                <label>NE9</label>
-                <select name="NE9Type" id="NE9Type"
-                  onChange={e => setNE9Type(e.currentTarget.value)}
-                >
-                  <option value="stat">Stats</option>
-                  <option value="evility">Evility</option>
-                  <option value="skill">Skill</option>
-                </select>
-                <Select 
-                  options={NEOptions} onChange={e => setNE9(e)}
-                  styles={selectStyles} className="Selector w-100" isSearchable
-                />
-              </div>
-              <div className="d-flex gray-bg">
-                <label>NE10</label>
-                <select name="NE10Type" id="NE10Type"
-                  onChange={e => setNE10Type(e.currentTarget.value)}
-                >
-                  <option value="stat">Stats</option>
-                  <option value="evility">Evility</option>
-                  <option value="skill">Skill</option>
-                </select>
-                <Select 
-                  options={NEOptions} onChange={e => setNE10(e)}
-                  styles={selectStyles} className="Selector w-100" isSearchable
-                />
-              </div>
-            </div>
-           
-            <div className="">
-              <input className="" type="text" name="Cv" placeholder="Cv"
-                onChange={e => setCv(e.currentTarget.value)}
-              />
-              <input className="" type="text" name="Linkstxt" placeholder="Linkstxt"
-                onChange={e => setLinkstxt(e.currentTarget.value)}
-              />
-              <input className="" type="text" name="Description" placeholder="Description"
-                onChange={e => setDescription(e.currentTarget.value)}
-              />
-              <input className="" type="text" name="VideoLink" placeholder="VideoLink"
-                onChange={e => setVideoLink(e.currentTarget.value)}
-              />
-              <div>
-                <label>Stars In</label>
-                <Select 
-                  options={StarsInOptions} onChange={e => setStarsIn(e)}
-                  styles={selectStyles} className="Selector" isSearchable isMulti autoFocus 
-                />
-              </div>
-              <input type="date" onChange={e => setDate(e.currentTarget.value)} />
-            </div>
+        <hr className="hr p-4" />
 
-            <Row>
-              <Col>
-                <label>Portrait</label>
-                <input type="file" onChange={handleChangePortrait} />
-              </Col>
-              <Col>
-                <label>Cut-In</label>
-                <input type="file" onChange={handleChangeCutIn} />
-              </Col>
-              <Col>
-                <label>Main</label>
-                <input type="file" onChange={handleChangeMain} />
-              </Col>
-              <Col>
-                <label>Full</label>
-                <input type="file" onChange={handleChangeFull} />
-              </Col>
-            </Row>
-            
-            <button className="button add-button">Add</button>
-          </form>
-        </Col>
-      </Row>
-
-      <hr className="hr p-4" />
-
-      <Row className="gray-bg">
-        <Col lg={8}>
-          <AddEvility />
-        </Col>
-        <Col>
-          <AddTarget />
-          <AddStat />
-        </Col>
-      </Row>
-      <Row className="gray-bg">
-        <Col lg={8}>
-          <AddSkill />
-        </Col>
-        <Col>
-          <AddSkillEffect />
-        </Col>
-      </Row>
-      <hr className="hr p-4" />
-      <hr className="hr p-4" />
-      <hr className="hr p-4" />
+        <Row className="gray-bg">
+          <Col lg={8}>
+            <AddEvility />
+          </Col>
+          <Col>
+            <AddTarget />
+            <AddStat />
+          </Col>
+        </Row>
+        <Row className="gray-bg">
+          <Col lg={8}>
+            <AddSkill />
+          </Col>
+          <Col>
+            <AddSkillEffect />
+          </Col>
+        </Row>
+        <hr className="hr p-4" />
+        <hr className="hr p-4" />
+        <hr className="hr p-4" />
+      </>
+      ): (
+        <>
+          DONT hasAccount
+        </>
+      )}
 
     </Container>
   )

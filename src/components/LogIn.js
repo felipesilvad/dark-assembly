@@ -1,9 +1,26 @@
 import React, {useState} from 'react'
 import { Container } from 'react-bootstrap';
-import firebase from '../../firebase';
+import firebase from '../firebase';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-const LogIn = ({email, password, hasAccount, setEmail, setPassword, setHasAccount, handleLogin}) => {
+const LogIn = ({setHasAccount}) => {
+  const [user, setUser] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = () => {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      // Signed in
+      setHasAccount(true)
+      var user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+    });
+  }
 
   return(
     <Container>
@@ -11,6 +28,7 @@ const LogIn = ({email, password, hasAccount, setEmail, setPassword, setHasAccoun
         <label>email</label>
         <input
           type="text"
+          id="daemail"
           autoFocus
           required
           value={email}
@@ -19,6 +37,7 @@ const LogIn = ({email, password, hasAccount, setEmail, setPassword, setHasAccoun
         <label>password</label>
         <input
           type="text"
+          id="dapassword"
           autoFocus
           required
           value={password}
@@ -26,15 +45,6 @@ const LogIn = ({email, password, hasAccount, setEmail, setPassword, setHasAccoun
         />
         <div>
           <button onClick={handleLogin}>Login</button>
-          {hasAccount ? (
-            <>
-              hasAccount
-            </>
-          ): (
-            <>
-              DONT hasAccount
-            </>
-          )}
         </div>
       </div>
     </Container>

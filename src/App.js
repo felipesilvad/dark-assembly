@@ -13,7 +13,7 @@ import SummonDetail from './components/DRPG/Detail/SummonDetail';
 import SummonsList from './components/DRPG/List/SummonsList';
 import Header from './components/DRPG/Header';
 import Home from './components/DRPG/Home';
-import LogIn from './components/DRPG/LogIn';
+import LogIn from './components/LogIn';
 
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -22,24 +22,24 @@ import firebase from './firebase';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
-  const [user, setUser] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [hasAccount, setHasAccount] = useState('');
+  // const [user, setUser] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [hasAccount, setHasAccount] = useState('');
 
-  const handleLogin = () => {
-    firebase.auth().signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      // Signed in
-      setHasAccount(true)
-      var user = userCredential.user;
-      // ...
-    })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-    });
-  }
+  // const handleLogin = () => {
+  //   firebase.auth().signInWithEmailAndPassword(email, password)
+  //   .then((userCredential) => {
+  //     // Signed in
+  //     setHasAccount(true)
+  //     var user = userCredential.user;
+  //     // ...
+  //   })
+  //   .catch((error) => {
+  //     var errorCode = error.code;
+  //     var errorMessage = error.message;
+  //   });
+  // }
 
   return (
     <Router>
@@ -50,7 +50,7 @@ const App = () => {
           </Col>
           <Col md={10} className="p-0">
             <Container className="m-0 p-0">
-            <LogIn
+            {/* <LogIn
               user={user}
               email={email}
               password={password}
@@ -60,7 +60,7 @@ const App = () => {
               setPassword={setPassword}
               setHasAccount={setHasAccount}
               handleLogin={handleLogin}
-            />
+            /> */}
               <Route path="/DRPG" component={Home} exact/>
               <Route path="/DRPG/adm/login" component={LogIn} exact/>
               <Route path="/DRPG/adm/add-char" component={AddChar} exact/>

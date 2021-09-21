@@ -1,12 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import app from "./App.js"
 
-export const AuthProvider = React.createContext();
+// export const AuthProvider = React.createContext();
 
-export const AuthProvider = ({children}) = {
-  const [currentUser, setCurrentUser] = useState(null);
+class AuthProvider {
+  constructor() {
+    this.authenticated = false
+  }
 
-  useEffect(() => {
-    app.auth().onAuthStateChanged(setCurrentUser);
-  }, [])
+  login(cb) {
+    this.authenticated = true
+    cb()
+  }
+
+  logout(cb) {
+    this.authenticated = false
+    cb()
+  }
+
+  isAuthenticated() {
+    return this.authenticated;
+  }
 }
+
+export default new Auth()
