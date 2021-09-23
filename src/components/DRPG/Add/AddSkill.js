@@ -37,6 +37,7 @@ const AddEvility = () => {
   const [target, setTarget] = useState('One Enemy');
   const [stat, setStat] = useState('');
   const [sp, setSp] = useState('');
+  const [cup, setCUP] = useState('');
   const [effect, setEffect] = useState('');
   const [effectInt, setEffectInt] = useState('');
   const [effectIntType, setEffectIntType] = useState('%');
@@ -63,6 +64,7 @@ const AddEvility = () => {
       target,
       stat,
       sp,
+      cup,
       effect,
       effectInt,
       effectIntType,
@@ -166,6 +168,9 @@ const AddEvility = () => {
             <option value="%">%</option>
             <option value=""></option>
           </select>
+        </div>
+        <div className="d-flex">
+          CUP<input type="checkbox" onChange={e => setCUP(e.currentTarget.checked)}/>
         </div>
         <div className="d-flex">
           Effect2

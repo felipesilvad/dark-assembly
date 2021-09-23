@@ -35,7 +35,7 @@ const CharDetailSkill = ({id, type, ne, wmlv}) => {
   const range_icon_enemy_all = require('../../../assets/DRPG/icons/skill/range_icon_enemy_all.png');
 
   return (
-      <tr>
+      <tr key={id}>
         <td>
           <div className="d-flex">
             {(skill.type === "Unique Skill") ? (
@@ -147,7 +147,18 @@ const CharDetailSkill = ({id, type, ne, wmlv}) => {
         </td>
         <td>
           {!!skill.effect ? (
-            <h4 className="pt-1 pl-0 pr-2">{skill.effect}{skill.effectInt}{skill.effectIntType} {!!skill.effect2 && ('&')} {skill.effect2}{skill.effectInt2}{skill.effectIntType2}</h4>
+            <h4 className="pt-1 pl-0 pr-2">
+              {(skill.cup == true) ? (
+                <>
+                  {"[Consecutive Use Prohibited]"} <br/>
+                </>
+              ) : ('')}
+              {skill.effect}{skill.effectInt}{skill.effectIntType}
+              {!!skill.effect2 && (' & ')}
+              {skill.effect2}{skill.effectInt2}{skill.effectIntType2}
+              {!!skill.effect3 && (' & ')}
+              {skill.effect3}{skill.effectInt3}{skill.effectIntType3}
+            </h4>
           ) : (<h4 className="pt-1 pl-0 pr-2">-</h4>)}
         </td>
       </tr>

@@ -144,6 +144,7 @@ const AddChar = () => {
   const [spell15, setSpell15] = useState('');
   const [spell22, setSpell22] = useState('');
   const [spell30, setSpell30] = useState('');
+  const [spell40, setSpell40] = useState('');
 
   const [ne1, setNE1] = useState('');
   const [ne1Type, setNE1Type] = useState('evility');
@@ -246,7 +247,7 @@ const AddChar = () => {
       wm_sword,wm_fist,wm_spear,wm_bow,wm_gun,wm_axe,wm_staff,wm_monster1,wm_monster2,
       class_1,class_2,class_3,class_4,class_5,class_6,
       mainEvility,
-      uniqueSkills, spell4, spell9, spell15, spell22, spell30,
+      uniqueSkills, spell4, spell9, spell15, spell22, spell30, spell40,
       ne1Type, ne2Type, ne3Type, ne4Type, ne5Type, ne6Type, ne7Type, ne8Type, ne9Type, ne10Type,
       ne1, ne2, ne3, ne4, ne5, ne6, ne7, ne8, ne9, ne10,
       cv, starsIn, links, description, videoLink,
@@ -613,6 +614,8 @@ const AddChar = () => {
                     styles={selectStyles} className="Selector" isSearchable 
                   />
                 </Col>
+              </Row>
+              <Row>
                 <Col>
                   <label>Spell22</label>
                   <Select 
@@ -624,6 +627,13 @@ const AddChar = () => {
                   <label>Spell30</label>
                   <Select 
                     options={skills} onChange={e => setSpell30(e)}
+                    styles={selectStyles} className="Selector" isSearchable 
+                  />
+                </Col>
+                <Col>
+                  <label>Spell40</label>
+                  <Select 
+                    options={skills} onChange={e => setSpell40(e)}
                     styles={selectStyles} className="Selector" isSearchable 
                   />
                 </Col>

@@ -177,7 +177,13 @@ const SkillsListItem = ({id}) => {
         <div className="d-flex skill-in">
           <h6 className="pt-3 pr-2 stat-txt">Effect</h6>
           {!!skill.effect ? (
-            <h4 className="pt-1 pl-0 pr-2">{skill.effect}{skill.effectInt}{skill.effectIntType} {!!skill.effect2 && ('&')} {skill.effect2}{skill.effectInt2}{skill.effectIntType2}</h4>
+            <h4 className="pt-1 pl-0 pr-2">
+              {skill.effect}{skill.effectInt}{skill.effectIntType}
+              {!!skill.effect2 && ('&')}
+              {skill.effect2}{skill.effectInt2}{skill.effectIntType2}
+              {!!skill.effect3 && ('&')}
+              {skill.effect3}{skill.effectInt3}{skill.effectIntType3}
+            </h4>
           ) : (<h4 className="pt-1 pl-0 pr-2">-</h4>)}
         </div>
       </div>

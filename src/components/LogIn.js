@@ -29,6 +29,7 @@ const LogIn = ({setHasAccount}) => {
         <input
           type="text"
           id="daemail"
+          autocomplete="on"
           autoFocus
           required
           value={email}
@@ -38,6 +39,7 @@ const LogIn = ({setHasAccount}) => {
         <input
           type="text"
           id="dapassword"
+          autocomplete="on"
           autoFocus
           required
           value={password}

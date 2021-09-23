@@ -458,6 +458,9 @@ const CharDetail = ({match}) => {
                 {!! char.spell30 &&(
                   <CharDetailSkillD id={char.spell30.value} type={char.type} wmlv={30} />
                 )}
+                {!! char.spell40 &&(
+                  <CharDetailSkillD id={char.spell40.value} type={char.type} wmlv={40} />
+                )}
               </Table>
             </Tab>
             {(char.type === "humanoid") ? (
